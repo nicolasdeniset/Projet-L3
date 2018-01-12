@@ -16,18 +16,15 @@
 define('APP_TEST', TRUE);
 
 // Gestion des infos base de données
-define('APP_BD_URL', 'localhost');
-define('APP_BD_USER', 'root');
+define('APP_BD_URL', '');
+define('APP_BD_USER', '');
 define('APP_BD_PASS', '');
-define('APP_BD_NOM', 'DOCHASSO');
+define('APP_BD_NOM', '');
 
-define('APP_NOM_APPLICATION','DOCHASSO');
+define('APP_NOM_APPLICATION','');
 
 // Gestion des pages de l'application
 define('APP_PAGE_ACCUEIL', 'accueil.php');
-define('APP_PAGE_DON', 'don_e1.php');
-define('APP_PAGE_STATISTIQUE', 'statistique.php');
-define('APP_PAGE_FAQ', 'faq.php');
 
 //___________________________________________________________________
 /*******************************************************************************
