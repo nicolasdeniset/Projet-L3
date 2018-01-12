@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>TEST CSS & DESIGN</title>
+    <!-- Feuille(s) CSS -->
+    <link rel="stylesheet" href="../css/reboot.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Feuille(s) JS -->
+    <script src="../jq/jquery-2.1.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+    <script>
+      function openNav() {
+          document.getElementById("navigationResponsive").style.width = "100%";
+      }
+      function closeNav() {
+          document.getElementById("navigationResponsive").style.width = "0%";
+      }
+
+      function openCandidatures() {
+          document.getElementById("gestionCandidatures").display = "";
+          document.getElementById("gestionFormations").hide();
+          document.getElementById("gestionStatistiques").hide();
+      }
+
+      $(document).ready(function(){
+        $('#company').hide();
+      });
+    </script>
+    <!-- Autre(s) -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <a id ="logo" href="index.html" class="navbar-brand">(logo) - NOM ASSO</a>
+          <div id="navigation" class="navbar-right">
+            <ul class="nav navbar-nav hidden-sm hidden-xs">
+              <li><a href="#Actualité">Actualité</a></li>
+              <li><a href="#Formation">Formation</a></li>
+              <li><a href="#Partenaire">Partenaire</a></li>
+              <li><a href="#Donation">Donation</a></li>
+              <li><a href="#Contacter">Nous contacter</a></li>
+              <li><a href="#Administration" class="navActive">Tableau d'administration</a></li>
+            </ul>
+          </div>
+          <div id="navigationResponsive" class="overlay">
+            <button type="button" class="close" aria-label="Close" onclick="closeNav()"><span aria-hidden="true">&times;</span></button>
+            <a class="closebtn" onclick="closeNav()">&times;</a>
+            <ul class="overlay-content">
+              <li><a href="http://google.Com" onclick="closeNav()">Actualités</a></li>
+              <li><a href="#Statitistique" onclick="closeNav()">Statistiques</a></li>
+              <li><a href="#Partenaire" onclick="closeNav()">Partenaires</a></li>
+              <li><a href="#Donation" onclick="closeNav()">Donation</a></li>
+              <li><a href="#Contacter" onclick="closeNav()">Nous Contacter</a></li>
+              <li><a href="#Connexion" class="navActive" onclick="closeNav()">Tableau d'administration</a></li>
+            </ul>
+          </div>
+          <span class= "btn pull-right hidden-lg hidden-md" onclick="openNav()">MENU</span>
+        </div>
+      </nav>
+    </header>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+              <li><a href="#"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>
+              <li><a href="#"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>
+              <li><a href="#"><span class="fa fa-comments-o" aria-hidden="true"></span>Messagerie</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+              <li class="active"><a href="#"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>
+              <li><a href="#"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+
+              <li><a href="#"><span class="fa fa-users" aria-hidden="true"></span>Partenaires <span class="badge badge-success hidden-sm hidden-md">2</span></a></li>
+              <li><a href="#"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises <span class="badge badge-success hidden-sm hidden-md">1</span></a></li>
+              <li><a href="#"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+              <li><a class="activeDropdown" href="#"><span class="fa fa-bars" aria-hidden="true"></span>Association<span class="fa fa-caret-down" aria-hidden="true"></span></a>
+                <ul>
+                  <li><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>
+                  <li><a href="#"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>
+                  <li><a href="#"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualité</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav nav-sidebar">
+              <li><a href=""><span class="fa fa-user" aria-hidden="true"></span>Paramètre compte</a></li>
+              <li><a href=""><span class="fa fa-sign-out" aria-hidden="true"></span>Déconnexion</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <!--<h1 class="page-header">Dashboard</h1>
+
+          <h2 class="sub-header">Nos formations</h2>
+          <ul class="list-inline">
+            <li><button class="btn"><span class="fa fa-plus"></span>Créer une nouvelle formation </button></li>
+            <li><button class="btn"><span class="fa fa-bars"></span>Trier formation par popularité</button></li>
+            <li><button class="btn"><span class="fa fa-bars"></span>Trier formation par nom</button></li>
+            <li><button class="btn"><span class="fa fa-search"></span>Rechercher une formation</button></li>
+          </ul>
+
+
+
+
+
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nom Formation</th>
+                  <th>Description</th>
+                  <th>Durée Formation</th>
+                  <th>Nbr Cours</th>
+                  <th>Nbr Etudiant</th>
+                  <th>Nbr Stage</th>
+                  <th>Nbr Pôle de formation</th>
+                  <th>Gérer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Nom formation 1</td>
+                  <td>Une courte description de la fromation</td>
+                  <td>23</td>
+                  <td>23</td>
+                  <td>23</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span></a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Nom formation 2</td>
+                  <td>Une courte description de la fromation</td>
+                  <td>14</td>
+                  <td>23</td>
+                  <td>23</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span></a></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Nom formation 3</td>
+                  <td>Une courte description de la fromation</td>
+                  <td>23</td>
+                  <td>23</td>
+                  <td>23</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>-->
+
+          <section>
+              <h1 class="page-header">Gestion de la formation TITRE DE LA FORMATION</h1>
+
+              <div class="item">
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <h3>TITRE DE LA FORMATION<small>#33</small></h3>
+                    <p class="small">Durée de formation : 2mois</p>
+                    <p>Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <h3>STATISTIQUES</h3>
+                    <table class="table table-striped">
+                      <tbody>
+                          <tr>
+                            <th>Nombre candidatures</th>
+                              <td>6</td>
+                          </tr>
+                          <tr>
+                            <th>Nombre étudiants acceptés</th>
+                              <td>4</td>
+                          </tr>
+                          <tr>
+                            <th>Nombre étudiants diplomé</th>
+                              <td>2</td>
+                          </tr>
+                          <tr>
+                            <th>Nombre étudiants en formation</th>
+                              <td>2</td>
+                          </tr>
+                          <tr>
+                            <th>Nombre stages proposés</th>
+                              <td>2</td>
+                          </tr>
+                        <tr>
+                            <th>Nombre pôles de formation</th>
+                              <td>4</td>
+                          </tr>
+                      </tbody>
+                  </table>
+                  </div>
+                </div>
+                <div class="row">
+                    <a href="#about" class="btn btn-info btn-block">Acceder à la formation</a>
+                </div>
+<!--                <div class="row">
+                  <form>
+                    <div class="form-group">
+                      <input type="email" class="form-control" id="email" value="TITRE DE LA FORMATION" placeholder="Titre de la formation" required>
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" id="message" rows="3" placeholder="Description de la formation" required>Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
+                    </div>
+                    <div class="form-group">
+                      <input type="file" n/>
+                    </div>
+                    <button type="submit" class="btn btn-danger col-md-6">Supprimer formation</button>
+                    <button type="submit" class="btn btn-success col-md-6">Enregistrer formation</button>
+                  </form>
+                </div>
+              </div>
+-->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-4">
+                  <button  class="btn btn-inline btn-success btn-block" onclick="openCandidatures()">Gestion candidatures</button>
+                </div>
+                <div class="col-md-4">
+                  <button  class="btn btn-inline btn-success btn-block" onclick="openGestion()">Gestion formation</button>
+                </div>
+                <div class="col-md-4">
+                  <button  class="btn btn-inline btn-success btn-block" onclick="openStatistiques()">Statistiques</button>
+                </div>
+              </div>
+            </div>
+
+            <div id="gestionCandidatures" class="row">
+
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nom candidat</th>
+                      <th>Date de candidature</th>
+                      <th>Pôle de formation</th>
+                      <th>Date demandé</th>
+                      <th>Gérer</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Martin Dupont</td>
+                      <td>01/01/2018</td>
+                      <td>ville formation & code postale & pays</td>
+                      <td>01/01/2018 - 01/03/2018</td>
+                      <td><a href="#" class="text-success"><span class="fa fa-check" aria-hidden="true"></span></a><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a><a href="#" class="text-danger"><span class="fa fa-times" aria-hidden="true"></span></a></td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Martin Dupont</td>
+                      <td>01/01/2018</td>
+                      <td>ville formation & code postale & pays</td>
+                      <td>01/01/2018 - 01/03/2018</td>
+                      <td><a href="#" class="text-success"><span class="fa fa-check" aria-hidden="true"></span></a><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a><a href="#" class="text-danger"><span class="fa fa-times" aria-hidden="true"></span></a></td>                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Martin Dupont</td>
+                      <td>01/01/2018</td>
+                      <td>ville formation & code postale & pays</td>
+                      <td>01/01/2018 - 01/03/2018</td>
+                      <td><a href="#" class="text-success"><span class="fa fa-check" aria-hidden="true"></span></a><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a><a href="#" class="text-danger"><span class="fa fa-times" aria-hidden="true"></span></a></td>                    </tr>
+                  </tbody>
+                </table>
+
+            </div>
+
+            <div id="gestionFormations" class="row">
+              GESTION FORMATION
+            </div>
+
+            <div id="gestionStatistiques" class="row">
+              <table class="table table-striped">
+                <tbody>
+                    <tr>
+                      <th>Nombre candidatures</th>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                      <th>Nombre étudiants acceptés</th>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                      <th>Nombre étudiants diplomé</th>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                      <th>Nombre étudiants en formation</th>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                      <th>Nombre stages proposés</th>
+                        <td>2</td>
+                    </tr>
+                  <tr>
+                      <th>Nombre pôles de formation</th>
+                        <td>4</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="../../assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

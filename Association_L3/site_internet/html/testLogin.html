@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>TEST CSS & DESIGN login</title>
+    <!-- Feuille(s) CSS -->
+    <link rel="stylesheet" href="../css/reboot.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Feuille(s) JS -->
+    <script src="../jq/jquery-2.1.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+    <script>
+      function openNav() {
+          document.getElementById("navigationResponsive").style.width = "100%";
+      }
+      function closeNav() {
+          document.getElementById("navigationResponsive").style.width = "0%";
+      }
+
+      $(document).ready(function(){
+        $('#company').hide();
+      });
+
+      function visibilite(firstThingId, secondThingId) {
+        var targetAppear, targetDisappear;
+        targetAppear = document.getElementById(firstThingId) ;
+        targetDisappear = document.getElementById(secondThingId) ;
+        targetAppear.style.display = "" ;
+        targetDisappear.style.display = "none" ;
+      }
+
+    </script>
+  </head>
+
+  <body id="login">
+
+    <!-- Début header -->
+    <header>
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <a id ="logo" href="index.html" class="navbar-brand">(logo) - NOM ASSO</a>
+          <div id="navigation" class="navbar-right">
+            <ul class="nav navbar-nav hidden-sm hidden-xs">
+              <li><a href="#Actualité">Actualité</a></li>
+              <li><a href="#Formation">Formation</a></li>
+              <li><a href="#Partenaire">Partenaire</a></li>
+              <li><a href="#Donation">Donation</a></li>
+              <li><a href="#Contacter">Nous contacter</a></li>
+              <li><a href="#Connexion" class="navConnexion">Connexion</a> </li>
+              <li><a href="#Candidater" class="navInscription">S'inscrire</a></li>
+            </ul>
+          </div>
+          <div id="navigationResponsive" class="overlay">
+            <button type="button" class="close" aria-label="Close" onclick="closeNav()"><span aria-hidden="true">&times;</span></button>
+            <a class="closebtn" onclick="closeNav()">&times;</a>
+            <ul class="overlay-content">
+              <li><a href="http://google.Com" onclick="closeNav()">Actualités</a></li>
+              <li><a href="#Statitistique" onclick="closeNav()">Statistiques</a></li>
+              <li><a href="#Partenaire" onclick="closeNav()">Partenaires</a></li>
+              <li><a href="#Donation" onclick="closeNav()">Donation</a></li>
+              <li><a href="#Contacter" onclick="closeNav()">Nous Contacter</a></li>
+              <li><a href="#Connexion" onclick="closeNav()">Connexion</a> </li>
+              <li><a href="#Candidater" onclick="closeNav()">S'inscrire</a></li>
+            </ul>
+          </div>
+          <span class= "btn pull-right hidden-lg hidden-md" onclick="openNav()">MENU</span>
+        </div>
+      </nav>
+    </header>
+    <!-- Fin header -->
+    
+    <!--forms-->
+    <div class="space-medium">
+      <div class="container">
+        <div class="row">
+
+          <main>
+          <!--sing-up-form-->
+          <section>
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="account-holder">
+              <h2 class="text-center">PAS ENCORE INSCRIT ?</h2>
+              <br>
+
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <a href="#" class="signChoice pull-left" onclick="javascript:visibilite('student', 'company'); return false;">S'inscrire en tant qu'étudiant</a>
+                    <a href="#" class="signChoice pull-right" onclick="javascript:visibilite('company', 'student'); return false;">S'inscrire en tant qu'entreprise</a>
+                  </div>
+
+                  <form id="student">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label required" for="name">Nom de l'étudiant<sup style="color:red">*</sup></label>
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Entrez votre nom">
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label required" for="email">Email<sup style="color:red">*</sup></label>
+                        <input id="email" name="email" type="text" class="form-control" placeholder="Entrez votre adresse mail">
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label required" for="password">Mot de passe<sup style="color:red">*</sup></label>
+                        <input id="password" name="password1" type="password" class="form-control" placeholder="mot de passe">
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label required" for="password">Confirmer le mot de passe<sup style="color:red">*</sup></label>
+                        <input id="password" name="password2" type="password" class="form-control" placeholder="mot de passe">
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <button class="btn btn-block btn-success">S'inscrire</button>
+                    </div>
+
+                  </form>
+
+                   <form id="company">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label required" for="name">Nom de l'entreprise<sup style="color:red">*</sup></label>
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Entrez votre nom">
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label required" for="email">Email<sup style="color:red">*</sup></label>
+                        <input id="email" name="email" type="text" class="form-control" placeholder="Entrez votre adresse mail">
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label required" for="password">Mot de passe<sup style="color:red">*</sup></label>
+                        <input id="password" name="password1" type="password" class="form-control" placeholder="mot de passe">
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label required" for="password">Confirmer le mot de passe<sup style="color:red">*</sup></label>
+                        <input id="password" name="password2" type="password" class="form-control" placeholder="mot de passe">
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <button class="btn btn-block btn-success">S'inscrire</button>
+                    </div>
+
+                  </form>
+
+                </div>
+
+              </div>       
+            </div>
+            </section>
+
+            <!--login-form-->
+          <section>
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="account-holder">
+              <h2 class="text-center">JE ME CONNECTE</h2>
+              <br>
+
+              <div class="row">
+                <form>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                      <label class="control-label required" for="email">Email<sup style="color:red">*</sup></label>
+                      <input id="email" name="email" type="text" class="form-control" placeholder="Entrez votre adresse mail">
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                      <label class="control-label required" for="email">Mot de passe<sup style="color:red">*</sup></label>
+                      <input id="password" name="password" type="password" class="form-control" placeholder="mot de passe">
+                    </div>
+                    <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="">
+                        <p>Se souvenir de moi</p>
+                      </label>
+                    </div>
+                    <button class="btn btn-block btn-success">Se connecter</button>
+                  </div>
+
+                </form>
+              </div>
+
+            </div>
+          </div>
+          </section>
+
+          </main>
+        </div>               
+      </div>
+    </div>
+    <!--Fin forms-->
+        
+    <!-- Footer -->
+    <footer class="little-footer">
+      <div class="container">
+        <div class="row justify-content-center">
+          <h3>NOM ASSOCIATION</h3>
+          <p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <div class="row navFooter">
+          <ul class="social list-unstyled list-inline text-center">
+            <li><a href="#">Politique de confidentialité</a></li>
+            <li><a href="#">Condition d'utilisation</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Lien4</a></li>
+          </ul>
+        </div>
+        <div class="row justify-content-center">
+          <p class="copyright"> © 2017 Copyright Blablabla</p>
+        </div>
+      </div>
+    </footer>
+    <!-- Fin footer -->
+
+  </body>
+
+</html>
