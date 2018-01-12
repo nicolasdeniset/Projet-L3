@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="CopyToImageDialog">
+		<item value="png" key="CopyToImageDialog.imageFormat"/>
+		<item value="C:\Users\Pierre-Alexandre\Desktop\PROJET_ASSOS_FRACTURE_NUMERIQUE\ASSOS_FRACTURE_NUMERIQUE" key="CopyToImageDialog.folder"/>
+		<item value="false" key="CopyToImageDialog.overwriteExisting"/>
+		<item value="false" key="CopyToImageDialog.exportToHTML"/>
+	</section>
+</section>
