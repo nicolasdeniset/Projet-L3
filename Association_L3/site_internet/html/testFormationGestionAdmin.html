@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,15 +20,22 @@
       function closeNav() {
           document.getElementById("navigationResponsive").style.width = "0%";
       }
-
-      function openCandidatures() {
-          document.getElementById("gestionCandidatures").display = "";
-          document.getElementById("gestionFormations").hide();
-          document.getElementById("gestionStatistiques").hide();
+      function openGestion(firstThingId, secondThingId, thirdThingId, fourthThingId) {
+          if (document.getElementById(firstThingId).style.display == "") {
+            document.getElementById(firstThingId).style.display = "none";
+          }
+          else {
+            document.getElementById(firstThingId).style.display = "";
+          }
+          document.getElementById(secondThingId).style.display = "none" ;
+          document.getElementById(thirdThingId).style.display = "none" ;
+          document.getElementById(fourthThingId).style.display = "none" ;
       }
-
       $(document).ready(function(){
-        $('#company').hide();
+        $('#gestionCandidatures').hide();
+        $('#gestionFormations').hide();
+        $('#gestionStatistiques').hide();
+        $('#gestionEtudiants').hide();
       });
     </script>
     <!-- Autre(s) -->
@@ -101,78 +107,10 @@
               <li><a href=""><span class="fa fa-sign-out" aria-hidden="true"></span>Déconnexion</a></li>
             </ul>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <!--<h1 class="page-header">Dashboard</h1>
-
-          <h2 class="sub-header">Nos formations</h2>
-          <ul class="list-inline">
-            <li><button class="btn"><span class="fa fa-plus"></span>Créer une nouvelle formation </button></li>
-            <li><button class="btn"><span class="fa fa-bars"></span>Trier formation par popularité</button></li>
-            <li><button class="btn"><span class="fa fa-bars"></span>Trier formation par nom</button></li>
-            <li><button class="btn"><span class="fa fa-search"></span>Rechercher une formation</button></li>
-          </ul>
-
-
-
-
-
-
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Nom Formation</th>
-                  <th>Description</th>
-                  <th>Durée Formation</th>
-                  <th>Nbr Cours</th>
-                  <th>Nbr Etudiant</th>
-                  <th>Nbr Stage</th>
-                  <th>Nbr Pôle de formation</th>
-                  <th>Gérer</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Nom formation 1</td>
-                  <td>Une courte description de la fromation</td>
-                  <td>23</td>
-                  <td>23</td>
-                  <td>23</td>
-                  <td>0</td>
-                  <td>1</td>
-                  <td><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Nom formation 2</td>
-                  <td>Une courte description de la fromation</td>
-                  <td>14</td>
-                  <td>23</td>
-                  <td>23</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Nom formation 3</td>
-                  <td>Une courte description de la fromation</td>
-                  <td>23</td>
-                  <td>23</td>
-                  <td>23</td>
-                  <td>2</td>
-                  <td>2</td>
-                  <td><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span></a></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>-->
-
+        <main class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
           <section>
+              <a href="#" class="btn btn-retour">Retour</a>
               <h1 class="page-header">Gestion de la formation TITRE DE LA FORMATION</h1>
-
               <div class="item">
                 <div class="row">
                   <div class="col-md-6 col-sm-12">
@@ -213,119 +151,173 @@
                   </div>
                 </div>
                 <div class="row">
-                    <a href="#about" class="btn btn-info btn-block">Acceder à la formation</a>
+                    <a href="#about" class="btn btn-info btn-block"><span class="fa fa-eye" aria-hidden="true"></span>Accéder à la formation</a>
                 </div>
-<!--                <div class="row">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-3">
+                      <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionCandidatures', 'gestionFormations', 'gestionStatistiques', 'gestionEtudiants'); return false;"><span class="fa fa-id-card-o" aria-hidden="true"></span>Gérer candidatures</button>
+                    </div>
+                    <div class="col-md-3">
+                      <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionFormations', 'gestionCandidatures', 'gestionStatistiques', 'gestionEtudiants'); return false;"><span class="fa fa-cogs" aria-hidden="true"></span>Modifier formation</button>
+                    </div>
+                    <div class="col-md-3">
+                      <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionStatistiques', 'gestionFormations', 'gestionCandidatures', 'gestionEtudiants'); return false;"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</button>
+                    </div>
+                    <div class="col-md-3">
+                      <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionEtudiants', 'gestionFormations', 'gestionCandidatures', 'gestionStatistiques'); return false;"><span class="fa fa-bar-chart" aria-hidden="true"></span>Etudiants</button>
+                      <!--<button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionEtudiants', 'gestionCandidatures', 'gestionFormations', 'gestionStatistiques'); return false;"><span class="fa fa-address-book-o" aria-hidden="true"></span>Etudiants</button>-->
+                    </div>
+                  </div>
+                </div>
+
+                <div id="gestionCandidatures" class="row">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Nom candidat</th>
+                          <th>Date de candidature</th>
+                          <th>Pôle de formation</th>
+                          <th>Date demandée</th>
+                          <th>Gestion</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Martin Dupont</td>
+                          <td>01/01/2018</td>
+                          <td>ville formation & code postale & pays</td>
+                          <td>01/01/2018 - 01/03/2018</td>
+                          <td><a href="#" class="text-success"><span class="fa fa-check" aria-hidden="true"></span></a><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a><a href="#" class="text-danger"><span class="fa fa-times" aria-hidden="true"></span></a></td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Martin Dupont</td>
+                          <td>01/01/2018</td>
+                          <td>ville formation & code postale & pays</td>
+                          <td>01/01/2018 - 01/03/2018</td>
+                          <td><a href="#" class="text-success"><span class="fa fa-check" aria-hidden="true"></span></a><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a><a href="#" class="text-danger"><span class="fa fa-times" aria-hidden="true"></span></a></td>                    </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>Martin Dupont</td>
+                          <td>01/01/2018</td>
+                          <td>ville formation & code postale & pays</td>
+                          <td>01/01/2018 - 01/03/2018</td>
+                          <td><a href="#" class="text-success"><span class="fa fa-check" aria-hidden="true"></span></a><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a><a href="#" class="text-danger"><span class="fa fa-times" aria-hidden="true"></span></a></td>                    </tr>
+                      </tbody>
+                    </table>
+                </div>
+                <div id="gestionFormations" class="row">
                   <form>
-                    <div class="form-group">
-                      <input type="email" class="form-control" id="email" value="TITRE DE LA FORMATION" placeholder="Titre de la formation" required>
+                    <form>
+                      <div class="form-group">
+                        <label class="control-label required" for="name">Titre de la formation<sup style="color:red">*</sup></label>
+                        <input id="titre" name="titre" type="text" class="form-control" placeholder="Entrez le titre de la formation" value="TITRE FORMATION">
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label required" for="name">Description de la formation<sup style="color:red">*</sup></label>
+                        <input id="description" name="description" type="text" class="form-control" placeholder="Entrez la description de la formation" value="DESCRIPTION FORMATION">
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label required" for="name">Durée de la formation<sup style="color:red">*</sup></label>
+                        <input id="duree" name="duree" type="number" class="form-control" placeholder="Entrez la durée de la formation" value="85">
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label required" for="name">Fichier de la formation<sup style="color:red">*</sup></label>
+                        <input id="fichier" name="fichier" type="file" class="" placeholder="Entrez le fichier de la formation">
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label required">Disponniblité de la formation<sup style="color:red">*</sup></label><br>
+                        <label class="radio-inline"><input type="radio" name="optradio" checked>Public</label>
+                        <label class="radio-inline"><input type="radio" name="optradio">Privée</label>
+                      </div>
+                    <div class="col-md-12">
+                      <div class="col-md-4">
+                        <button  class="btn btn-inline btn-danger btn-block"><span class="fa fa-trash-o" aria-hidden="true"></span>Supprimer formation</button>
+                      </div>
+                      <div class="col-md-4">
+                        <button  class="btn btn-inline btn-info btn-block">Annuler changement</button>
+                      </div>
+                      <div class="col-md-4">
+                        <button  class="btn btn-inline btn-success btn-block"><span class="fa fa-check" aria-hidden="true"></span>Sauvegarder formation</button>
+                      </div>
                     </div>
-                    <div class="form-group">
-                      <textarea class="form-control" id="message" rows="3" placeholder="Description de la formation" required>Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
-                    </div>
-                    <div class="form-group">
-                      <input type="file" n/>
-                    </div>
-                    <button type="submit" class="btn btn-danger col-md-6">Supprimer formation</button>
-                    <button type="submit" class="btn btn-success col-md-6">Enregistrer formation</button>
+
                   </form>
                 </div>
-              </div>
--->
-            <div class="row">
-              <div class="col-md-12">
-                <div class="col-md-4">
-                  <button  class="btn btn-inline btn-success btn-block" onclick="openCandidatures()">Gestion candidatures</button>
+                <div id="gestionEtudiants" class="row">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Nom étudiant</th>
+                          <th>Pôle de formation</th>
+                          <th>Date formation</th>
+                          <th>Certifié</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Martin Dupont</td>
+                          <td>ville formation & code postale & pays</td>
+                          <td>01/01/2018 - 01/03/2018</td>
+                          <td><span class="text-success fa fa-check" aria-hidden="true"></span></td>
+                        </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Martin Dupont</td>
+                          <td>ville formation & code postale & pays</td>
+                          <td>01/01/2018 - 01/03/2018</td>
+                          <td><span class=" text-danger fa fa-times" aria-hidden="true"></span></td>
+                        </tr>
+                        <tr>
+                          <td>3</td>
+                          <td>Martin Dupont</td>
+                          <td>ville formation & code postale & pays</td>
+                          <td>01/01/2018 - 01/03/2018</td>
+                          <td><span class=" text-danger fa fa-times" aria-hidden="true"></span></td>
+                        </tr>
+                      </tbody>
+                    </table>
                 </div>
-                <div class="col-md-4">
-                  <button  class="btn btn-inline btn-success btn-block" onclick="openGestion()">Gestion formation</button>
+                <div id="gestionStatistiques" class="row">
+                  <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                          <th>Nombre candidatures</th>
+                            <td>6</td>
+                        </tr>
+                        <tr>
+                          <th>Nombre étudiants acceptés</th>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                          <th>Nombre étudiants diplomé</th>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                          <th>Nombre étudiants en formation</th>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                          <th>Nombre stages proposés</th>
+                            <td>2</td>
+                        </tr>
+                      <tr>
+                          <th>Nombre pôles de formation</th>
+                            <td>4</td>
+                        </tr>
+                    </tbody>
+                  </table>
                 </div>
-                <div class="col-md-4">
-                  <button  class="btn btn-inline btn-success btn-block" onclick="openStatistiques()">Statistiques</button>
-                </div>
-              </div>
-            </div>
-
-            <div id="gestionCandidatures" class="row">
-
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Nom candidat</th>
-                      <th>Date de candidature</th>
-                      <th>Pôle de formation</th>
-                      <th>Date demandé</th>
-                      <th>Gérer</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Martin Dupont</td>
-                      <td>01/01/2018</td>
-                      <td>ville formation & code postale & pays</td>
-                      <td>01/01/2018 - 01/03/2018</td>
-                      <td><a href="#" class="text-success"><span class="fa fa-check" aria-hidden="true"></span></a><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a><a href="#" class="text-danger"><span class="fa fa-times" aria-hidden="true"></span></a></td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Martin Dupont</td>
-                      <td>01/01/2018</td>
-                      <td>ville formation & code postale & pays</td>
-                      <td>01/01/2018 - 01/03/2018</td>
-                      <td><a href="#" class="text-success"><span class="fa fa-check" aria-hidden="true"></span></a><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a><a href="#" class="text-danger"><span class="fa fa-times" aria-hidden="true"></span></a></td>                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Martin Dupont</td>
-                      <td>01/01/2018</td>
-                      <td>ville formation & code postale & pays</td>
-                      <td>01/01/2018 - 01/03/2018</td>
-                      <td><a href="#" class="text-success"><span class="fa fa-check" aria-hidden="true"></span></a><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a><a href="#" class="text-danger"><span class="fa fa-times" aria-hidden="true"></span></a></td>                    </tr>
-                  </tbody>
-                </table>
-
-            </div>
-
-            <div id="gestionFormations" class="row">
-              GESTION FORMATION
-            </div>
-
-            <div id="gestionStatistiques" class="row">
-              <table class="table table-striped">
-                <tbody>
-                    <tr>
-                      <th>Nombre candidatures</th>
-                        <td>6</td>
-                    </tr>
-                    <tr>
-                      <th>Nombre étudiants acceptés</th>
-                        <td>4</td>
-                    </tr>
-                    <tr>
-                      <th>Nombre étudiants diplomé</th>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                      <th>Nombre étudiants en formation</th>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                      <th>Nombre stages proposés</th>
-                        <td>2</td>
-                    </tr>
-                  <tr>
-                      <th>Nombre pôles de formation</th>
-                        <td>4</td>
-                    </tr>
-                </tbody>
-            </table>
-            </div>
-          </section>
+              </section>
+            </main>
         </div>
       </div>
     </div>
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

@@ -22,17 +22,17 @@
           document.getElementById("navigationResponsive").style.width = "0%";
       }
 
-      $(document).ready(function(){
-        $('#company').hide();
-      });
-
-      function visibilite(firstThingId, secondThingId) {
-        var targetAppear, targetDisappear;
-        targetAppear = document.getElementById(firstThingId) ;
-        targetDisappear = document.getElementById(secondThingId) ;
-        targetAppear.style.display = "" ;
-        targetDisappear.style.display = "none" ;
+      function initConnexion(){
+        if(window.innerWidth>1000) {
+          var div1=$("#register").height();
+          var div2=$("#connect").height();
+          alert("hauteur div1    " + div1);
+          alert("hauteur div2    " + div2);
+          if (div1>div2) {$("#connect").height(div1);}
+          else if (div2>div1) {$("#register").height(div2);}
+        }
       }
+      window.onload = initConnexion;
 
     </script>
   </head>
@@ -73,7 +73,7 @@
       </nav>
     </header>
     <!-- Fin header -->
-    
+
     <!--forms-->
     <div class="space-medium">
       <div class="container">
@@ -82,102 +82,24 @@
           <main>
           <!--sing-up-form-->
           <section>
-          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+          <div id="register" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="account-holder">
               <h2 class="text-center">PAS ENCORE INSCRIT ?</h2>
-              <br>
-
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <a href="#" class="signChoice pull-left" onclick="javascript:visibilite('student', 'company'); return false;">S'inscrire en tant qu'étudiant</a>
-                    <a href="#" class="signChoice pull-right" onclick="javascript:visibilite('company', 'student'); return false;">S'inscrire en tant qu'entreprise</a>
-                  </div>
-
-                  <form id="student">
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="control-label required" for="name">Nom de l'étudiant<sup style="color:red">*</sup></label>
-                        <input id="name" name="name" type="text" class="form-control" placeholder="Entrez votre nom">
-                      </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="control-label required" for="email">Email<sup style="color:red">*</sup></label>
-                        <input id="email" name="email" type="text" class="form-control" placeholder="Entrez votre adresse mail">
-                      </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="control-label required" for="password">Mot de passe<sup style="color:red">*</sup></label>
-                        <input id="password" name="password1" type="password" class="form-control" placeholder="mot de passe">
-                      </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="control-label required" for="password">Confirmer le mot de passe<sup style="color:red">*</sup></label>
-                        <input id="password" name="password2" type="password" class="form-control" placeholder="mot de passe">
-                      </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <button class="btn btn-block btn-success">S'inscrire</button>
-                    </div>
-
-                  </form>
-
-                   <form id="company">
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="control-label required" for="name">Nom de l'entreprise<sup style="color:red">*</sup></label>
-                        <input id="name" name="name" type="text" class="form-control" placeholder="Entrez votre nom">
-                      </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="control-label required" for="email">Email<sup style="color:red">*</sup></label>
-                        <input id="email" name="email" type="text" class="form-control" placeholder="Entrez votre adresse mail">
-                      </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="control-label required" for="password">Mot de passe<sup style="color:red">*</sup></label>
-                        <input id="password" name="password1" type="password" class="form-control" placeholder="mot de passe">
-                      </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <div class="form-group">
-                        <label class="control-label required" for="password">Confirmer le mot de passe<sup style="color:red">*</sup></label>
-                        <input id="password" name="password2" type="password" class="form-control" placeholder="mot de passe">
-                      </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <button class="btn btn-block btn-success">S'inscrire</button>
-                    </div>
-
-                  </form>
-
-                </div>
-
-              </div>       
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <ul>
+                <li>75 Formations</li>
+                <li>75 Etudiants</li>
+              </ul>
+              <a href="#" class="btn btn-success btn-block">S'inscrire</a>
             </div>
-            </section>
+          </div>
+          </section>
 
             <!--login-form-->
           <section>
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="account-holder">
               <h2 class="text-center">JE ME CONNECTE</h2>
-              <br>
-
               <div class="row">
                 <form>
 
@@ -196,7 +118,7 @@
                     <a href="#" class="forgot-password">Mot de passe oublié ?</a>
                   </div>
 
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div id="connect" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="checkbox">
                       <label>
                         <input type="checkbox" value="">
@@ -214,11 +136,11 @@
           </section>
 
           </main>
-        </div>               
+        </div>
       </div>
     </div>
     <!--Fin forms-->
-        
+
     <!-- Footer -->
     <footer class="little-footer">
       <div class="container">

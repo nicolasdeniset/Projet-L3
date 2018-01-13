@@ -11,6 +11,14 @@ body {
 .btn{
   border-radius:0;
   margin-top: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn-inline {
+  margin-top: 0;
+}
+.btn-retour {
+  color: #333;
 }
 p{
   text-align: justify;
@@ -18,14 +26,14 @@ p{
 .badge-success{
   background:#22DDAA;
 }
-@media (max-width: 768px) {
-  .item {
-    margin-bottom: 15px;
-  }
+.item{
+  margin-top: 25px;
 }
-
 .fa, .badge-success{
   margin: 0 10px;
+}
+h1{
+  color :#22DDAA;
 }
 /*****FORMULAIRE*****/
 form input[type=checkbox] + label, form input[type=checkbox] + label a {
@@ -53,16 +61,8 @@ form input[type=checkbox]:checked + label, form input[type=checkbox]:checked + l
 #logo, #logo:hover{
   color: #22DDAA;
   font-weight: bold;
-}
-@media screen and (min-width: 769px) {
-    .navbar-brand {
-        font-size:5px;
-    }
-}
-@media screen and (min-width: 1025px) {
-    .navbar-brand {
-        font-size:20px;
-    }
+  display: block;
+  font-size: 15px;
 }
 
 nav.transparent, .transparent .navbar-nav > li > a {
@@ -80,7 +80,7 @@ nav.transparent, .transparent .navbar-nav > li > a {
   color: white;
   text-decoration:none;
 }
-.navbar-nav > li > a.navInscription, .nav-sidebar a:hover{
+.navbar-nav > li > a.navInscription, .nav-sidebar a:hover, .navbar-nav > li > a.navActive{
   color: #22DDAA;
 }
 .overlay {
@@ -139,7 +139,7 @@ nav.transparent, .transparent .navbar-nav > li > a {
 
 /*****SECTION*****/
 section{
-  margin: 80px 0;
+  margin-top: 80px;
 }
 section h2{
   font-weight: bold;
@@ -149,10 +149,10 @@ section h2{
 
 /*****HERO BANNER*****/
 .jumbotron{
+    margin-top: -80px;
     min-height: 100vh;
     padding-top: 15vh;
 }
-
 /*****SECTION PARTENAIRE ONE PAGE*****/
 .logoPartenaire{
   -webkit-filter: grayscale(100%);
@@ -166,12 +166,24 @@ section h2{
   	-webkit-transition: .2s ease-in-out;
   	transition: .2s ease-in-out
 }
-
+/*****SECTION NEWSLETTER*****/
+#newsletter .btn, #search .btn{
+  margin-top: 0;
+}
 /*****SECTION TEMOINIAGE*****/
+/*****TEST CAROUSEL*****/
+
+.carousel-indicators {
+  bottom:-30px;
+}
+
+/*.carousel-caption {
+  color: black;
+  bottom:-100px;
+}*/
 
 /*****FOOTER*****/
 footer {
-  margin-top: 50px;
   background: #242B32;
   color: #F6F1EE;
   font-weight: normal;
@@ -189,12 +201,16 @@ footer p {
   text-align: center;
 }
 
-
-/*****TEST DASHBOARD*****/
-
+/*****BASE DASHBOARD******/
 /*
  * Base structure
  */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+/*body {
+  padding-top: 50px;
+}*/
+
 
 /*
  * Global add-ons
@@ -232,8 +248,9 @@ footer p {
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #242B32;
+    background-color: #f5f5f5;
     border-right: 1px solid #eee;
+    background: #242B32;
   }
 }
 
@@ -253,6 +270,8 @@ footer p {
   color: #fff;
   background-color: #22DDAA;
 }
+
+
 /*
  * Main content
  */
@@ -265,9 +284,6 @@ main {
     padding-right: 40px;
     padding-left: 40px;
   }
-}
-main .page-header {
-  margin-top: 0;
 }
 
 /*
@@ -289,28 +305,46 @@ main .page-header {
   border-radius: 50%;
 }
 
+
 li ul {
  display:none;
- margin-left: 10px;
+ padding-left: 20px;
  list-style-type: none
- }
- li:hover ul {
+}
+li:hover ul {
   display:block;
-  }
-  li:hover .activeDropdown {
-    color: #22DDAA;
-  }
-
-/*****TEST CAROUSEL*****/
-
-.carousel-indicators {
-  bottom:-30px;
+}
+li:hover .activeDropdown {
+  color: #22DDAA;
 }
 
-/*.carousel-caption {
-  color: black;
-  bottom:-100px;
-}*/
+
+thead {
+  background: #22DDAA;
+  color: white;
+  font-weight: bold;
+}
+
+/*****TEST LOGIN*****/
+
+.forgot-password, .signChoice {
+  color: #22DDAA;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.forgot-password:hover, .forgot-password:focus {
+  text-decoration: none;
+  color: #f25b6a;
+}
+
+.signChoice:hover, .signChoice:focus {
+  text-decoration: none;
+  color: #169270;
+}
 
 /*****TEST LOGIN*****/
 
