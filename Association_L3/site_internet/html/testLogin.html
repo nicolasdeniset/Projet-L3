@@ -24,12 +24,12 @@
 
       function initConnexion(){
         if(window.innerWidth>1000) {
-          var div1=$("#register").height();
-          var div2=$("#connect").height();
-          alert("hauteur div1    " + div1);
-          alert("hauteur div2    " + div2);
-          if (div1>div2) {$("#connect").height(div1);}
-          else if (div2>div1) {$("#register").height(div2);}
+          var divReg=$("#register").height();
+          var divLog=$("#login").height();
+          alert("hauteur divReg    " + divReg);
+          alert("hauteur divLog    " + divLog);
+          if (divReg>divLog) {$("#login").height(divReg);}
+          else {$("#register").height(divLog);}
         }
       }
       window.onload = initConnexion;
@@ -37,8 +37,7 @@
     </script>
   </head>
 
-  <body id="login">
-
+  <body id="signIn">
     <!-- Début header -->
     <header>
       <nav class="navbar navbar-default navbar-fixed-top">
@@ -78,63 +77,41 @@
     <div class="space-medium">
       <div class="container">
         <div class="row">
-
           <main>
-          <!--sing-up-form-->
-          <section>
-          <div id="register" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <div class="account-holder">
-              <h2 class="text-center">PAS ENCORE INSCRIT ?</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-              <ul>
-                <li>75 Formations</li>
-                <li>75 Etudiants</li>
-              </ul>
-              <a href="#" class="btn btn-success btn-block">S'inscrire</a>
-            </div>
-          </div>
-          </section>
-
+            <!--sing-up-form-->
+            <section id="register" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2 class="text-center">PAS ENCORE INSCRIT ?</h2>
+                <div class="row">
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                  <ul>
+                    <li>75 Formations</li>
+                    <li>75 Etudiants</li>
+                  </ul>
+                </div>
+                <a href="#" class="btn btn-success btn-block">S'inscrire</a>
+            </section>
             <!--login-form-->
-          <section>
-          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <div class="account-holder">
-              <h2 class="text-center">JE ME CONNECTE</h2>
-              <div class="row">
-                <form>
-
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <section  id="login" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2 class="text-center">JE ME CONNECTE</h2>
+                <div class="row">
+                  <form>
                     <div class="form-group">
                       <label class="control-label required" for="email">Email<sup style="color:red">*</sup></label>
                       <input id="email" name="email" type="text" class="form-control" placeholder="Entrez votre adresse mail">
                     </div>
-                  </div>
-
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="form-group">
                       <label class="control-label required" for="email">Mot de passe<sup style="color:red">*</sup></label>
                       <input id="password" name="password" type="password" class="form-control" placeholder="mot de passe">
                     </div>
                     <a href="#" class="forgot-password">Mot de passe oublié ?</a>
-                  </div>
-
-                  <div id="connect" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox" value="">
-                        <p>Se souvenir de moi</p>
-                      </label>
+                    <div class="form-group">
+                      <input type="checkbox" id="condition" name="condition" value="condition">
+                      <label class="checkCondition" for="condition">Se souvenir de moi</a></label>
                     </div>
                     <button class="btn btn-block btn-success">Se connecter</button>
-                  </div>
-
-                </form>
-              </div>
-
-            </div>
-          </div>
-          </section>
-
+                  </form>
+                </div>
+            </section>
           </main>
         </div>
       </div>
