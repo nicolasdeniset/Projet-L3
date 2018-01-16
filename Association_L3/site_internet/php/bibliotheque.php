@@ -173,4 +173,49 @@ function bd_erreurExit($msg) {
 
 	exit();
 }
+
+function footer($little = "") {
+	if($little != "") {
+		echo '<footer class="little-footer">',
+		'<div class="container">',
+			'<div class="row justify-content-center">',
+				'<h3>NOM ASSOCIATION</h3>',
+					'<p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+				'</div>',
+			'<div class="row navFooter">',
+				'<ul class="social list-unstyled list-inline text-center">',
+					'<li><a href="#">Politique de confidentialité</a></li>',
+					'<li><a href="#">Condition d\'utilisation</a></li>',
+					'<li><a href="#">FAQ</a></li>',
+					'<li><a href="#">Plan du site</a></li>',
+				'</ul>',
+			'</div>',
+			'<div class="row justify-content-center">',
+				'<p class="copyright"> © 2017 Copyright Blablabla</p>',
+			'</div>',
+		'</div>',
+    '</footer>';
+	}
+	else {
+		echo '<footer>',
+		'<div class="container">',
+			'<div class="row justify-content-center">',
+				'<h1>NOM ASSOCIATION</h1>',
+					'<p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+				'</div>',
+			'<div class="row navFooter">',
+				'<ul class="social list-unstyled list-inline text-center">',
+					'<li><a href="#">Politique de confidentialité</a></li>',
+					'<li><a href="#">Condition d\'utilisation</a></li>',
+					'<li><a href="#">FAQ</a></li>',
+					'<li><a href="#">Plan du site</a></li>',
+				'</ul>',
+			'</div>',
+			'<div class="row justify-content-center">',
+				'<p class="copyright"> © 2017 Copyright Blablabla</p>',
+			'</div>',
+		'</div>',
+    '</footer>';
+	}
+}
 ?>
