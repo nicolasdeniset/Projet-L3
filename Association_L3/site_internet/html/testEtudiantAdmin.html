@@ -51,7 +51,6 @@
       </nav>
     </header>
     <div class="container-fluid">
-      <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
           <li><a href="#"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>
@@ -82,10 +81,66 @@
         </ul>
       </div>
         <main class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+          <section>
+            <h1 class="page-header">Nos étudiants</h1>
+            <div id="statistiques" class="container">
+              <div class="row">
+              <!-- Item-->
+                <div class="item col-md-4 col-sm-6">
+                  <img class="img-responsive center-block" src="../images/studentgirl.svg" alt="Une image" height="100px" width="100px" />
+                  <h3 class="text-center">75 étudiants</h3>
+                </div>
+              <!-- End Item-->
+              <!-- Item-->
+                <div class="item col-md-4 col-sm-6">
+                  <img class="img-responsive center-block" src="../images/studentgirl.svg" alt="Une image" height="100px" width="100px" />
+                  <h3 class="text-center">75 étudiants</h3>
+                </div>
+              <!-- End Item--><!-- Item-->
+                <div class="item col-md-4 col-sm-6">
+                  <img class="img-responsive center-block" src="../images/studentgirl.svg" alt="Une image" height="100px" width="100px" />
+                  <h3 class="text-center">75 étudiants</h3>
+                </div>
+              <!-- End Item-->
+              </div>
+            </div>
 
+            <div id="tabEtudiant" class="row">
+              <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="inputNom" placeholder="Nom de l'étudiant">
+                </div>
+                <button type="submit" class="btn btn-inline"><span class="fa fa-search"></span>Rechercher</button>
+              </form>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nom étudiants</th>
+                      <th>Date d'inscription</th>
+                      <th>Nombre formations certifiés</th>
+                      <th>Nombre stages réalisés</th>
+                      <th>Embauché</th>
+                      <th>Gestion</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Martin Dupont</td>
+                      <td>01/01/2018</td>
+                      <td>5</td>
+                      <td>5</td>
+                      <td><span class="text-success fa fa-check" aria-hidden="true"></span></td>
+                      <td><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a><a href="#" class="text-danger"><span class="fa fa-times" aria-hidden="true"></span></a></td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+
+          </section>
         </main>
       </div>
-    </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
