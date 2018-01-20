@@ -68,6 +68,43 @@
         }
       }
 
+      function mapCreate() {
+        var carte = document.getElementById("carte");
+        var tabPlaces = [];
+        var tabNames = [];
+        var tabLength = 0;
+
+        var abuja = new google.maps.LatLng(9.0765,7.3986);
+        tabPlaces[tabLength] = abuja;
+        tabNames[tabLength] = "Abuja";
+        tabLength++;
+
+        var libreville = new google.maps.LatLng(0.4162,9.4673);
+        tabPlaces[tabLength] = libreville;
+        tabNames[tabLength] = "Libreville";
+        tabLength++;
+
+        var map = new google.maps.Map(carte, { 
+            center: tabPlaces[0], 
+            zoom: 3
+        });
+
+        for (var i = 0; i < tabLength; i++) {
+            var pin = new google.maps.Marker({
+                position: tabPlaces[i],
+                animation: google.maps.Animation.DROP
+            });
+            pin.infoWindow = new google.maps.InfoWindow({
+              content: "Pôle de " + tabNames[i]
+            });
+            pin.setMap(map);
+            google.maps.event.addListener(pin, 'click', function(e) {
+            // this est le Marker qui a reçu l'événement 
+            this.infoWindow.open(map, this);
+            });
+        }
+      }
+
       $(window).scroll(function() {
         if ($(document).scrollTop() > 50) {
           $('nav').removeClass('transparent');
@@ -316,6 +353,33 @@
       </div>
     </section>
     <!-- Fin section -->
+
+    <!-- Début section map -->
+    <section>
+      <div class="container">
+        <h2 class="text-center">POLES DE FORMATION</h2>
+        <div class="col-md-6">
+          <div id="carte" style="width: 40vw; height: 50vh;">
+            <!--<div style="height: 100%; width: 100%;">
+              <div style="overflow: hidden; width: 517px; height: 292px;">    
+              </div>
+            </div>-->
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h3>Voici nos pôles les plus importants :</h3>
+          <br>
+          <p><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span> Abuja</p>
+          <p><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span> Libreville</p>
+          <p><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span> Un autre endroit</p>
+        </div>
+
+        <!-- /!\ CLE DU PROF A CHANGER -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuD-Hw9Yq3EKP1R0iVAD7GGZmaJgOdxPg&amp;callback=mapCreate"></script>
+      </div>
+    </section>
+    <!-- Fin section -->
+
     <!-- Début section partenaire-->
     <section>
       <div class="container">
@@ -497,8 +561,9 @@
       </div>
     </section>
     <!-- Fin section -->
+
     <!-- Début section newletter -->
-    <section>
+    <!--<section>
       <div class="container">
         <div class="row">
           <h2 class="text-center">NEWSLETTER</h2>
@@ -516,8 +581,9 @@
           </div>
         </div>
       </div>
-    </section>
+    </section>-->
     <!-- Fin section-->
+
     <!-- Début section contacter -->
     <section>
       <div class="container">
