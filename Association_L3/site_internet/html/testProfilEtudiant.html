@@ -20,7 +20,7 @@
       function closeNav() {
           document.getElementById("navigationResponsive").style.width = "0%";
       }
-      function openGestion(firstThingId, secondThingId, thirdThingId, fourthThingId) {
+      /*function openGestion(firstThingId, secondThingId, thirdThingId, fourthThingId) {
           if (document.getElementById(firstThingId).style.display == "") {
             document.getElementById(firstThingId).style.display = "none";
           }
@@ -30,12 +30,12 @@
           document.getElementById(secondThingId).style.display = "none" ;
           document.getElementById(thirdThingId).style.display = "none" ;
           document.getElementById(fourthThingId).style.display = "none" ;
-      }
+      }*/
       $(document).ready(function(){
-        $('#gestionCandidatures').hide();
+        /*$('#gestionCandidatures').hide();
         $('#gestionFormations').hide();
         $('#gestionStatistiques').hide();
-        $('#gestionEtudiants').hide();
+        $('#gestionEtudiants').hide();*/
       });
     </script>
     <!-- Autre(s) -->
@@ -161,21 +161,122 @@
             </div>
             <div class="row">
               <div class="col-md-12">
-                <div class="col-md-3">
-                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionCandidatures', 'gestionFormations', 'gestionStatistiques', 'gestionEtudiants'); return false;"><span class="fa fa-id-card-o" aria-hidden="true"></span>Gérer candidatures</button>
-                </div>
-                <div class="col-md-3">
-                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionFormations', 'gestionCandidatures', 'gestionStatistiques', 'gestionEtudiants'); return false;"><span class="fa fa-book" aria-hidden="true"></span>Formations réalisés</button>
-                </div>
-                <div class="col-md-3">
-                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionEtudiants', 'gestionFormations', 'gestionCandidatures', 'gestionStatistiques'); return false;"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages réalisés</button>
-                </div>
-                <div class="col-md-3">
-                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionEtudiants', 'gestionFormations', 'gestionCandidatures', 'gestionStatistiques'); return false;"><span class="fa fa-cogs" aria-hidden="true"></span>Gestion profil</button>
-                </div>
+                <div class="col-md-4">
+<!--                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionFormations', 'gestionCandidatures', 'gestionStatistiques', 'gestionEtudiants'); return false;"><span class="fa fa-book" aria-hidden="true"></span>Formations réalisés</button>
+-->                </div>
+                <div class="col-md-4">
+<!--                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionEtudiants', 'gestionFormations', 'gestionCandidatures', 'gestionStatistiques'); return false;"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages réalisés</button>
+-->                </div>
+                <div class="col-md-4">
+<!--                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionEtudiants', 'gestionFormations', 'gestionCandidatures', 'gestionStatistiques'); return false;"><span class="fa fa-cogs" aria-hidden="true"></span>Gestion profil</button>
+-->                </div>
               </div>
             </div>
           </div>
+          <div id="gestionFormations" class="row">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Titre Formation</th>
+                    <th>Date formation</th>
+                    <th>Certifiés</th>
+                  </tr>
+                </thead>
+              <tbody>
+              <tr>
+                <td>1</td>
+                <td>formation</td>
+                <td>01/01/2018 - 01/03/2018</td>
+                <td><span class="text-success fa fa-check" aria-hidden="true"></span><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a></td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>formation</td>
+                <td>01/01/2018 - 01/03/2018</td>
+                <td><span class="text-success fa fa-check" aria-hidden="true"></span><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a></td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>formation</td>
+                <td>01/01/2018 - 01/03/2018</td>
+                <td><span class="text-success fa fa-check" aria-hidden="true"></span><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+          <div id="gestionStage" class="row">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Titre entreprise</th>
+                    <th>Date stage</th>
+                    <th>Embauché</th>
+                  </tr>
+                </thead>
+              <tbody>
+              <tr>
+                <td>1</td>
+                <td>Entreprise</td>
+                <td>01/01/2018 - 01/03/2018</td>
+                <td><span class="text-success fa fa-check" aria-hidden="true"></span><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a></td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Entreprise</td>
+                <td>01/01/2018 - 01/03/2018</td>
+                <td><span class="text-success fa fa-check" aria-hidden="true"></span><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a></td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Entreprise</td>
+                <td>01/01/2018 - 01/03/2018</td>
+                <td><span class="text-success fa fa-check" aria-hidden="true"></span><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="gestionEtudiant" class="row">
+          <form>
+              <div class="form-group">
+                <label class="control-label required" for="name">Titre du stage<sup style="color:red">*</sup></label>
+                <input id="titre" name="titre" type="text" class="form-control" placeholder="Entrez le titre du stage" value="TITRE STAGE">
+              </div>
+              <div class="form-group">
+                <label class="control-label required" for="name">Description du stage<sup style="color:red">*</sup></label>
+                <input id="description" name="description" type="text" class="form-control" placeholder="Entrez la description du stage" value="DESCRIPTION STAGE">
+              </div>
+              <div class="form-group">
+                <label class="control-label required" for="name">Durée du stage<sup style="color:red">*</sup></label>
+                <input id="duree" name="duree" type="number" class="form-control" placeholder="Entrez la durée de la formation" value="85">
+              </div>
+              <div class="form-group">
+                <label class="control-label required" for="name">Fichier du stage<sup style="color:red">*</sup></label>
+                <input id="fichier" name="fichier" type="file" class="" placeholder="Entrez le fichier de la formation">
+              </div>
+              <div class="form-group">
+                <label class="control-label required" for="name">Lien du stage<sup style="color:red">*</sup></label>
+                <input id="description" name="description" type="text" class="form-control" placeholder="Lien du stage" value="LIEN STAGE">
+              </div>
+              <div class="form-group">
+                <label class="control-label required">Disponniblité du stage<sup style="color:red">*</sup></label><br>
+                <label class="radio-inline"><input type="radio" name="optradio" checked>Public</label>
+                <label class="radio-inline"><input type="radio" name="optradio">Privée</label>
+              </div>
+            <div class="col-md-12">
+              <div class="col-md-4">
+                <button  class="btn btn-inline btn-danger btn-block"><span class="fa fa-trash-o" aria-hidden="true"></span>Supprimer formation</button>
+              </div>
+              <div class="col-md-4">
+                <button  class="btn btn-inline btn-info btn-block">Annuler changement</button>
+              </div>
+              <div class="col-md-4">
+                <button  class="btn btn-inline btn-success btn-block"><span class="fa fa-check" aria-hidden="true"></span>Sauvegarder formation</button>
+              </div>
+            </div>
+          </form>
+        </div>
         </section>
         </main>
       </div>
