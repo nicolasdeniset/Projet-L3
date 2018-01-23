@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 19 Janvier 2018 à 20:37
+-- Généré le :  Lun 22 Janvier 2018 à 18:28
 -- Version du serveur :  5.7.14
 -- Version de PHP :  5.6.25
 
@@ -51,6 +51,19 @@ CREATE TABLE `aeffectue` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `association`
+--
+
+CREATE TABLE `association` (
+  `nomAssociation` char(50) COLLATE utf8_unicode_ci NOT NULL,
+  `sloganAssociation` char(100) COLLATE utf8_unicode_ci NOT NULL,
+  `descriptionAssociation` text COLLATE utf8_unicode_ci NOT NULL,
+  `coordonnesAssociation` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `asuivi`
 --
 
@@ -86,7 +99,9 @@ CREATE TABLE `candidature` (
   `compteCandidature` int(11) NOT NULL,
   `cvCandidature` char(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'lien vers le CV (pas pour les entreprises)',
   `lettreMotivCandidature` char(150) COLLATE utf8_unicode_ci NOT NULL COMMENT 'lien vers la LM',
-  `typeCandidature` int(1) NOT NULL COMMENT '0 : entreprise, 1 : etudiant, (2 : benevole ?)'
+  `typeCandidature` int(1) NOT NULL COMMENT '0 : entreprise, 1 : etudiant, (2 : benevole ?)',
+  `traiteeCandidature` tinyint(1) NOT NULL,
+  `AccepteeCandidature` tinyint(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -109,6 +124,7 @@ CREATE TABLE `certifiactionrequise` (
 
 CREATE TABLE `compte` (
   `idCompte` int(11) NOT NULL,
+  `inscriptionCompte` date NOT NULL,
   `nomCompte` char(100) COLLATE utf8_unicode_ci NOT NULL,
   `mdpCompte` char(50) COLLATE utf8_unicode_ci NOT NULL,
   `questionCompte` char(200) COLLATE utf8_unicode_ci NOT NULL,
@@ -132,7 +148,21 @@ CREATE TABLE `coordonnees` (
   `adresseCoordonnees` char(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'rue + numéro',
   `codePostalCoordonnees` int(10) NOT NULL,
   `villeCoordonnees` char(100) COLLATE utf8_unicode_ci NOT NULL,
-  `paysCoordonnees` char(100) COLLATE utf8_unicode_ci NOT NULL
+  `paysCoordonnees` char(100) COLLATE utf8_unicode_ci NOT NULL,
+  `gpsLongitudeCoordonnes` float DEFAULT NULL,
+  `gpsLatitudeCoordonnees` float DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `donations`
+--
+
+CREATE TABLE `donations` (
+  `idDonations` int(11) NOT NULL,
+  `montantDonations` int(11) NOT NULL,
+  `nomDonateurDonations` char(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Anonyme'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -159,7 +189,9 @@ CREATE TABLE `formation` (
   `titreFormation` char(100) COLLATE utf8_unicode_ci NOT NULL,
   `descriptionFormation` text COLLATE utf8_unicode_ci NOT NULL,
   `documentFormation` char(150) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Url fichier',
-  `dureeFormation` int(11) NOT NULL COMMENT 'Nombre de jours'
+  `tailleDocumentFormation` float NOT NULL,
+  `dureeFormation` int(11) NOT NULL COMMENT 'Nombre de jours',
+  `dispoFormation` tinyint(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -189,6 +221,19 @@ CREATE TABLE `stage` (
   `lienStage` char(150) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Url vers la proposition de l''entreprise'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `temoignages`
+--
+
+CREATE TABLE `temoignages` (
+  `idTemoignages` int(11) NOT NULL,
+  `compteTemoignages` int(11) NOT NULL,
+  `texteTemoignages` text COLLATE utf8_unicode_ci NOT NULL,
+  `dateTemoignages` date NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 --
 -- Index pour les tables exportées
 --
@@ -204,6 +249,12 @@ ALTER TABLE `actualites`
 --
 ALTER TABLE `aeffectue`
   ADD PRIMARY KEY (`idAeffectue`);
+
+--
+-- Index pour la table `association`
+--
+ALTER TABLE `association`
+  ADD PRIMARY KEY (`nomAssociation`);
 
 --
 -- Index pour la table `asuivi`
@@ -242,6 +293,12 @@ ALTER TABLE `coordonnees`
   ADD PRIMARY KEY (`idCoordonnees`);
 
 --
+-- Index pour la table `donations`
+--
+ALTER TABLE `donations`
+  ADD PRIMARY KEY (`idDonations`);
+
+--
 -- Index pour la table `enseignement`
 --
 ALTER TABLE `enseignement`
@@ -264,6 +321,12 @@ ALTER TABLE `poleformation`
 --
 ALTER TABLE `stage`
   ADD PRIMARY KEY (`idStage`);
+
+--
+-- Index pour la table `temoignages`
+--
+ALTER TABLE `temoignages`
+  ADD PRIMARY KEY (`idTemoignages`);
 
 --
 -- AUTO_INCREMENT pour les tables exportées
@@ -310,6 +373,11 @@ ALTER TABLE `compte`
 ALTER TABLE `coordonnees`
   MODIFY `idCoordonnees` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT pour la table `donations`
+--
+ALTER TABLE `donations`
+  MODIFY `idDonations` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pour la table `enseignement`
 --
 ALTER TABLE `enseignement`
@@ -329,6 +397,11 @@ ALTER TABLE `poleformation`
 --
 ALTER TABLE `stage`
   MODIFY `idStage` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `temoignages`
+--
+ALTER TABLE `temoignages`
+  MODIFY `idTemoignages` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
