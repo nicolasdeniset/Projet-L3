@@ -45,15 +45,18 @@ function html_head($titre, $css = '../css/style.css') {
 	}
 
 	echo '<!DOCTYPE HTML>',
-		'<html lang="fr">',
+		'<html>',
 			'<head>',
 				'<meta charset="UTF-8">',
 				'<title>', $titre, '</title>',
 				$css,
-				'<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">',
-				'<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">',
-			'</head>',
-			'<body><section>';
+				'<link rel="stylesheet" href="../css/reboot.css">',
+				'<link rel="stylesheet" href="../css/bootstrap-theme.css">',
+				'<link rel="stylesheet" href="../css/bootstrap.css">',
+				'<link rel="stylesheet" href="../css/font-awesome.min.css">',
+				'<script src="../jq/jquery-2.1.1.min.js"></script>',
+				'<script src="../js/bootstrap.min.js"></script>',
+			'</head>';
 }
 
 /*******************************************************************************
