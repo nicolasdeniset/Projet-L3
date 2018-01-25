@@ -12,32 +12,8 @@
     <!-- Feuille(s) JS -->
     <script src="../jq/jquery-2.1.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/fonction.js"></script>
 
-    <script>
-      function openNav() {
-          document.getElementById("navigationResponsive").style.width = "100%";
-      }
-      function closeNav() {
-          document.getElementById("navigationResponsive").style.width = "0%";
-      }
-      function openGestion(firstThingId, secondThingId, thirdThingId, fourthThingId) {
-          if (document.getElementById(firstThingId).style.display == "") {
-            document.getElementById(firstThingId).style.display = "none";
-          }
-          else {
-            document.getElementById(firstThingId).style.display = "";
-          }
-          document.getElementById(secondThingId).style.display = "none" ;
-          document.getElementById(thirdThingId).style.display = "none" ;
-          document.getElementById(fourthThingId).style.display = "none" ;
-      }
-      $(document).ready(function(){
-        $('#gestionCandidatures').hide();
-        $('#gestionFormations').hide();
-        $('#gestionStatistiques').hide();
-        $('#gestionEtudiants').hide();
-      });
-    </script>
     <!-- Autre(s) -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">

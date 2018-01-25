@@ -371,3 +371,7 @@ thead {
   background: #F6F1EE;
   color: #333;
 }
+
+.timeline{
+  border-left: 3px solid #22DDAA;
+}

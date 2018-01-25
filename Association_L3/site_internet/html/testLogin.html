@@ -13,26 +13,12 @@
     <!-- Feuille(s) JS -->
     <script src="../jq/jquery-2.1.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-
-    <script>
-      function openNav() {
-          document.getElementById("navigationResponsive").style.width = "100%";
-      }
-      function closeNav() {
-          document.getElementById("navigationResponsive").style.width = "0%";
-      }
-
-      function initConnexion(){
-        if(window.innerWidth>1000) {
-          var divReg=$("#register").height();
-          var divLog=$("#login").height();
-          if (divReg>divLog) {$("#login").height(divReg);}
-          else {$("#register").height(divLog-94);}
-        }
-      }
-      window.onload = initConnexion;
-
-    </script>
+    <script src="../js/fonction.js"></script>
+    
+    <!-- Autre(s) -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
   </head>
 
   <body id="signIn">

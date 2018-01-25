@@ -12,69 +12,8 @@
     <!-- Feuille(s) JS -->
     <script src="../jq/jquery-2.1.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/fonction.js"></script>
 
-    <script>
-      function openNav() {
-          document.getElementById("navigationResponsive").style.width = "100%";
-      }
-      function closeNav() {
-          document.getElementById("navigationResponsive").style.width = "0%";
-      }
-      function openGestion(firstThingId, secondThingId, thirdThingId, fourthThingId) {
-          if (document.getElementById(firstThingId).style.display == "") {
-            document.getElementById(firstThingId).style.display = "none";
-          }
-          else {
-            document.getElementById(firstThingId).style.display = "";
-          }
-          document.getElementById(secondThingId).style.display = "none" ;
-          document.getElementById(thirdThingId).style.display = "none" ;
-          document.getElementById(fourthThingId).style.display = "none" ;
-      }
-      $(document).ready(function(){
-        $('#gestionCandidatures').hide();
-        $('#gestionFormations').hide();
-        $('#gestionStatistiques').hide();
-        $('#gestionEtudiants').hide();
-      });
-
-      function mapCreate() {
-        var carte = document.getElementById("carte");
-        var tabPlaces = [];
-        var tabNames = [];
-        var tabLength = 0;
-
-        var abuja = new google.maps.LatLng(9.0765,7.3986);
-        tabPlaces[tabLength] = abuja;
-        tabNames[tabLength] = "Abuja";
-        tabLength++;
-
-        var libreville = new google.maps.LatLng(0.4162,9.4673);
-        tabPlaces[tabLength] = libreville;
-        tabNames[tabLength] = "Libreville";
-        tabLength++;
-
-        var map = new google.maps.Map(carte, {
-            center: tabPlaces[0],
-            zoom: 3
-        });
-
-        for (var i = 0; i < tabLength; i++) {
-            var pin = new google.maps.Marker({
-                position: tabPlaces[i],
-                animation: google.maps.Animation.DROP
-            });
-            pin.infoWindow = new google.maps.InfoWindow({
-              content: "Pôle de " + tabNames[i]
-            });
-            pin.setMap(map);
-            google.maps.event.addListener(pin, 'click', function(e) {
-            // this est le Marker qui a reçu l'événement
-            this.infoWindow.open(map, this);
-            });
-        }
-      }
-    </script>
     <!-- Autre(s) -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">

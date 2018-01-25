@@ -128,3 +128,18 @@ if (window.location.href.match('testOnePage.html') != null) {
 
   window.onload = onloadFonction;
 }
+
+/* Fonction spécifique à la page de connexion */
+
+function initConnexion(){
+  if(window.innerWidth>1000) {
+    var divReg=$("#register").height();
+    var divLog=$("#login").height();
+    if (divReg>divLog) {$("#login").height(divReg);}
+    else {$("#register").height(divLog-94);}
+  }
+}
+
+if (window.location.href.match('testLogin.html') != null) {
+  window.onload = initConnexion;
+}
