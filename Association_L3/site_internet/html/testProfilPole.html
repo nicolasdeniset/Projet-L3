@@ -20,22 +20,22 @@
       function closeNav() {
           document.getElementById("navigationResponsive").style.width = "0%";
       }
-      /* On passe en paramètre un tableau contenant les ID des objets concernés, le premier étant l'item à sélectionner*/
-      function openGestion(tabThingsId) {
-          if (document.getElementById(tabThingsId[0]).style.display == "") {
-            document.getElementById(tabThingsId[0]).style.display = "none";
+      /*function openGestion(firstThingId, secondThingId, thirdThingId, fourthThingId) {
+          if (document.getElementById(firstThingId).style.display == "") {
+            document.getElementById(firstThingId).style.display = "none";
           }
           else {
-            document.getElementById(tabThingsId[0]).style.display = "";
+            document.getElementById(firstThingId).style.display = "";
           }
-          for (var i = 1; i < tabThingsId.length; i++) {
-            document.getElementById(tabThingsId[i]).style.display = "none" ;
-          }
-      }
+          document.getElementById(secondThingId).style.display = "none" ;
+          document.getElementById(thirdThingId).style.display = "none" ;
+          document.getElementById(fourthThingId).style.display = "none" ;
+      }*/
       $(document).ready(function(){
+        /*$('#gestionCandidatures').hide();
         $('#gestionFormations').hide();
-        $('#gestionStages').hide();
-        $('#gestionEtudiant').hide();
+        $('#gestionStatistiques').hide();
+        $('#gestionEtudiants').hide();*/
       });
     </script>
     <!-- Autre(s) -->
@@ -89,10 +89,10 @@
             <ul class="nav nav-sidebar">
               <li><a href="#"><span class="fa fa-users" aria-hidden="true"></span>Partenaires <span class="badge badge-success hidden-sm hidden-md">2</span></a></li>
               <li><a href="#"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises <span class="badge badge-success hidden-sm hidden-md">1</span></a></li>
-              <li class="active"><a href="#"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>
+              <li><a href="#"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>
             </ul>
             <ul class="nav nav-sidebar">
-              <li><a class="activeDropdown" href="#"><span class="fa fa-bars" aria-hidden="true"></span>Association<span class="fa fa-caret-down" aria-hidden="true"></span></a>
+              <li class="active"><a class="activeDropdown" href="#"><span class="fa fa-bars" aria-hidden="true"></span>Association<span class="fa fa-caret-down" aria-hidden="true"></span></a>
                 <ul>
                   <li><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>
                   <li><a href="#"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>
@@ -108,20 +108,14 @@
         <main class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
           <section>
             <a href="#" class="btn btn-retour">Retour</a>
-            <h1 class="page-header">Profil de l'étudiant MARTIN DUPOND</h1>
+            <h1 class="page-header">Profil du pôle de formation de VILLE</h1>
             <div class="item">
               <div class="row">
                 <div class="col-md-6 col-sm-12">
-                  <h3>MARTIN DUPOND<small>#33</small></h3>
+                  <h3>Pole de VILLE<small>#33</small></h3>
                   <ul>
-                    <li>Date inscription : 01-02-2018</li>
-                    <li>Pôle de formation : Abuja (Nigeria) ; Ibadan (Nigeria)</li>
-                    <li>Compte actif : Oui</li>
-                    <li>Ambauché : Non</li>
-
-                  </ul>
-                  <ul>
-                    <li>Âge : 18 ans <small>(01-01-2000)</small></li>
+                    <li>Date ouverture : 01-02-2018</li>
+                    <li>Gérant : Martin Dupond</li>
                     <li>Coordonnées postales: Abuja Nigeria xxxxx patati patata</li>
                     <li>Adresse email : NULL</li>
                     <li>Numéro de téléphone : xxx xxx xxx xxx xxx</li>
@@ -132,44 +126,32 @@
               <table class="table table-striped">
                 <tbody>
                   <tr>
-                    <th>Nombre candidatures</th>
+                    <th>Nombre candidatures dans ce pôle</th>
                       <td>6</td>
                   </tr>
                   <tr>
-                    <th>Nombre formations réalisé</th>
+                    <th>Nombre formations proposés</th>
                       <td>4</td>
                   </tr>
                   <tr>
                     <th>Nombre formations certifiés</th>
                       <td>3</td>
                   </tr>
-                  <tr>
-                    <th>Nombre stages réalisés</th>
-                      <td>2</td>
-                  </tr>
                 </tbody>
               </table>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 col-sm-12">
-                <a href="#about" class="btn btn-info btn-block"><span class="fa fa-eye" aria-hidden="true"></span>Acceder à la lettre de motivation</a>
-              </div>
-              <div class="col-md-6 col-sm-12">
-                <a href="#about" class="btn btn-info btn-block"><span class="fa fa-eye" aria-hidden="true"></span>Acceder à son curicullum vitae</a>
-              </div>
-            </div>
-            <div class="row">
               <div class="col-md-12">
                 <div class="col-md-4">
-                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionFormations', 'gestionStages', 'gestionEtudiant']); return false;"><span class="fa fa-book" aria-hidden="true"></span>Formations réalisées</button>
-                </div>
+<!--                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionFormations', 'gestionCandidatures', 'gestionStatistiques', 'gestionEtudiants'); return false;"><span class="fa fa-book" aria-hidden="true"></span>Formations réalisés</button>
+-->                </div>
                 <div class="col-md-4">
-                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionStages', 'gestionFormations', 'gestionEtudiant']); return false;"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages réalisés</button>
-                </div>
+<!--                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionEtudiants', 'gestionFormations', 'gestionCandidatures', 'gestionStatistiques'); return false;"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages réalisés</button>
+-->                </div>
                 <div class="col-md-4">
-                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionEtudiant', 'gestionFormations', 'gestionStages']); return false;"><span class="fa fa-cogs" aria-hidden="true"></span>Gestion profil</button>
-                </div>
+<!--                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionEtudiants', 'gestionFormations', 'gestionCandidatures', 'gestionStatistiques'); return false;"><span class="fa fa-cogs" aria-hidden="true"></span>Gestion profil</button>
+-->                </div>
               </div>
             </div>
           </div>
@@ -178,9 +160,8 @@
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Titre Formation</th>
-                    <th>Date formation</th>
-                    <th>Certifiés</th>
+                    <th>Formation proposés</th>
+                    <th>Nombre certifiés</th>
                   </tr>
                 </thead>
               <tbody>
@@ -188,7 +169,7 @@
                 <td>1</td>
                 <td>formation</td>
                 <td>01/01/2018 - 01/03/2018</td>
-                <td><span class="text-success fa fa-check" aria-hidden="true"></span><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a></td>
+                <td><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a></td>
               </tr>
               <tr>
                 <td>1</td>
@@ -205,38 +186,7 @@
             </tbody>
           </table>
         </div>
-          <div id="gestionStage" class="row">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Titre entreprise</th>
-                    <th>Date stage</th>
-                    <th>Embauché</th>
-                  </tr>
-                </thead>
-              <tbody>
-              <tr>
-                <td>1</td>
-                <td>Entreprise</td>
-                <td>01/01/2018 - 01/03/2018</td>
-                <td><span class="text-success fa fa-check" aria-hidden="true"></span><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a></td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Entreprise</td>
-                <td>01/01/2018 - 01/03/2018</td>
-                <td><span class="text-success fa fa-check" aria-hidden="true"></span><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a></td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>Entreprise</td>
-                <td>01/01/2018 - 01/03/2018</td>
-                <td><span class="text-success fa fa-check" aria-hidden="true"></span><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+          
         <div id="gestionEtudiant" class="row">
           <form>
               <div class="form-group">

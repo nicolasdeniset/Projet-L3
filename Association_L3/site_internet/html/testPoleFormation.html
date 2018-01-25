@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>TEST CSS & DESIGN</title>
+    <!-- Feuille(s) CSS -->
+    <link rel="stylesheet" href="../css/reboot.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Feuille(s) JS -->
+    <script src="../jq/jquery-2.1.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+    <script>
+      function openNav() {
+          document.getElementById("navigationResponsive").style.width = "100%";
+      }
+      function closeNav() {
+          document.getElementById("navigationResponsive").style.width = "0%";
+      }
+      function openGestion(firstThingId, secondThingId, thirdThingId, fourthThingId) {
+          if (document.getElementById(firstThingId).style.display == "") {
+            document.getElementById(firstThingId).style.display = "none";
+          }
+          else {
+            document.getElementById(firstThingId).style.display = "";
+          }
+          document.getElementById(secondThingId).style.display = "none" ;
+          document.getElementById(thirdThingId).style.display = "none" ;
+          document.getElementById(fourthThingId).style.display = "none" ;
+      }
+      $(document).ready(function(){
+        $('#gestionCandidatures').hide();
+        $('#gestionFormations').hide();
+        $('#gestionStatistiques').hide();
+        $('#gestionEtudiants').hide();
+      });
+
+      function mapCreate() {
+        var carte = document.getElementById("carte");
+        var tabPlaces = [];
+        var tabNames = [];
+        var tabLength = 0;
+
+        var abuja = new google.maps.LatLng(9.0765,7.3986);
+        tabPlaces[tabLength] = abuja;
+        tabNames[tabLength] = "Abuja";
+        tabLength++;
+
+        var libreville = new google.maps.LatLng(0.4162,9.4673);
+        tabPlaces[tabLength] = libreville;
+        tabNames[tabLength] = "Libreville";
+        tabLength++;
+
+        var map = new google.maps.Map(carte, {
+            center: tabPlaces[0],
+            zoom: 3
+        });
+
+        for (var i = 0; i < tabLength; i++) {
+            var pin = new google.maps.Marker({
+                position: tabPlaces[i],
+                animation: google.maps.Animation.DROP
+            });
+            pin.infoWindow = new google.maps.InfoWindow({
+              content: "Pôle de " + tabNames[i]
+            });
+            pin.setMap(map);
+            google.maps.event.addListener(pin, 'click', function(e) {
+            // this est le Marker qui a reçu l'événement
+            this.infoWindow.open(map, this);
+            });
+        }
+      }
+    </script>
+    <!-- Autre(s) -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <a id ="logo" href="index.html" class="navbar-brand">(logo) - NOM ASSO</a>
+          <div id="navigation" class="navbar-right">
+            <ul class="nav navbar-nav hidden-sm hidden-xs">
+              <li><a href="#Actualité">Actualité</a></li>
+              <li><a href="#Formation">Formation</a></li>
+              <li><a href="#Partenaire">Partenaire</a></li>
+              <li><a href="#Donation">Donation</a></li>
+              <li><a href="#Contacter">Nous contacter</a></li>
+              <li><a href="#Administration" class="navActive">Tableau d'administration</a></li>
+            </ul>
+          </div>
+          <div id="navigationResponsive" class="overlay">
+            <button type="button" class="close" aria-label="Close" onclick="closeNav()"><span aria-hidden="true">&times;</span></button>
+            <a class="closebtn" onclick="closeNav()">&times;</a>
+            <ul class="overlay-content">
+              <li><a href="http://google.Com" onclick="closeNav()">Actualités</a></li>
+              <li><a href="#Statitistique" onclick="closeNav()">Statistiques</a></li>
+              <li><a href="#Partenaire" onclick="closeNav()">Partenaires</a></li>
+              <li><a href="#Donation" onclick="closeNav()">Donation</a></li>
+              <li><a href="#Contacter" onclick="closeNav()">Nous Contacter</a></li>
+              <li><a href="#Connexion" class="navActive" onclick="closeNav()">Tableau d'administration</a></li>
+            </ul>
+          </div>
+          <span class= "btn pull-right hidden-lg hidden-md" onclick="openNav()">MENU</span>
+        </div>
+      </nav>
+    </header>
+    <div class="container-fluid">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+              <li><a href="#"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>
+              <li><a href="#"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>
+              <li><a href="#"><span class="fa fa-comments-o" aria-hidden="true"></span>Messagerie</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+              <li><a href="#"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>
+              <li><a href="#"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+              <li><a href="#"><span class="fa fa-users" aria-hidden="true"></span>Partenaires</a></li>
+              <li><a href="#"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises</a></li>
+              <li><a href="#"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+              <li class="active"><a class="activeDropdown" href="#"><span class="fa fa-bars" aria-hidden="true"></span>Association<span class="fa fa-caret-down" aria-hidden="true"></span></a>
+                <ul>
+                  <li><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>
+                  <li class="active"><a href="#"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>
+                  <li><a href="#"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualité</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav nav-sidebar">
+              <li><a href=""><span class="fa fa-user" aria-hidden="true"></span>Paramètre compte</a></li>
+              <li><a href=""><span class="fa fa-sign-out" aria-hidden="true"></span>Déconnexion</a></li>
+            </ul>
+        </div>
+        <main class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+          <section>
+              <h1 class="page-header">Nos pôles de formations</h1>
+              <div id="carte" class="center-block" style="width: 40vw; height: 50vh;">
+                <!--<div style="height: 100%; width: 100%;">
+                  <div style="overflow: hidden; width: 517px; height: 292px;">
+                  </div>
+                </div>-->
+              </div>
+              <!-- /!\ CLE DU PROF A CHANGER -->
+              <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuD-Hw9Yq3EKP1R0iVAD7GGZmaJgOdxPg&amp;callback=mapCreate"></script>
+              <div class="container">
+                  <!-- Item-->
+                  <div class="item col-md-4 col-sm-6">
+                    <img class="img-responsive center-block" src="../images/studentgirl.svg" alt="Une image" height="75px" width="75px"/>
+                    <h3 class="text-center">75 Poles de formations</h3>
+                  </div>
+                  <!-- End Item-->
+                  <!-- Item-->
+                  <div class="item col-md-4 col-sm-6">
+                    <img class="img-responsive center-block" src="../images/job.svg" alt="Une image" height="75px" width="75px"/>
+                    <h3 class="text-center">75 Créations d'emploi</h3>
+                  </div>
+                  <!-- End Item-->
+                  <!-- Item-->
+                  <div class="item col-md-4 col-sm-6">
+                    <img class="img-responsive center-block" src="../images/.svg" alt="Une image" height="75px" width="75px"/>
+                    <h3 class="text-center">75 Stages proposés</h3>
+                  </div>
+                  <!-- End Item-->
+              </div>
+              <a href="#" class="btn btn-success btn-block"><span class="fa fa-plus"></span>AJOUTER UN NOUVEAU STAGE</a>
+
+              <form class="form-inline">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="inputEmail" placeholder="Nom de l'étudiant">
+                </div>
+                <button type="submit" class="btn btn-inline"><span class="fa fa-search"></span>Rechercher</button>
+              </form>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Coordonnées</th>
+                          <th>Nombre formations proposés</th>
+                          <th>Nombre étudiants certifiés</th>
+                          <th>Nombre bénévoles</th>
+                          <th>Gestion</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Martin Dupont</td>
+                          <td>Abuja Nigeria xxxxx patati patata</td>
+                          <td>5</td>
+                          <td>5</td>
+                          <td><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a><a href="#" class="text-danger"><span class="fa fa-times" aria-hidden="true"></span></a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </section>
+            </main>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="../../assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
