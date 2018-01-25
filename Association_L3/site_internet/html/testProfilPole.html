@@ -12,31 +12,8 @@
     <!-- Feuille(s) JS -->
     <script src="../jq/jquery-2.1.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-
-    <script>
-      function openNav() {
-          document.getElementById("navigationResponsive").style.width = "100%";
-      }
-      function closeNav() {
-          document.getElementById("navigationResponsive").style.width = "0%";
-      }
-      /*function openGestion(firstThingId, secondThingId, thirdThingId, fourthThingId) {
-          if (document.getElementById(firstThingId).style.display == "") {
-            document.getElementById(firstThingId).style.display = "none";
-          }
-          else {
-            document.getElementById(firstThingId).style.display = "";
-          }
-          document.getElementById(secondThingId).style.display = "none" ;
-          document.getElementById(thirdThingId).style.display = "none" ;
-          document.getElementById(fourthThingId).style.display = "none" ;
-      }*/
-      $(document).ready(function(){
-        /*$('#gestionCandidatures').hide();
-        $('#gestionFormations').hide();
-        $('#gestionStatistiques').hide();
-        $('#gestionEtudiants').hide();*/
-      });
+    <script src="../js/fonction.js"></script>
+    
     </script>
     <!-- Autre(s) -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -144,18 +121,18 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="col-md-4">
-<!--                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionFormations', 'gestionCandidatures', 'gestionStatistiques', 'gestionEtudiants'); return false;"><span class="fa fa-book" aria-hidden="true"></span>Formations réalisés</button>
--->                </div>
+                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionFormations', 'gestionBenevoles', 'gestionProfil']); return false;"><span class="fa fa-book" aria-hidden="true"></span>Formations proposées</button>
+                </div>
                 <div class="col-md-4">
-<!--                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionEtudiants', 'gestionFormations', 'gestionCandidatures', 'gestionStatistiques'); return false;"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages réalisés</button>
--->                </div>
+                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionBenevoles', 'gestionFormations', 'gestionProfil']); return false;"><span class="fa fa-briefcase" aria-hidden="true"></span>Bénévoles</button>
+                </div>
                 <div class="col-md-4">
-<!--                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionEtudiants', 'gestionFormations', 'gestionCandidatures', 'gestionStatistiques'); return false;"><span class="fa fa-cogs" aria-hidden="true"></span>Gestion profil</button>
--->                </div>
+                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionProfil', 'gestionFormations', 'gestionBenevoles']); return false;"><span class="fa fa-cogs" aria-hidden="true"></span>Gestion profil</button>
+                </div>
               </div>
             </div>
           </div>
-          <div id="gestionFormations" class="row">
+          <div id="gestionFormations" class="gestion row">
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -186,8 +163,39 @@
             </tbody>
           </table>
         </div>
+
+        <div id="gestionBenevoles" class="gestion row">
+                  <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                          <th>Nombre candidatures</th>
+                            <td>6</td>
+                        </tr>
+                        <tr>
+                          <th>Nombre étudiants acceptés</th>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                          <th>Nombre étudiants diplomé</th>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                          <th>Nombre étudiants en formation</th>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                          <th>Nombre stages proposés</th>
+                            <td>2</td>
+                        </tr>
+                      <tr>
+                          <th>Nombre pôles de formation</th>
+                            <td>4</td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
           
-        <div id="gestionEtudiant" class="row">
+        <div id="gestionProfil" class="gestion row">
           <form>
               <div class="form-group">
                 <label class="control-label required" for="name">Titre du stage<sup style="color:red">*</sup></label>

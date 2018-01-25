@@ -12,32 +12,8 @@
     <!-- Feuille(s) JS -->
     <script src="../jq/jquery-2.1.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-
-    <script>
-      function openNav() {
-          document.getElementById("navigationResponsive").style.width = "100%";
-      }
-      function closeNav() {
-          document.getElementById("navigationResponsive").style.width = "0%";
-      }
-      function openGestion(firstThingId, secondThingId, thirdThingId, fourthThingId) {
-          if (document.getElementById(firstThingId).style.display == "") {
-            document.getElementById(firstThingId).style.display = "none";
-          }
-          else {
-            document.getElementById(firstThingId).style.display = "";
-          }
-          document.getElementById(secondThingId).style.display = "none" ;
-          document.getElementById(thirdThingId).style.display = "none" ;
-          document.getElementById(fourthThingId).style.display = "none" ;
-      }
-      $(document).ready(function(){
-        $('#gestionCandidatures').hide();
-        $('#gestionFormations').hide();
-        $('#gestionStatistiques').hide();
-        $('#gestionEtudiants').hide();
-      });
-    </script>
+    <script src="../js/fonction.js"></script>
+    
     <!-- Autre(s) -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -148,22 +124,21 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="col-md-3">
-                      <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionCandidatures', 'gestionFormations', 'gestionStatistiques', 'gestionEtudiants'); return false;"><span class="fa fa-id-card-o" aria-hidden="true"></span>Gérer candidatures</button>
+                      <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionCandidatures', 'gestionStages', 'gestionStatistiques', 'gestionEtudiants']); return false;"><span class="fa fa-id-card-o" aria-hidden="true"></span>Gérer candidatures</button>
                     </div>
                     <div class="col-md-3">
-                      <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionFormations', 'gestionCandidatures', 'gestionStatistiques', 'gestionEtudiants'); return false;"><span class="fa fa-cogs" aria-hidden="true"></span>Modifier stage</button>
+                      <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionStages', 'gestionCandidatures', 'gestionStatistiques', 'gestionEtudiants']); return false;"><span class="fa fa-cogs" aria-hidden="true"></span>Modifier stage</button>
                     </div>
                     <div class="col-md-3">
-                      <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionStatistiques', 'gestionFormations', 'gestionCandidatures', 'gestionEtudiants'); return false;"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</button>
+                      <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionStatistiques', 'gestionStages', 'gestionCandidatures', 'gestionEtudiants']); return false;"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</button>
                     </div>
                     <div class="col-md-3">
-                      <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionEtudiants', 'gestionFormations', 'gestionCandidatures', 'gestionStatistiques'); return false;"><span class="fa fa-bar-chart" aria-hidden="true"></span>Etudiants</button>
-                      <!--<button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion('gestionEtudiants', 'gestionCandidatures', 'gestionFormations', 'gestionStatistiques'); return false;"><span class="fa fa-address-book-o" aria-hidden="true"></span>Etudiants</button>-->
+                      <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionEtudiants', 'gestionStages', 'gestionCandidatures', 'gestionStatistiques']); return false;"><span class="fa fa-bar-chart" aria-hidden="true"></span>Etudiants</button>
                     </div>
                   </div>
                 </div>
 
-                <div id="gestionCandidatures" class="row">
+                <div id="gestionCandidatures" class="gestion row">
                     <table class="table table-striped">
                       <thead>
                         <tr>
@@ -197,7 +172,7 @@
                       </tbody>
                     </table>
                 </div>
-                <div id="gestionFormations" class="row">
+                <div id="gestionStages" class="gestion row">
                   <form>
                       <div class="form-group">
                         <label class="control-label required" for="name">Titre du stage<sup style="color:red">*</sup></label>
@@ -237,7 +212,7 @@
                     </div>
                   </form>
                 </div>
-                <div id="gestionEtudiants" class="row">
+                <div id="gestionEtudiants" class="gestion row">
                     <table class="table table-striped">
                       <thead>
                         <tr>
@@ -269,7 +244,7 @@
                   </tbody>
                 </table>
               </div>
-              <div id="gestionStatistiques" class="row">
+              <div id="gestionStatistiques" class="gestion row">
                 <table class="table table-striped">
                   <tbody>
                   <tr>
