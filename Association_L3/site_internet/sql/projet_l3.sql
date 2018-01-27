@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 25 jan. 2018 à 22:35
+-- Généré le :  sam. 27 jan. 2018 à 11:24
 -- Version du serveur :  5.7.19
 -- Version de PHP :  5.6.31
 
@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `aeffectue` (
   `idAeffectue` int(11) NOT NULL AUTO_INCREMENT,
   `etudiantAeffectue` int(11) NOT NULL,
   `stageAeffectue` int(11) NOT NULL,
+  `tuteurAeffectue` char(100) COLLATE utf8_unicode_ci NOT NULL,
   `dateDebutAeffectue` date NOT NULL,
   `dateFinAeffectue` date NOT NULL,
   `embauche` tinyint(1) NOT NULL,
@@ -145,6 +146,7 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `mdpCompte` char(50) COLLATE utf8_unicode_ci NOT NULL,
   `questionCompte` char(200) COLLATE utf8_unicode_ci NOT NULL,
   `reponseCompte` char(100) COLLATE utf8_unicode_ci NOT NULL,
+  `nomEntrepriseCompte` char(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `typeCompte` int(1) NOT NULL COMMENT '0 : admin, 1 : entreprise, 2 : etudiant',
   `coordonneesCompte` int(11) NOT NULL,
   PRIMARY KEY (`idCompte`)

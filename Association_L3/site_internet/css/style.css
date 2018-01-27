@@ -376,7 +376,7 @@ thead {
   font-weight: bold;
 }
 
-/*****TEST LOGIN*****/
+/*****TEST LOGIN / REGISTER*****/
 
 .forgot-password, .signChoice {
   color: #22DDAA;
@@ -384,28 +384,14 @@ thead {
   font-size: 12px;
   font-weight: 700;
   display: inline-block;
+}
+
+.forgot-password {
   margin-bottom: 16px;
 }
 
-.forgot-password:hover, .forgot-password:focus {
-  text-decoration: none;
-  color: #f25b6a;
-}
-
-.signChoice:hover, .signChoice:focus {
-  text-decoration: none;
-  color: #169270;
-}
-
-/*****TEST LOGIN*****/
-
-.forgot-password, .signChoice {
-  color: #22DDAA;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 700;
-  display: inline-block;
-  margin-bottom: 16px;
+.signChoice {
+  margin-top: 16px;
 }
 
 .forgot-password:hover, .forgot-password:focus {
@@ -422,6 +408,8 @@ thead {
   background: #F6F1EE;
   color: #333;
 }
+
+/*****TEST ACTUALITES*****/
 
 .timeline {
   border-left: 3px solid #22DDAA;

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>TEST CSS & DESIGN login</title>
+    <!-- Feuille(s) CSS -->
+    <link rel="stylesheet" href="../css/reboot.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Feuille(s) JS -->
+    <script src="../jq/jquery-2.1.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/fonction.js"></script>
+
+  </head>
+
+  <body id="signUp">
+
+    <!-- Début header -->
+    <header>
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <a id ="logo" href="index.html" class="navbar-brand">(logo) - NOM ASSO</a>
+          <div id="navigation" class="navbar-right">
+            <ul class="nav navbar-nav hidden-sm hidden-xs">
+              <li><a href="#Actualité">Actualité</a></li>
+              <li><a href="#Formation">Formation</a></li>
+              <li><a href="#Partenaire">Partenaire</a></li>
+              <li><a href="#Donation">Donation</a></li>
+              <li><a href="#Contacter">Nous contacter</a></li>
+              <li><a href="#Connexion" class="navConnexion">Connexion</a> </li>
+              <li><a href="#Candidater" class="navInscription">S'inscrire</a></li>
+            </ul>
+          </div>
+          <div id="navigationResponsive" class="overlay">
+            <button type="button" class="close" aria-label="Close" onclick="closeNav()"><span aria-hidden="true">&times;</span></button>
+            <a class="closebtn" onclick="closeNav()">&times;</a>
+            <ul class="overlay-content">
+              <li><a href="http://google.Com" onclick="closeNav()">Actualités</a></li>
+              <li><a href="#Statitistique" onclick="closeNav()">Statistiques</a></li>
+              <li><a href="#Partenaire" onclick="closeNav()">Partenaires</a></li>
+              <li><a href="#Donation" onclick="closeNav()">Donation</a></li>
+              <li><a href="#Contacter" onclick="closeNav()">Nous Contacter</a></li>
+              <li><a href="#Connexion" onclick="closeNav()">Connexion</a> </li>
+              <li><a href="#Candidater" onclick="closeNav()">S'inscrire</a></li>
+            </ul>
+          </div>
+          <span class= "btn pull-right hidden-lg hidden-md" onclick="openNav()">MENU</span>
+        </div>
+      </nav>
+    </header>
+    <!-- Fin header -->
+    
+    <!--forms-->
+      <div class="container">
+        <div class="row">
+
+          <main>
+          <!--sing-up-form-->
+          <section>
+          <div class="col-lg-8 col-md-8 col-lg-offset-2 col-md-offset-2 col-sm-12 col-xs-12">
+            <div class="account-holder">
+              <h2 class="text-center">JE M'INSCRIS</h2>
+
+                  <form id="student" method="POST">
+
+                    
+                      <div class="form-group">
+                        <label class="control-label required" for="pseudo">Nom de compte<sup style="color:red">*</sup></label>
+                        <input id="pseudo" name="pseudo" type="text" class="form-control" placeholder="Entrez votre nom de compte">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="name">Nom de l'étudiant<sup style="color:red">*</sup></label>
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Entrez votre nom">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="firstname">Prénom de l'étudiant<sup style="color:red">*</sup></label>
+                        <input id="firstname" name="firstname" type="text" class="form-control" placeholder="Entrez votre prénom">
+                      </div>
+                                      
+                      <div class="form-group">
+                        <label class="control-label required" for="email">Email<sup style="color:red">*</sup></label>
+                        <input id="email" name="email" type="text" class="form-control" placeholder="Entrez votre adresse mail">
+                      </div>
+                                        
+                      <div class="form-group">
+                        <label class="control-label required" for="password">Mot de passe<sup style="color:red">*</sup></label>
+                        <input id="password" name="password1" type="password" class="form-control" placeholder="mot de passe">
+                      </div>
+                                        
+                      <div class="form-group">
+                        <label class="control-label required" for="password">Confirmer le mot de passe<sup style="color:red">*</sup></label>
+                        <input id="password" name="password2" type="password" class="form-control" placeholder="mot de passe">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="question">Question secrète (en cas de perte de mot de passe)<sup style="color:red">*</sup></label>
+                        <input id="question" name="question" type="text" class="form-control" placeholder="Entrez votre question secrète">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="answer">Réponse secrète<sup style="color:red">*</sup></label>
+                        <input id="answer" name="answer" type="text" class="form-control" placeholder="Entrez votre réponse secrète">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="phone">Téléphone<sup style="color:red">*</sup></label>
+                        <input id="phone" name="phone" type="text" class="form-control" placeholder="Entrez votre numéro de téléphone">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="address">Adresse<sup style="color:red">*</sup></label>
+                        <input id="address" name="address" type="text" class="form-control" placeholder="numéro et nom de rue">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="cp">Code postal<sup style="color:red">*</sup></label>
+                        <input id="cp" name="cp" type="text" class="form-control" placeholder="Entrez votre code postal">
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label required" for="city">Ville<sup style="color:red">*</sup></label>
+                        <input id="city" name="city" type="text" class="form-control" placeholder="Entrez votre ville">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="country">Pays<sup style="color:red">*</sup></label>
+                        <input id="country" name="country" type="text" class="form-control" placeholder="Entrez votre pays">
+                      </div>       
+
+                    
+                      <button type="submit" class="btn btn-block btn-success">S'inscrire</button>
+                    
+
+                  </form>
+
+                   <form id="company" method="POST">
+
+                    
+                      <div class="form-group">
+                        <label class="control-label required" for="pseudo">Nom de compte<sup style="color:red">*</sup></label>
+                        <input id="pseudo" name="pseudo" type="text" class="form-control" placeholder="Entrez votre nom de compte">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="compagnyName">Nom de l'entreprise<sup style="color:red">*</sup></label>
+                        <input id="compagnyName" name="compagnyName" type="text" class="form-control" placeholder="Entrez le nom de votre entreprise">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="name">Nom du gérant<sup style="color:red">*</sup></label>
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Entrez le nom du gérant de l'entreprise">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="firstname">Prénom du gérant<sup style="color:red">*</sup></label>
+                        <input id="firstname" name="firstname" type="text" class="form-control" placeholder="Entrez le prénom du gérant de l'entreprise">
+                      </div>
+                                      
+                      <div class="form-group">
+                        <label class="control-label required" for="email">Email<sup style="color:red">*</sup></label>
+                        <input id="email" name="email" type="text" class="form-control" placeholder="Entrez l'adresse mail de l'entreprise">
+                      </div>
+                                        
+                      <div class="form-group">
+                        <label class="control-label required" for="password">Mot de passe<sup style="color:red">*</sup></label>
+                        <input id="password" name="password1" type="password" class="form-control" placeholder="mot de passe">
+                      </div>
+                                        
+                      <div class="form-group">
+                        <label class="control-label required" for="password">Confirmer le mot de passe<sup style="color:red">*</sup></label>
+                        <input id="password" name="password2" type="password" class="form-control" placeholder="mot de passe">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="question">Question secrète (en cas de perte de mot de passe)<sup style="color:red">*</sup></label>
+                        <input id="question" name="question" type="text" class="form-control" placeholder="Entrez votre question secrète">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="answer">Réponse secrète<sup style="color:red">*</sup></label>
+                        <input id="answer" name="answer" type="text" class="form-control" placeholder="Entrez votre réponse secrète">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="phone">Téléphone<sup style="color:red">*</sup></label>
+                        <input id="phone" name="phone" type="text" class="form-control" placeholder="Entrez le numéro de téléphone de l'entreprise">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="address">Adresse<sup style="color:red">*</sup></label>
+                        <input id="address" name="address" type="text" class="form-control" placeholder="numéro et nom de rue">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="cp">Code postal<sup style="color:red">*</sup></label>
+                        <input id="cp" name="cp" type="text" class="form-control" placeholder="Entrez le code postal">
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label required" for="city">Ville<sup style="color:red">*</sup></label>
+                        <input id="city" name="city" type="text" class="form-control" placeholder="Entrez la ville">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label required" for="country">Pays<sup style="color:red">*</sup></label>
+                        <input id="country" name="country" type="text" class="form-control" placeholder="Entrez le pays">
+                      </div>
+                    
+
+                    
+                      <button type="submit" class="btn btn-block btn-success">S'inscrire</button>
+                    
+
+                  </form>
+
+                  <a href="#" id="studentChoice" class="signChoice" onclick="javascript:openGestion(['student', 'company']); javascript:openGestion(['companyChoice', 'studentChoice']); return false;">S'inscrire en tant qu'étudiant</a>
+                  <a href="#" id="companyChoice" class="signChoice" onclick="javascript:openGestion(['company', 'student']); javascript:openGestion(['studentChoice', 'companyChoice']); return false;">S'inscrire en tant qu'entreprise</a>
+
+              </div>       
+            </div>
+            </section>
+
+          </main>
+        </div>               
+      </div>
+    </div>
+    <!--Fin forms-->
+        
+    <!-- Footer -->
+    <footer class="little-footer">
+      <div class="container">
+        <div class="row justify-content-center">
+          <h3>NOM ASSOCIATION</h3>
+          <p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <div class="row navFooter">
+          <ul class="social list-unstyled list-inline text-center">
+            <li><a href="#">Politique de confidentialité</a></li>
+            <li><a href="#">Condition d'utilisation</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Lien4</a></li>
+          </ul>
+        </div>
+        <div class="row justify-content-center">
+          <p class="copyright"> © 2017 Copyright Blablabla</p>
+        </div>
+      </div>
+    </footer>
+    <!-- Fin footer -->
+
+  </body>
+
+</html>

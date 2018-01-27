@@ -143,3 +143,12 @@ function initConnexion(){
 if (window.location.href.match('testLogin.html') != null) {
   window.onload = initConnexion;
 }
+
+/* Initialisation spécifique à la page d'inscription */
+
+if (window.location.href.match('testRegister.html') != null) {
+  $(document).ready(function(){
+    $('#company').hide();
+    $('#studentChoice').hide();
+  });
+}
