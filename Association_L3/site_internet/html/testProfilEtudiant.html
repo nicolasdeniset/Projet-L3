@@ -1,165 +1,166 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <title>TEST CSS & DESIGN</title>
-    <!-- Feuille(s) CSS -->
-    <link rel="stylesheet" href="../css/reboot.css">
-    <link rel="stylesheet" href="../css/bootstrap-theme.css">
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <!-- Feuille(s) JS -->
-    <script src="../jq/jquery-2.1.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/fonction.js"></script>
 
-    <!-- Autre(s) -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8">
-  </head>
+<head>
+  <meta charset="utf-8">
+  <title>TEST CSS & DESIGN</title>
+  <!-- Feuille(s) CSS -->
+  <link rel="stylesheet" href="../css/reboot.css">
+  <link rel="stylesheet" href="../css/bootstrap-theme.css">
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <!-- Feuille(s) JS -->
+  <script src="../jq/jquery-2.1.1.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/fonction.js"></script>
 
-  <body>
-    <header>
-      <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-          <a id ="logo" href="index.html" class="navbar-brand">(logo) - NOM ASSO</a>
-          <div id="navigation" class="navbar-right">
-            <ul class="nav navbar-nav hidden-sm hidden-xs">
-              <li><a href="#Actualité">Actualité</a></li>
-              <li><a href="#Formation">Formation</a></li>
-              <li><a href="#Partenaire">Partenaire</a></li>
-              <li><a href="#Donation">Donation</a></li>
-              <li><a href="#Contacter">Nous contacter</a></li>
-              <li><a href="#Administration" class="navActive">Tableau d'administration</a></li>
-            </ul>
-          </div>
-          <div id="navigationResponsive" class="overlay">
-            <button type="button" class="close" aria-label="Close" onclick="closeNav()"><span aria-hidden="true">&times;</span></button>
-            <a class="closebtn" onclick="closeNav()">&times;</a>
-            <ul class="overlay-content">
-              <li><a href="http://google.Com" onclick="closeNav()">Actualités</a></li>
-              <li><a href="#Statitistique" onclick="closeNav()">Statistiques</a></li>
-              <li><a href="#Partenaire" onclick="closeNav()">Partenaires</a></li>
-              <li><a href="#Donation" onclick="closeNav()">Donation</a></li>
-              <li><a href="#Contacter" onclick="closeNav()">Nous Contacter</a></li>
-              <li><a href="#Connexion" class="navActive" onclick="closeNav()">Tableau d'administration</a></li>
-            </ul>
-          </div>
-          <span class= "btn pull-right hidden-lg hidden-md" onclick="openNav()">MENU</span>
+  <!-- Autre(s) -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <a id="logo" href="index.html" class="navbar-brand">(logo) - NOM ASSO</a>
+        <div id="navigation" class="navbar-right">
+          <ul class="nav navbar-nav hidden-sm hidden-xs">
+            <li><a href="#Actualité">Actualité</a></li>
+            <li><a href="#Formation">Formation</a></li>
+            <li><a href="#Partenaire">Partenaire</a></li>
+            <li><a href="#Donation">Donation</a></li>
+            <li><a href="#Contacter">Nous contacter</a></li>
+            <li><a href="#Administration" class="navActive">Tableau d'administration</a></li>
+          </ul>
         </div>
-      </nav>
-    </header>
-    <div class="container-fluid">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-              <li><a href="#"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>
-              <li><a href="#"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>
-              <li><a href="#"><span class="fa fa-comments-o" aria-hidden="true"></span>Messagerie</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-              <li><a href="#"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>
-              <li><a href="#"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-              <li><a href="#"><span class="fa fa-users" aria-hidden="true"></span>Partenaires <span class="badge badge-success hidden-sm hidden-md">2</span></a></li>
-              <li><a href="#"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises <span class="badge badge-success hidden-sm hidden-md">1</span></a></li>
-              <li class="active"><a href="#"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>
-            </ul>
-            <ul class="nav nav-sidebar">
-              <li><a class="activeDropdown" href="#"><span class="fa fa-bars" aria-hidden="true"></span>Association<span class="fa fa-caret-down" aria-hidden="true"></span></a>
-                <ul>
-                  <li><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>
-                  <li><a href="#"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>
-                  <li><a href="#"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualité</a></li>
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav nav-sidebar">
-              <li><a href=""><span class="fa fa-user" aria-hidden="true"></span>Paramètre compte</a></li>
-              <li><a href=""><span class="fa fa-sign-out" aria-hidden="true"></span>Déconnexion</a></li>
-            </ul>
+        <div id="navigationResponsive" class="overlay">
+          <button type="button" class="close" aria-label="Close" onclick="closeNav()"><span aria-hidden="true">&times;</span></button>
+          <a class="closebtn" onclick="closeNav()">&times;</a>
+          <ul class="overlay-content">
+            <li><a href="http://google.Com" onclick="closeNav()">Actualités</a></li>
+            <li><a href="#Statitistique" onclick="closeNav()">Statistiques</a></li>
+            <li><a href="#Partenaire" onclick="closeNav()">Partenaires</a></li>
+            <li><a href="#Donation" onclick="closeNav()">Donation</a></li>
+            <li><a href="#Contacter" onclick="closeNav()">Nous Contacter</a></li>
+            <li><a href="#Connexion" class="navActive" onclick="closeNav()">Tableau d'administration</a></li>
+          </ul>
         </div>
-        <main class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
-          <section>
-            <a href="#" class="btn btn-retour">Retour</a>
-            <h1 class="page-header">Profil de l'étudiant MARTIN DUPOND</h1>
-            <div class="item">
-              <div class="row">
-                <div class="col-md-6 col-sm-12">
-                  <h3>MARTIN DUPOND<small>#33</small></h3>
-                  <ul>
-                    <li>Date inscription : 01-02-2018</li>
-                    <li>Pôle de formation : Abuja (Nigeria) ; Ibadan (Nigeria)</li>
-                    <li>Compte actif : Oui</li>
-                    <li>Ambauché : Non</li>
+        <span class="btn pull-right hidden-lg hidden-md" onclick="openNav()">MENU</span>
+      </div>
+    </nav>
+  </header>
+  <div class="container-fluid">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li><a href="#"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>
+        <li><a href="#"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>
+        <li><a href="#"><span class="fa fa-comments-o" aria-hidden="true"></span>Messagerie</a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a href="#"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>
+        <li><a href="#"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a href="#"><span class="fa fa-users" aria-hidden="true"></span>Partenaires <span class="badge badge-success hidden-sm hidden-md">2</span></a></li>
+        <li><a href="#"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises <span class="badge badge-success hidden-sm hidden-md">1</span></a></li>
+        <li class="active"><a href="#"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a class="activeDropdown" href="#"><span class="fa fa-bars" aria-hidden="true"></span>Association<span class="fa fa-caret-down" aria-hidden="true"></span></a>
+          <ul>
+            <li><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>
+            <li><a href="#"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>
+            <li><a href="#"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualité</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a href=""><span class="fa fa-user" aria-hidden="true"></span>Paramètre compte</a></li>
+        <li><a href=""><span class="fa fa-sign-out" aria-hidden="true"></span>Déconnexion</a></li>
+      </ul>
+    </div>
+    <main class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+      <section>
+        <a href="#" class="btn btn-retour">Retour</a>
+        <h1 class="page-header">Profil de l'étudiant MARTIN DUPOND</h1>
+        <div class="item">
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <h3>MARTIN DUPOND<small>#33</small></h3>
+              <ul>
+                <li>Date inscription : 01-02-2018</li>
+                <li>Pôle de formation : Abuja (Nigeria) ; Ibadan (Nigeria)</li>
+                <li>Compte actif : Oui</li>
+                <li>Ambauché : Non</li>
 
-                  </ul>
-                  <ul>
-                    <li>Âge : 18 ans <small>(01-01-2000)</small></li>
-                    <li>Coordonnées postales: Abuja Nigeria xxxxx patati patata</li>
-                    <li>Adresse email : NULL</li>
-                    <li>Numéro de téléphone : xxx xxx xxx xxx xxx</li>
-                  </ul>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                  <h3>STATISTIQUES</h3>
+              </ul>
+              <ul>
+                <li>Âge : 18 ans <small>(01-01-2000)</small></li>
+                <li>Coordonnées postales: Abuja Nigeria xxxxx patati patata</li>
+                <li>Adresse email : NULL</li>
+                <li>Numéro de téléphone : xxx xxx xxx xxx xxx</li>
+              </ul>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <h3>STATISTIQUES</h3>
               <table class="table table-striped">
                 <tbody>
                   <tr>
                     <th>Nombre candidatures</th>
-                      <td>6</td>
+                    <td>6</td>
                   </tr>
                   <tr>
                     <th>Nombre formations réalisé</th>
-                      <td>4</td>
+                    <td>4</td>
                   </tr>
                   <tr>
                     <th>Nombre formations certifiés</th>
-                      <td>3</td>
+                    <td>3</td>
                   </tr>
                   <tr>
                     <th>Nombre stages réalisés</th>
-                      <td>2</td>
+                    <td>2</td>
                   </tr>
                 </tbody>
               </table>
-              </div>
             </div>
-            <div class="row">
-              <div class="col-md-6 col-sm-12">
-                <a href="#about" class="btn btn-info btn-block"><span class="fa fa-eye" aria-hidden="true"></span>Acceder à la lettre de motivation</a>
-              </div>
-              <div class="col-md-6 col-sm-12">
-                <a href="#about" class="btn btn-info btn-block"><span class="fa fa-eye" aria-hidden="true"></span>Acceder à son curicullum vitae</a>
-              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <a href="#about" class="btn btn-info btn-block"><span class="fa fa-eye" aria-hidden="true"></span>Acceder à la lettre de motivation</a>
             </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="col-md-4">
-                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionFormations', 'gestionStages', 'gestionEtudiant']); return false;"><span class="fa fa-book" aria-hidden="true"></span>Formations réalisées</button>
-                </div>
-                <div class="col-md-4">
-                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionStages', 'gestionFormations', 'gestionEtudiant']); return false;"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages réalisés</button>
-                </div>
-                <div class="col-md-4">
-                  <button  class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionEtudiant', 'gestionFormations', 'gestionStages']); return false;"><span class="fa fa-cogs" aria-hidden="true"></span>Gestion profil</button>
-                </div>
+            <div class="col-md-6 col-sm-12">
+              <a href="#about" class="btn btn-info btn-block"><span class="fa fa-eye" aria-hidden="true"></span>Acceder à son curicullum vitae</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-4">
+                <button class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionFormations', 'gestionStages']); return false;"><span class="fa fa-book" aria-hidden="true"></span>Formations réalisées</button>
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion(['gestionStages', 'gestionFormations']); return false;"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages réalisés</button>
+              </div>
+              <div class="col-md-4">
+                <form><button type="submit" value="supprimer" class="btn btn-inline btn-danger btn-block"><span class="fa fa-trash-o" aria-hidden="true"></span>Supprimer étudiant</button></form>
               </div>
             </div>
           </div>
-          <div id="gestionFormations" class="gestion row">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Titre Formation</th>
-                    <th>Date formation</th>
-                    <th>Certifiés</th>
-                  </tr>
-                </thead>
-              <tbody>
+        </div>
+        <div id="gestionFormations" class="gestion row">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Titre Formation</th>
+                <th>Date formation</th>
+                <th>Certifiés</th>
+              </tr>
+            </thead>
+            <tbody>
               <tr>
                 <td>1</td>
                 <td>formation</td>
@@ -181,17 +182,17 @@
             </tbody>
           </table>
         </div>
-          <div id="gestionStages" class="gestion row">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Titre entreprise</th>
-                    <th>Date stage</th>
-                    <th>Embauché</th>
-                  </tr>
-                </thead>
-              <tbody>
+        <div id="gestionStages" class="gestion row">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Titre entreprise</th>
+                <th>Date stage</th>
+                <th>Embauché</th>
+              </tr>
+            </thead>
+            <tbody>
               <tr>
                 <td>1</td>
                 <td>Entreprise</td>
@@ -213,58 +214,21 @@
             </tbody>
           </table>
         </div>
-        <div id="gestionEtudiant" class="gestion row">
-          <form>
-              <div class="form-group">
-                <label class="control-label required" for="name">Titre du stage<sup style="color:red">*</sup></label>
-                <input id="titre" name="titre" type="text" class="form-control" placeholder="Entrez le titre du stage" value="TITRE STAGE">
-              </div>
-              <div class="form-group">
-                <label class="control-label required" for="name">Description du stage<sup style="color:red">*</sup></label>
-                <input id="description" name="description" type="text" class="form-control" placeholder="Entrez la description du stage" value="DESCRIPTION STAGE">
-              </div>
-              <div class="form-group">
-                <label class="control-label required" for="name">Durée du stage<sup style="color:red">*</sup></label>
-                <input id="duree" name="duree" type="number" class="form-control" placeholder="Entrez la durée de la formation" value="85">
-              </div>
-              <div class="form-group">
-                <label class="control-label required" for="name">Fichier du stage<sup style="color:red">*</sup></label>
-                <input id="fichier" name="fichier" type="file" class="" placeholder="Entrez le fichier de la formation">
-              </div>
-              <div class="form-group">
-                <label class="control-label required" for="name">Lien du stage<sup style="color:red">*</sup></label>
-                <input id="description" name="description" type="text" class="form-control" placeholder="Lien du stage" value="LIEN STAGE">
-              </div>
-              <div class="form-group">
-                <label class="control-label required">Disponniblité du stage<sup style="color:red">*</sup></label><br>
-                <label class="radio-inline"><input type="radio" name="optradio" checked>Public</label>
-                <label class="radio-inline"><input type="radio" name="optradio">Privée</label>
-              </div>
-            <div class="col-md-12">
-              <div class="col-md-4">
-                <button  class="btn btn-inline btn-danger btn-block"><span class="fa fa-trash-o" aria-hidden="true"></span>Supprimer formation</button>
-              </div>
-              <div class="col-md-4">
-                <button  class="btn btn-inline btn-info btn-block">Annuler changement</button>
-              </div>
-              <div class="col-md-4">
-                <button  class="btn btn-inline btn-success btn-block"><span class="fa fa-check" aria-hidden="true"></span>Sauvegarder formation</button>
-              </div>
-            </div>
-          </form>
-        </div>
-        </section>
-        </main>
-      </div>
-    <!-- Bootstrap core JavaScript
+      </section>
+    </main>
+  </div>
+  <!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="../../assets/js/vendor/holder.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-  </body>
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+  </script>
+  <script src="../../dist/js/bootstrap.min.js"></script>
+  <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+  <script src="../../assets/js/vendor/holder.min.js"></script>
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+
 </html>

@@ -6,7 +6,7 @@ function closeNav() {
 }
 /* On passe en paramètre un tableau contenant les ID des objets concernés, le premier étant l'item à sélectionner*/
 function openGestion(tabThingsId) {
-  if (document.getElementById(tabThingsId[0]).style.display == "") {
+  if ((document.getElementById(tabThingsId[0]).style.display == "") && (window.location.href.match('testRegister.html') == null)) {
     document.getElementById(tabThingsId[0]).style.display = "none";
   }
   else {
@@ -142,4 +142,12 @@ function initConnexion(){
 
 if (window.location.href.match('testLogin.html') != null) {
   window.onload = initConnexion;
+}
+
+/* Fonction et initialisation spécifique à la page d'inscription */
+
+if (window.location.href.match('testRegister.html') != null) {
+  $(document).ready(function(){
+    $('#company').hide();
+  });
 }

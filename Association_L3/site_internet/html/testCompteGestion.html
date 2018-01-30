@@ -56,16 +56,16 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
         <li><a href="#"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>
-        <li class="active"><a href="#"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>
+        <li><a href="#"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>
         <li><a href="#"><span class="fa fa-comments-o" aria-hidden="true"></span>Messagerie</a></li>
       </ul>
       <ul class="nav nav-sidebar">
-        <li><a href="#"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>
+        <li class="active"><a href="#"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>
         <li><a href="#"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>
       </ul>
       <ul class="nav nav-sidebar">
-        <li><a href="#"><span class="fa fa-users" aria-hidden="true"></span>Partenaires</a></li>
-        <li><a href="#"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises</a></li>
+        <li><a href="#"><span class="fa fa-users" aria-hidden="true"></span>Partenaires <span class="badge badge-success hidden-sm hidden-md">2</span></a></li>
+        <li><a href="#"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises <span class="badge badge-success hidden-sm hidden-md">1</span></a></li>
         <li><a href="#"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>
       </ul>
       <ul class="nav nav-sidebar">
@@ -84,72 +84,42 @@
     </div>
     <main class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
       <section>
-        <h1 class="page-header">Nos statistiques</h1>
-
+        <h1 class="page-header">Gestion de compte</h1>
         <div class="row">
-          <!-- Item-->
-          <div class="item col-md-4 col-sm-6">
-            <img class="img-responsive center-block" src="../images/001-network.svg" alt="Une image" height="75px" width="75px" />
-            <h3 class="text-center">75 Partenaires</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-          </div>
-          <!-- End Item-->
-          <!-- Item-->
-          <div class="item col-md-4 col-sm-6">
-            <img class="img-responsive center-block" src="../images/benevole.svg" alt="Une image" height="75px" width="75px" />
-            <h3 class="text-center">75 bénévoles</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-          </div>
-          <!-- End Item-->
-          <!-- Item-->
-          <div class="item col-md-4 col-sm-6">
-            <img class="img-responsive center-block" src="../images/005-maps-and-flags.svg" alt="Une image" height="75px" width="75px" />
-            <h3 class="text-center">75 Pôles en Afrique</h3>
-            <p>loremLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-          </div>
-          <!-- End Item-->
-          <!-- Item-->
-          <div class="item col-md-4 col-sm-6">
-            <img class="img-responsive center-block" src="../images/studentgirl.svg" alt="Une image" height="75px" width="75px" />
-            <h3 class="text-center">75 étudiants</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-          </div>
-          <!-- End Item-->
-          <!-- Item-->
-          <div class="item col-md-4 col-sm-6">
-            <img class="img-responsive center-block" src="../images/chapeauEtudiant.svg" alt="Une image" height="75px" width="75px" />
-            <h3 class="text-center">75 Certifiés</h3>
-            <p>loremLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-          </div>
-          <!-- End Item-->
-          <!-- Item-->
-          <div class="item col-md-4 col-sm-6">
-            <img class="img-responsive center-block" src="../images/formation.svg" alt="Une image" height="75px" width="75px" />
-            <h3 class="text-center">75 Formations</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-          </div>
-          <!-- End Item-->
-          <!-- Item-->
-          <div class="item col-md-4 col-sm-6">
-            <img class="img-responsive center-block" src="../images/networking.svg" alt="Une image" height="75px" width="75px" />
-            <h3 class="text-center">75 stagiaires</h3>
-            <p>loremLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-          </div>
-          <!-- End Item-->
-          <!-- Item-->
-          <div class="item col-md-4 col-sm-6">
-            <img class="img-responsive center-block" src="../images/job.svg" alt="Une image" height="75px" width="75px" />
-            <h3 class="text-center">75 Créations d'emploi</h3>
-            <p>loremLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-          </div>
-          <!-- End Item-->
-          <!-- Item-->
-          <div class="item col-md-4 col-sm-6">
-            <img class="img-responsive center-block" src="../images/studentman.svg" alt="Une image" height="75px" width="75px" />
-            <h3 class="text-center">75 Stages proposés</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-          </div>
-          <!-- End Item-->
+          <form>
+            <div class="form-group">
+              <label class="control-label required" for="name">Titre de la formation<sup style="color:red">*</sup></label>
+              <input id="titre" name="titre" type="text" class="form-control" placeholder="Entrez le titre de la formation" value="TITRE FORMATION">
+            </div>
+            <div class="form-group">
+              <label class="control-label required" for="name">Description de la formation<sup style="color:red">*</sup></label>
+              <input id="description" name="description" type="text" class="form-control" placeholder="Entrez la description de la formation" value="DESCRIPTION FORMATION">
+            </div>
+            <div class="form-group">
+              <label class="control-label required" for="name">Durée de la formation<sup style="color:red">*</sup></label>
+              <input id="duree" name="duree" type="number" class="form-control" placeholder="Entrez la durée de la formation" value="85">
+            </div>
+            <div class="form-group">
+              <label class="control-label required" for="name">Fichier de la formation<sup style="color:red">*</sup></label>
+              <input id="fichier" name="fichier" type="file" class="" placeholder="Entrez le fichier de la formation">
+            </div>
+            <div class="form-group">
+              <label class="control-label required">Disponniblité de la formation<sup style="color:red">*</sup></label><br>
+              <label class="radio-inline"><input type="radio" name="optradio" checked>Public</label>
+              <label class="radio-inline"><input type="radio" name="optradio">Privée</label>
+            </div>
+            <div class="col-md-12">
+              <div class="col-md-4">
+                <button type="submit" value="supprimer" class="btn btn-inline btn-danger btn-block"><span class="fa fa-trash-o" aria-hidden="true"></span>Supprimer compte</button>
+              </div>
+              <div class="col-md-4">
+                <button type="reset" class="btn btn-inline btn-info btn-block">Annuler changement</button>
+              </div>
+              <div class="col-md-4">
+                <button type="submit" value="enregistrer" class="btn btn-inline btn-success btn-block"><span class="fa fa-check" aria-hidden="true"></span>Sauvegarder changement</button>
+              </div>
+            </div>
+          </form>
         </div>
       </section>
     </main>
