@@ -56,29 +56,23 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
         <li><a href="#"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>
-        <li><a href="#"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>
-        <li><a href="#"><span class="fa fa-comments-o" aria-hidden="true"></span>Messagerie</a></li>
+        <li><a href="./testStatistiqueAdmin.html"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>
       </ul>
       <ul class="nav nav-sidebar">
-        <li class="active"><a href="#"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>
-        <li><a href="#"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>
+        <li><a href="./testFormationAdmin.html"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>
+        <li><a href="./testStageAdmin.html"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>
       </ul>
       <ul class="nav nav-sidebar">
-        <li><a href="#"><span class="fa fa-users" aria-hidden="true"></span>Partenaires <span class="badge badge-success hidden-sm hidden-md">2</span></a></li>
-        <li><a href="#"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises <span class="badge badge-success hidden-sm hidden-md">1</span></a></li>
-        <li><a href="#"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>
+        <li><a href="./testEntrepriseAdmin.html"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises</a></li>
+        <li><a href="./testEtudiantAdmin.html"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>
       </ul>
       <ul class="nav nav-sidebar">
-        <li><a class="activeDropdown" href="#"><span class="fa fa-bars" aria-hidden="true"></span>Association<span class="fa fa-caret-down" aria-hidden="true"></span></a>
-          <ul>
-            <li><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>
-            <li><a href="#"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>
-            <li><a href="#"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualité</a></li>
-          </ul>
-        </li>
+        <li><a href="./testPoleFormation.html"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>
+        <li><a href="./testActualiteAdmin.html"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualité</a></li>
       </ul>
       <ul class="nav nav-sidebar">
-        <li><a href=""><span class="fa fa-user" aria-hidden="true"></span>Paramètre compte</a></li>
+        <li><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>
+        <li class="active"><a href="./testCompteGestion.html"><span class="fa fa-user" aria-hidden="true"></span>Paramètre compte</a></li>
         <li><a href=""><span class="fa fa-sign-out" aria-hidden="true"></span>Déconnexion</a></li>
       </ul>
     </div>
@@ -88,25 +82,52 @@
         <div class="row">
           <form>
             <div class="form-group">
-              <label class="control-label required" for="name">Titre de la formation<sup style="color:red">*</sup></label>
-              <input id="titre" name="titre" type="text" class="form-control" placeholder="Entrez le titre de la formation" value="TITRE FORMATION">
+              <label class="control-label required" for="email">Email<sup style="color:red">*</sup></label>
+              <input id="email" name="email" type="text" class="form-control" placeholder="Entrez votre adresse mail" value="martindupond@mail.fr">
+            </div>
+
+            <div class="form-group">
+              <label class="control-label required" for="password">Mot de passe<sup style="color:red">*</sup></label>
+              <input id="password" name="password1" type="password" class="form-control" placeholder="mot de passe" value="martindupond">
+            </div>
+
+            <div class="form-group">
+              <label class="control-label required" for="password">Confirmer le mot de passe<sup style="color:red">*</sup></label>
+              <input id="password" name="password2" type="password" class="form-control" placeholder="mot de passe" value="martindupond">
+            </div>
+
+            <div class="form-group">
+              <label class="control-label required" for="question">Question secrète (en cas de perte de mot de passe)<sup style="color:red">*</sup></label>
+              <input id="question" name="question" type="text" class="form-control" placeholder="Entrez votre question secrète" value="question secrète ?">
+            </div>
+
+            <div class="form-group">
+              <label class="control-label required" for="answer">Réponse secrète<sup style="color:red">*</sup></label>
+              <input id="answer" name="answer" type="text" class="form-control" placeholder="Entrez votre réponse secrète" value="réponse secrète">
+            </div>
+
+            <div class="form-group">
+              <label class="control-label required" for="phone">Téléphone<sup style="color:red">*</sup></label>
+              <input id="phone" name="phone" type="text" class="form-control" placeholder="Entrez votre numéro de téléphone" value="0381346898">
+            </div>
+
+            <div class="form-group">
+              <label class="control-label required" for="address">Adresse<sup style="color:red">*</sup></label>
+              <input id="address" name="address" type="text" class="form-control" placeholder="numéro et nom de rue" value="adresse">
+            </div>
+
+            <div class="form-group">
+              <label class="control-label required" for="cp">Code postal<sup style="color:red">*</sup></label>
+              <input id="cp" name="cp" type="text" class="form-control" placeholder="Entrez votre code postal" value="25000">
             </div>
             <div class="form-group">
-              <label class="control-label required" for="name">Description de la formation<sup style="color:red">*</sup></label>
-              <input id="description" name="description" type="text" class="form-control" placeholder="Entrez la description de la formation" value="DESCRIPTION FORMATION">
+              <label class="control-label required" for="city">Ville<sup style="color:red">*</sup></label>
+              <input id="city" name="city" type="text" class="form-control" placeholder="Entrez votre ville" value="Ville">
             </div>
+
             <div class="form-group">
-              <label class="control-label required" for="name">Durée de la formation<sup style="color:red">*</sup></label>
-              <input id="duree" name="duree" type="number" class="form-control" placeholder="Entrez la durée de la formation" value="85">
-            </div>
-            <div class="form-group">
-              <label class="control-label required" for="name">Fichier de la formation<sup style="color:red">*</sup></label>
-              <input id="fichier" name="fichier" type="file" class="" placeholder="Entrez le fichier de la formation">
-            </div>
-            <div class="form-group">
-              <label class="control-label required">Disponniblité de la formation<sup style="color:red">*</sup></label><br>
-              <label class="radio-inline"><input type="radio" name="optradio" checked>Public</label>
-              <label class="radio-inline"><input type="radio" name="optradio">Privée</label>
+              <label class="control-label required" for="country">Pays<sup style="color:red">*</sup></label>
+              <input id="country" name="country" type="text" class="form-control" placeholder="Entrez votre pays" value="France">
             </div>
             <div class="col-md-12">
               <div class="col-md-4">
