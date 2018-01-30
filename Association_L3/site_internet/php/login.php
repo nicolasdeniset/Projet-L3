@@ -97,30 +97,30 @@
 		//-----------------------------------------------------
 		$erreurs = array();
 
-		// Vérification que le pseudo n'existe pas dans la BD
-		$bd = nd_bd_connexion();
-		$txtPseudo = trim($_POST['txtPseudo']);
-		$txtPseudo = mysqli_real_escape_string($bd, $txtPseudo);
+		// Vérification que le mail existe dans la BD
+		$bd = bd_connexion();
+		$txtemail = trim($_POST['txtemail']);
+		$txtemail = mysqli_real_escape_string($bd, $txtemail);
 
 		$S = "SELECT	count(*)
-				FROM	users
-				WHERE	usPseudo = '$txtPseudo'";
+				FROM	compte
+				WHERE	nomCompte = '$txtemail'";
 
 		$R = mysqli_query($bd, $S) or nd_bd_erreur($bd, $S);
 
 		$D = mysqli_fetch_row($R);
 
 		if ($D[0] == 0) {
-			$erreurs[] = 'Le pseudo n\'existe pas !';
+			$erreurs[] = 'Le mail n\'existe pas !';
 		}
 
 		// Vérification du mot de passe
 		$txtPasse = trim($_POST['txtPasse']);
 		$txtPasse = md5($txtPasse);
-		$S2 = "SELECT	usPasse
-				FROM	users
-				WHERE	usPseudo = '$txtPseudo'
-				AND	usPasse = '$txtPasse'";
+		$S2 = "SELECT	mdpCompte
+				FROM	compte
+				WHERE	nomCompte = '$txtemail'
+				AND	mdpCompte = '$txtPasse'";
 		$R2 = mysqli_query($bd, $S2) or nd_bd_erreur($bd, $S2);
 
 		$D2 = mysqli_fetch_row($R2);
@@ -137,15 +137,15 @@
 		// Ouverture de la session et redirection vers la page cuiteur
 		//-----------------------------------------------------
 		session_start();
-		$_SESSION['usPseudo'] = $txtPseudo;
-		$S3 = "SELECT	usID
-				FROM	users
-				WHERE	usPseudo = '$txtPseudo'";
+		$_SESSION['nomCompte'] = $txtemail;
+		$S3 = "SELECT	idCompte
+				FROM	compte
+				WHERE	nomCompte = '$txtemail'";
 		$R3 = mysqli_query($bd, $S3) or nd_bd_erreur($bd, $S3);
 
 		$D3 = mysqli_fetch_row($R3);
-		$_SESSION['usID'] = $D3[0];
-		header ('location: php/acceuil.php');
+		$_SESSION['idCompte'] = $D3[0]; 
+		header ('location: acceuil.php');
 
 		exit();			// EXIT : le script est terminé
 }
