@@ -63,14 +63,17 @@
         <section>
         <div class="col-lg-8 col-md-8 col-lg-offset-2 col-md-offset-2 col-sm-12 col-xs-12">
           <div class="account-holder">
-            <h2 class="text-center">JE M'INSCRIS</h2>
+            <h2 id="titleRegister" class="text-center">JE M'INSCRIS EN TANT QU'ETUDIANT</h2>
 
             <div class="row">
-              <div id="studentChoice" class="text col-md-6 col-sm-12" onclick="javascript:openGestion(['student', 'company']); return false;">
-                <a href="#" class="btn btn-success btn-block">En tant qu'étudiant</a>
+              <div id="studentChoice" class="text col-md-4 col-sm-12" onclick="javascript:openGestion(['student', 'company', 'volunteer']); javascript:enTantQue('EN TANT QU\'ETUDIANT'); return false;">
+                <button href="#" class="btn btn-success btn-block">En tant qu'étudiant</button>
               </div>
-              <div id="companyChoice" class="text col-md-6 col-sm-12" onclick="javascript:openGestion(['company', 'student']); return false;">
-                <a href="#" class="btn btn-success btn-block">En tant qu'entreprise</a>
+              <div id="voluteerChoice" class="text col-md-4 col-sm-12" onclick="javascript:openGestion(['volunteer', 'company', 'student']); javascript:enTantQue('EN TANT QUE BENEVOLE'); return false;">
+                <button href="#" class="btn btn-success btn-block">En tant que bénévole</button>
+              </div>
+              <div id="companyChoice" class="text col-md-4 col-sm-12" onclick="javascript:openGestion(['company', 'student', 'volunteer']); javascript:enTantQue('EN TANT QU\'ENTREPRISE'); return false;">
+                <button href="#" class="btn btn-success btn-block">En tant qu'entreprise</button>
               </div>
             </div>
 
@@ -139,6 +142,87 @@
                     <label class="control-label required" for="country">Pays<sup style="color:red">*</sup></label>
                     <input id="country" name="country" type="text" class="form-control" placeholder="Entrez votre pays">
                   </div>       
+
+                  <div class="form-group">
+                    <label class="control-label required" for="country">Qu'est ce qui vous motive à rejoindre l'association ?<sup style="color:red">*</sup></label>
+                    <textarea id="motivation" name="motivation" class="form-control" placeholder="Entrez vos motivations"></textarea>
+                  </div>  
+
+                
+                  <button type="submit" class="btn btn-block btn-success">S'inscrire</button>
+                
+              </form>
+
+              <form id="volunteer" method="POST">
+                
+                  <div class="form-group">
+                    <label class="control-label required" for="pseudo">Nom de compte<sup style="color:red">*</sup></label>
+                    <input id="pseudo" name="pseudo" type="text" class="form-control" placeholder="Entrez votre nom de compte">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label required" for="name">Nom du bénévole<sup style="color:red">*</sup></label>
+                    <input id="name" name="name" type="text" class="form-control" placeholder="Entrez votre nom">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label required" for="firstname">Prénom du bénévole<sup style="color:red">*</sup></label>
+                    <input id="firstname" name="firstname" type="text" class="form-control" placeholder="Entrez votre prénom">
+                  </div>
+                                  
+                  <div class="form-group">
+                    <label class="control-label required" for="email">Email<sup style="color:red">*</sup></label>
+                    <input id="email" name="email" type="text" class="form-control" placeholder="Entrez votre adresse mail">
+                  </div>
+                                    
+                  <div class="form-group">
+                    <label class="control-label required" for="password">Mot de passe<sup style="color:red">*</sup></label>
+                    <input id="password" name="password1" type="password" class="form-control" placeholder="mot de passe">
+                  </div>
+                                    
+                  <div class="form-group">
+                    <label class="control-label required" for="password">Confirmer le mot de passe<sup style="color:red">*</sup></label>
+                    <input id="password" name="password2" type="password" class="form-control" placeholder="mot de passe">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label required" for="question">Question secrète (en cas de perte de mot de passe)<sup style="color:red">*</sup></label>
+                    <input id="question" name="question" type="text" class="form-control" placeholder="Entrez votre question secrète">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label required" for="answer">Réponse secrète<sup style="color:red">*</sup></label>
+                    <input id="answer" name="answer" type="text" class="form-control" placeholder="Entrez votre réponse secrète">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label required" for="phone">Téléphone<sup style="color:red">*</sup></label>
+                    <input id="phone" name="phone" type="text" class="form-control" placeholder="Entrez votre numéro de téléphone">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label required" for="address">Adresse<sup style="color:red">*</sup></label>
+                    <input id="address" name="address" type="text" class="form-control" placeholder="numéro et nom de rue">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label required" for="cp">Code postal<sup style="color:red">*</sup></label>
+                    <input id="cp" name="cp" type="text" class="form-control" placeholder="Entrez votre code postal">
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label required" for="city">Ville<sup style="color:red">*</sup></label>
+                    <input id="city" name="city" type="text" class="form-control" placeholder="Entrez votre ville">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label required" for="country">Pays<sup style="color:red">*</sup></label>
+                    <input id="country" name="country" type="text" class="form-control" placeholder="Entrez votre pays">
+                  </div>   
+
+                  <div class="form-group">
+                    <label class="control-label required" for="country">Qu'est ce qui vous motive à rejoindre l'association ?<sup style="color:red">*</sup></label>
+                    <textarea id="motivation" name="motivation" class="form-control" placeholder="Entrez vos motivations"></textarea>
+                  </div>    
 
                 
                   <button type="submit" class="btn btn-block btn-success">S'inscrire</button>
@@ -214,6 +298,11 @@
                   <div class="form-group">
                     <label class="control-label required" for="country">Pays<sup style="color:red">*</sup></label>
                     <input id="country" name="country" type="text" class="form-control" placeholder="Entrez le pays">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label required" for="country">Qu'est ce qui vous motive à rejoindre l'association ?<sup style="color:red">*</sup></label>
+                    <textarea id="motivation" name="motivation" class="form-control" placeholder="Entrez vos motivations"></textarea>
                   </div>
                                 
                   <button type="submit" class="btn btn-block btn-success">S'inscrire</button>
