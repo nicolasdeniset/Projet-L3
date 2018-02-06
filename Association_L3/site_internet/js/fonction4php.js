@@ -17,6 +17,13 @@ function openGestion(tabThingsId) {
   }
 }
 
+/* Fonction spécifique à l'écran de connexion pour choisir le type d'inscription */
+
+function enTantQue(who) {
+  document.getElementById("titleRegister").innerHTML = "JE M'INSCRIS " + who;
+}
+
+
 $(document).ready(function(){
   $('.gestion').hide();
 });
