@@ -53,38 +53,15 @@ function html_head($titre, $css = '../css/style.css') {
 				'<script src="../js/fonction.js"></script>',
 			'</head>';
 }
-
 /*******************************************************************************
  * Génère le code HTML du pied des pages.
 *******************************************************************************/
 function html_pied($little = "") {
 	if($little != "") {
-<<<<<<< HEAD
 		echo '<footer class="little-footer">';
 	}
 	else{
 		echo '<footer>';
-=======
-		echo '<footer class="little-footer">',
-		'<div class="container">',
-			'<div class="row justify-content-center">',
-				'<h3>NOM ASSOCIATION</h3>',
-					'<p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
-				'</div>',
-			'<div class="row navFooter">',
-				'<ul class="social list-unstyled list-inline text-center">',
-					'<li><a href="#">Politique de confidentialité</a></li>',
-					'<li><a href="#">Condition d\'utilisation</a></li>',
-					'<li><a href="#">FAQ</a></li>',
-					'<li><a href="#">Plan du site</a></li>',
-				'</ul>',
-			'</div>',
-			'<div class="row justify-content-center">',
-				'<p class="copyright"> © 2017 Copyright Blablabla</p>',
-			'</div>',
-		'</div>',
-    '</footer></html>';
->>>>>>> 4c87361a375249d7d0ee4c782e958f7fa637d5e8
 	}
 	echo '<div class="container">',
 				'<div class="row justify-content-center">',
@@ -110,7 +87,6 @@ function html_pied($little = "") {
  * Génère le code HTML du header des pages.
 *******************************************************************************/
 function html_header($session = "") {
-<<<<<<< HEAD
 		echo '<body>',
 				 	'<header>',
 				 		'<nav class="navbar navbar-default navbar-fixed-top">',
@@ -154,77 +130,8 @@ function html_header($session = "") {
 								'</div>',
 							'</nav>',
 						'</header>';
-=======
-	if($session != "") {
-		echo '<body id="signIn">',
-			  '<header>',
-				'<nav class="navbar navbar-default navbar-fixed-top">',
-				  '<div class="container">',
-					'<a id="logo" href="accueil.php" class="navbar-brand">(logo) - NOM ASSO</a>',
-					'<div id="navigation" class="navbar-right">',
-					  '<ul class="nav navbar-nav hidden-sm hidden-xs">',
-						'<li><a href="#Actualité">Actualité</a></li>',
-						'<li><a href="#Formation">Formation</a></li>',
-						'<li><a href="#Partenaire">Partenaire</a></li>',
-						'<li><a href="#Donation">Donation</a></li>',
-						'<li><a href="#Contacter">Nous contacter</a></li>',
-						'<li><a href="#Connexion" class="navConnexion">Connexion</a> </li>',
-						'<li><a href="#Candidater" class="navInscription">S\'inscrire</a></li>',
-					  '</ul>',
-					'</div>',
-					'<div id="navigationResponsive" class="overlay">',
-					  '<button type="button" class="close" aria-label="Close" onclick="closeNav()"><span aria-hidden="true">&times;</span></button>',
-					  '<a class="closebtn" onclick="closeNav()">&times;</a>',
-					  '<ul class="overlay-content">',
-						'<li><a href="http://google.Com" onclick="closeNav()">Actualités</a></li>',
-						'<li><a href="#Statitistique" onclick="closeNav()">Statistiques</a></li>',
-						'<li><a href="#Partenaire" onclick="closeNav()">Partenaires</a></li>',
-						'<li><a href="#Donation" onclick="closeNav()">Donation</a></li>',
-						'<li><a href="#Contacter" onclick="closeNav()">Nous Contacter</a></li>',
-						'<li><a href="#Connexion" onclick="closeNav()">Connexion</a> </li>',
-						'<li><a href="#Candidater" onclick="closeNav()">S\'inscrire</a></li>',
-					  '</ul>',
-					'</div>',
-					'<span class="btn pull-right hidden-lg hidden-md" onclick="openNav()">MENU</span>',
-				  '</div>',
-				'</nav>',
-			  '</header>';
-	}
-	else {
-		echo '<body>',
-		  '<header>',
-			'<nav class="navbar navbar-default navbar-fixed-top">',
-			  '<div class="container">',
-				'<a id="logo" href="accueil.php" class="navbar-brand">(logo) - NOM ASSO</a>',
-				'<div id="navigation" class="navbar-right">',
-				  '<ul class="nav navbar-nav hidden-sm hidden-xs">',
-					'<li><a href="#Actualité">Actualité</a></li>',
-					'<li><a href="#Formation">Formation</a></li>',
-					'<li><a href="#Partenaire">Partenaire</a></li>',
-					'<li><a href="#Donation">Donation</a></li>',
-					'<li><a href="#Contacter">Nous contacter</a></li>',
-					'<li><a href="#Administration" class="navActive">Tableau d\'administration</a></li>',
-				  '</ul>',
-				'</div>',
-				'<div id="navigationResponsive" class="overlay">',
-				  '<button type="button" class="close" aria-label="Close" onclick="closeNav()"><span aria-hidden="true">&times;</span></button>',
-				  '<a class="closebtn" onclick="closeNav()">&times;</a>',
-				  '<ul class="overlay-content">',
-					'<li><a href="http://google.Com" onclick="closeNav()">Actualités</a></li>',
-					'<li><a href="#Statitistique" onclick="closeNav()">Statistiques</a></li>',
-					'<li><a href="#Partenaire" onclick="closeNav()">Partenaires</a></li>',
-					'<li><a href="#Donation" onclick="closeNav()">Donation</a></li>',
-					'<li><a href="#Contacter" onclick="closeNav()">Nous Contacter</a></li>',
-					'<li><a href="#Connexion" class="navActive" onclick="closeNav()">Tableau d\'administration</a></li>',
-				  '</ul>',
-				'</div>',
-				'<span class="btn pull-right hidden-lg hidden-md" onclick="openNav()">MENU</span>',
-			  '</div>',
-			'</nav>',
-		  '</header>';
-	}
->>>>>>> 4c87361a375249d7d0ee4c782e958f7fa637d5e8
 }
+
 
 
 //___________________________________________________________________
