@@ -77,7 +77,7 @@ function html_pied($little = "") {
 				'<p class="copyright"> © 2017 Copyright Blablabla</p>',
 			'</div>',
 		'</div>',
-    '</footer>';
+    '</footer></html>';
 	}
 	else {
 		echo '<footer>',
@@ -111,7 +111,7 @@ function html_header($session = "") {
 			  '<header>',
 				'<nav class="navbar navbar-default navbar-fixed-top">',
 				  '<div class="container">',
-					'<a id="logo" href="index.html" class="navbar-brand">(logo) - NOM ASSO</a>',
+					'<a id="logo" href="accueil.php" class="navbar-brand">(logo) - NOM ASSO</a>',
 					'<div id="navigation" class="navbar-right">',
 					  '<ul class="nav navbar-nav hidden-sm hidden-xs">',
 						'<li><a href="#Actualité">Actualité</a></li>',
@@ -146,7 +146,7 @@ function html_header($session = "") {
 		  '<header>',
 			'<nav class="navbar navbar-default navbar-fixed-top">',
 			  '<div class="container">',
-				'<a id="logo" href="index.html" class="navbar-brand">(logo) - NOM ASSO</a>',
+				'<a id="logo" href="accueil.php" class="navbar-brand">(logo) - NOM ASSO</a>',
 				'<div id="navigation" class="navbar-right">',
 				  '<ul class="nav navbar-nav hidden-sm hidden-xs">',
 					'<li><a href="#Actualité">Actualité</a></li>',
@@ -189,27 +189,7 @@ function html_header($session = "") {
  * Le connecteur sera ainsi accessible partout.
  */
 function bd_connexion() {
-  $bd = mysqli_connect("localhost","root","","association_l3");
-
-  if ($bd !== FALSE) {
-    mysqli_set_charset($bd, 'utf8') or bd_erreurExit('<h4>Erreur lors du chargement du jeu de caractères utf8</h4>');
-    $GLOBALS['bd'] = $bd;
-    return;			// Sortie connexion OK
-  }
-
-  // Erreur de connexion
-  // Collecte des informations facilitant le debugage
-  $msg = '<h4>Erreur de connexion base MySQL</h4>'
-          .'<div style="margin: 20px auto; width: 350px;">'
-              .'APP_BD_URL : '.APP_BD_URL
-              .'<br>APP_BD_USER : '.APP_BD_USER
-              .'<br>APP_BD_PASS : '.APP_BD_PASS
-              .'<br>APP_BD_NOM : '.APP_BD_NOM
-              .'<p>Erreur MySQL num&eacute;ro : '.mysqli_connect_errno($bd)
-              .'<br>'.mysqli_connect_error($bd)
-          .'</div>';
-
-  bd_erreurExit($msg);
+  return mysqli_connect("localhost","root","association_l3","association_l3");
 }
 
 /**
@@ -217,23 +197,22 @@ function bd_connexion() {
  *
  * @param string		$sql	Requête SQL ou message
  */
-function bd_erreur($sql) {
-	$errNum = mysqli_errno($GLOBALS['bd']);
-	$errTxt = mysqli_error($GLOBALS['bd']);
+function bd_erreur($bd, $sql) {
+	$errNum = mysqli_errno($bd);
+	$errTxt = mysqli_error($bd);
 
 	// Collecte des informations facilitant le debugage
-	$msg = '<h4>Erreur de requ&ecirc;te</h4>'
+	$msg = '<h4>Erreur de requête</h4>'
 			."<pre><b>Erreur mysql :</b> $errNum"
 			."<br> $errTxt"
-			."<br><br><b>Requ&ecirc;te :</b><br> $sql"
+			."<br><br><b>Requête :</b><br> $sql"
 			.'<br><br><b>Pile des appels de fonction</b>';
 
 	// Récupération de la pile des appels de fonction
 	$msg .= '<table border="1" cellspacing="0" cellpadding="2">'
-			.'<tr><td>Fonction</td><td>Appel&eacute;e ligne</td>'
+			.'<tr><td>Fonction</td><td>Appelée ligne</td>'
 			.'<td>Fichier</td></tr>';
 
-	// http://www.php.net/manual/fr/function.debug-backtrace.php
 	$appels = debug_backtrace();
 	for ($i = 0, $iMax = count($appels); $i < $iMax; $i++) {
 		$msg .= '<tr align="center"><td>'
@@ -256,35 +235,15 @@ function bd_erreur($sql) {
  * @param string	$msg	Message affiché ou stocké.
  */
 function bd_erreurExit($msg) {
-	ob_end_clean();		// Supression de tout ce qui a pu être déja généré
+	ob_end_clean();		// Supression de tout ce qui
+					// a pu être déja généré
 
-	// Si on est en phase de développement, on affiche le message
-	if (APP_TEST) {
-		echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>',
-				'Erreur base de données</title></head><body>',
-				$msg,
-				'</body></html>';
-		exit();
-	}
-
-	// Si on est en phase de production on stocke les
-	// informations de débuggage dans un fichier d'erreurs
-	// et on affiche un message sibyllin.
-	$buffer = date('d/m/Y H:i:s')."\n$msg\n";
-	error_log($buffer, 3, 'erreurs_bd.txt');
-
-	// Génération d'une page spéciale erreur
-	html_head('24sur7');
-
-	echo '<h1>24sur7 est overbook&eacute;</h1>',
-			'<div id="bcDescription">',
-				'<h3 class="gauche">Merci de r&eacute;essayez dans un moment</h3>',
-			'</div>';
-
-	html_pied();
-
+	echo '<!DOCTYPE html><html><head><meta charset="ISO-8859-1"><title>',
+			'Erreur base de données</title></head><body>',
+			$msg,
+			'</body></html>';
 	exit();
-}
+	}
 
 function verifie_session(){
 	session_start();
