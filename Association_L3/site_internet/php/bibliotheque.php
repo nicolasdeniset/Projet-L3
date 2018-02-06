@@ -37,7 +37,7 @@ define('APP_PAGE_ACCUEIL', 'accueil.php');
  * @param string	$titre		Titre de la page
  * @param string	$css		url de la feuille de styles liée
  ******************************************************************************/
-function html_head($titre) {
+function html_head($titre, $css = '../css/style.css') {
 	echo '<!DOCTYPE HTML>',
 		'<html>',
 			'<head>',
@@ -189,7 +189,7 @@ function html_header($session = "") {
  * Le connecteur sera ainsi accessible partout.
  */
 function bd_connexion() {
-  $bd = mysqli_connect("localhost","association_l3","association_l3","association_l3");
+  $bd = mysqli_connect("localhost","root","association_l3","association_l3");
 
   if ($bd !== FALSE) {
     mysqli_set_charset($bd, 'utf8') or bd_erreurExit('<h4>Erreur lors du chargement du jeu de caractères utf8</h4>');
