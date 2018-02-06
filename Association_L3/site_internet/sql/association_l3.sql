@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 06 fév. 2018 à 13:13
+-- Généré le :  mar. 06 fév. 2018 à 13:28
 -- Version du serveur :  5.7.19
 -- Version de PHP :  5.6.31
 
@@ -85,19 +85,6 @@ CREATE TABLE IF NOT EXISTS `asuivi` (
   `dateFinAsuivi` date NOT NULL,
   `certificationAsuivi` tinyint(1) NOT NULL,
   PRIMARY KEY (`idAsuivi`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `benevole`
---
-
-DROP TABLE IF EXISTS `benevole`;
-CREATE TABLE IF NOT EXISTS `benevole` (
-  `idBenevole` int(11) NOT NULL AUTO_INCREMENT,
-  `coordonneesBenevole` int(11) NOT NULL,
-  PRIMARY KEY (`idBenevole`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------

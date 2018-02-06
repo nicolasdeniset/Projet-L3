@@ -45,12 +45,18 @@
 
           '<section  id="login" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">',
             '<h2 class="text-center">JE ME CONNECTE</h2>',
-            '<div class="row">',
+            '<div class="row">';
+			
+			// Si il y a des erreurs on les affiche
+			if ($nbErr > 0) {
+				echo '<strong>Les erreurs suivantes ont &eacute;t&eacute; d&eacute;tect&eacute;es</strong>';
+				for ($i = 0; $i < $nbErr; $i++) {
+					echo '<br>', $erreurs[$i];
+				}
+			}
 			
 			
-			
-			
-              '<form method="POST" action="login.php" accept-charset="iso-8859-1">',
+              echo '<form method="POST" action="login.php" accept-charset="iso-8859-1">',
                 '<div class="form-group">',
                   '<label class="control-label required" for="email">Email<sup style="color:red">*</sup></label>',
                   '<input id="email" name="txtPseudo" type="text" class="form-control" placeholder="Entrez votre pseudo">',
@@ -107,7 +113,7 @@
 				FROM	compte
 				WHERE	nomCompte = '$txtPseudo'";
 
-		$R = mysqli_query($bd, $S) or nd_bd_erreur($bd, $S);
+		$R = mysqli_query($bd, $S) or bd_erreur($bd, $S);
 
 		$D = mysqli_fetch_row($R);
 
@@ -122,7 +128,7 @@
 				FROM	compte
 				WHERE	nomCompte = '$txtPseudo'
 				AND	mdpCompte = '$txtPasse'";
-		$R2 = mysqli_query($bd, $S2) or nd_bd_erreur($bd, $S2);
+		$R2 = mysqli_query($bd, $S2) or bd_erreur($bd, $S2);
 
 		$D2 = mysqli_fetch_row($R2);
 		if (($D2[0] == 0)||($D2[0] < 0)) {
@@ -142,11 +148,11 @@
 		$S3 = "SELECT	idCompte
 				FROM	compte
 				WHERE	nomCompte = '$txtPseudo'";
-		$R3 = mysqli_query($bd, $S3) or nd_bd_erreur($bd, $S3);
+		$R3 = mysqli_query($bd, $S3) or bd_erreur($bd, $S3);
 
 		$D3 = mysqli_fetch_row($R3);
 		$_SESSION['idCompte'] = $D3[0]; 
-		header ('location: acceuil.php');
+		header ('location: accueil.php');
 
 		exit();			// EXIT : le script est terminé
 }

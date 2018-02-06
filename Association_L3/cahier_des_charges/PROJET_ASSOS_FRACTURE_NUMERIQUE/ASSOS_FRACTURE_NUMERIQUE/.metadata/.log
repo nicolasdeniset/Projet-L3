@@ -1,0 +1,13 @@
+!SESSION 2018-01-23 13:33:56.614 -----------------------------------------------
+eclipse.buildId=unknown
+java.fullversion=JRE 1.7.0 IBM J9 2.6 Windows 8 amd64-64 Compressed References 20130306_140761 (JIT enabled, AOT enabled)
+J9VM - R26_Java726_SR4_FP1_20130306_1011_B140761
+JIT  - r11.b03_20130131_32403ifx1
+GC   - R26_Java726_SR4_FP1_20130306_1011_B140761_CMPRSS
+J9CL - 20130306_140761
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
+Framework arguments:  -product com.ibm.rational.rsa.product.v90.ide
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product com.ibm.rational.rsa.product.v90.ide
+
+!ENTRY org.eclipse.ui 2 2 2018-01-23 13:34:33.914
+!MESSAGE Invalid preference category path: org.eclipse.birt.chart.reportitem.ui.ChartPreferencePage (bundle: org.eclipse.birt.chart.ui.extension, page: org.eclipse.birt.chart.ui.swt.fieldassist.preferences.FieldAssistPreferencePage)
