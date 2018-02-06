@@ -16,10 +16,10 @@
 define('APP_TEST', TRUE);
 
 // Gestion des infos base de données
-define('APP_BD_URL', '');
-define('APP_BD_USER', '');
+define('APP_BD_URL', 'localhost');
+define('APP_BD_USER', 'root');
 define('APP_BD_PASS', '');
-define('APP_BD_NOM', '');
+define('APP_BD_NOM', 'association_l3');
 
 define('APP_NOM_APPLICATION','');
 
@@ -37,25 +37,20 @@ define('APP_PAGE_ACCUEIL', 'accueil.php');
  * @param string	$titre		Titre de la page
  * @param string	$css		url de la feuille de styles liée
  ******************************************************************************/
-function html_head($titre, $css = '../css/style.css') {
-	if ($css == '-') {
-		$css = '';
-	} else {
-		$css = "<link rel='stylesheet' href='$css'>";
-	}
-
+function html_head($titre) {
 	echo '<!DOCTYPE HTML>',
 		'<html>',
 			'<head>',
 				'<meta charset="UTF-8">',
 				'<title>', $titre, '</title>',
-				$css,
 				'<link rel="stylesheet" href="../css/reboot.css">',
 				'<link rel="stylesheet" href="../css/bootstrap-theme.css">',
 				'<link rel="stylesheet" href="../css/bootstrap.css">',
 				'<link rel="stylesheet" href="../css/font-awesome.min.css">',
+				'<link rel="stylesheet" href="../css/style.css">',
 				'<script src="../jq/jquery-2.1.1.min.js"></script>',
 				'<script src="../js/bootstrap.min.js"></script>',
+				'<script src="../js/fonction.js"></script>',
 			'</head>';
 }
 
@@ -107,6 +102,81 @@ function html_pied($little = "") {
 	}
 }
 
+/*******************************************************************************
+ * Génère le code HTML du header des pages.
+*******************************************************************************/
+function html_header($session = "") {
+	if($session != "") {
+		echo '<body id="signIn">',
+			  '<header>',
+				'<nav class="navbar navbar-default navbar-fixed-top">',
+				  '<div class="container">',
+					'<a id="logo" href="index.html" class="navbar-brand">(logo) - NOM ASSO</a>',
+					'<div id="navigation" class="navbar-right">',
+					  '<ul class="nav navbar-nav hidden-sm hidden-xs">',
+						'<li><a href="#Actualité">Actualité</a></li>',
+						'<li><a href="#Formation">Formation</a></li>',
+						'<li><a href="#Partenaire">Partenaire</a></li>',
+						'<li><a href="#Donation">Donation</a></li>',
+						'<li><a href="#Contacter">Nous contacter</a></li>',
+						'<li><a href="#Connexion" class="navConnexion">Connexion</a> </li>',
+						'<li><a href="#Candidater" class="navInscription">S\'inscrire</a></li>',
+					  '</ul>',
+					'</div>',
+					'<div id="navigationResponsive" class="overlay">',
+					  '<button type="button" class="close" aria-label="Close" onclick="closeNav()"><span aria-hidden="true">&times;</span></button>',
+					  '<a class="closebtn" onclick="closeNav()">&times;</a>',
+					  '<ul class="overlay-content">',
+						'<li><a href="http://google.Com" onclick="closeNav()">Actualités</a></li>',
+						'<li><a href="#Statitistique" onclick="closeNav()">Statistiques</a></li>',
+						'<li><a href="#Partenaire" onclick="closeNav()">Partenaires</a></li>',
+						'<li><a href="#Donation" onclick="closeNav()">Donation</a></li>',
+						'<li><a href="#Contacter" onclick="closeNav()">Nous Contacter</a></li>',
+						'<li><a href="#Connexion" onclick="closeNav()">Connexion</a> </li>',
+						'<li><a href="#Candidater" onclick="closeNav()">S\'inscrire</a></li>',
+					  '</ul>',
+					'</div>',
+					'<span class="btn pull-right hidden-lg hidden-md" onclick="openNav()">MENU</span>',
+				  '</div>',
+				'</nav>',
+			  '</header>';
+	}
+	else {
+		echo '<body>',
+		  '<header>',
+			'<nav class="navbar navbar-default navbar-fixed-top">',
+			  '<div class="container">',
+				'<a id="logo" href="index.html" class="navbar-brand">(logo) - NOM ASSO</a>',
+				'<div id="navigation" class="navbar-right">',
+				  '<ul class="nav navbar-nav hidden-sm hidden-xs">',
+					'<li><a href="#Actualité">Actualité</a></li>',
+					'<li><a href="#Formation">Formation</a></li>',
+					'<li><a href="#Partenaire">Partenaire</a></li>',
+					'<li><a href="#Donation">Donation</a></li>',
+					'<li><a href="#Contacter">Nous contacter</a></li>',
+					'<li><a href="#Administration" class="navActive">Tableau d\'administration</a></li>',
+				  '</ul>',
+				'</div>',
+				'<div id="navigationResponsive" class="overlay">',
+				  '<button type="button" class="close" aria-label="Close" onclick="closeNav()"><span aria-hidden="true">&times;</span></button>',
+				  '<a class="closebtn" onclick="closeNav()">&times;</a>',
+				  '<ul class="overlay-content">',
+					'<li><a href="http://google.Com" onclick="closeNav()">Actualités</a></li>',
+					'<li><a href="#Statitistique" onclick="closeNav()">Statistiques</a></li>',
+					'<li><a href="#Partenaire" onclick="closeNav()">Partenaires</a></li>',
+					'<li><a href="#Donation" onclick="closeNav()">Donation</a></li>',
+					'<li><a href="#Contacter" onclick="closeNav()">Nous Contacter</a></li>',
+					'<li><a href="#Connexion" class="navActive" onclick="closeNav()">Tableau d\'administration</a></li>',
+				  '</ul>',
+				'</div>',
+				'<span class="btn pull-right hidden-lg hidden-md" onclick="openNav()">MENU</span>',
+			  '</div>',
+			'</nav>',
+		  '</header>';
+	}
+}
+
+
 //___________________________________________________________________
 /*******************************************************************************
  *  Fonctions gestion erreurs
@@ -119,7 +189,7 @@ function html_pied($little = "") {
  * Le connecteur sera ainsi accessible partout.
  */
 function bd_connexion() {
-  $bd = mysqli_connect(APP_BD_URL, APP_BD_USER, APP_BD_PASS, APP_BD_NOM);
+  $bd = mysqli_connect("localhost","association_l3","association_l3","association_l3");
 
   if ($bd !== FALSE) {
     mysqli_set_charset($bd, 'utf8') or bd_erreurExit('<h4>Erreur lors du chargement du jeu de caractères utf8</h4>');
@@ -216,4 +286,23 @@ function bd_erreurExit($msg) {
 	exit();
 }
 
+function verifie_session(){
+	session_start();
+	if(!isset($_SESSION['idCompte'])){
+		session_unset();
+		session_destroy();
+		$cookieParams = session_get_cookie_params();
+		setcookie(session_name(), 
+			'', 
+			time() - 86400,
+         	$cookieParams['path'], 
+         	$cookieParams['domain'],
+         	$cookieParams['secure'],
+         	$cookieParams['httponly']
+    	);
+		header('location: login.php');
+		exit();
+	}
+	return false;
+}
 ?>

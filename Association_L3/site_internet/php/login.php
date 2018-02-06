@@ -10,7 +10,7 @@
 		// On n'est dans un premier affichage de la page. On
 		// intialise les zones de saisie.
 		$nbErr = 0;
-		$_POST['txtemail'] = $_POST['txtPasse'] = '';
+		$_POST['txtPseudo'] = $_POST['txtPasse'] = '';
 
 	} else {
 		// On est dans la phase de soumission du formulaire on en
@@ -25,7 +25,8 @@
 	// Affichage de la page
 	//-----------------------------------------------------
 	html_head("TEST CSS & DESIGN login");
-
+	html_header();
+	
 	echo '<div class="container">',
       '<div class="row">',
         '<main>',
@@ -52,7 +53,7 @@
               '<form method="POST" action="login.php" accept-charset="iso-8859-1">',
                 '<div class="form-group">',
                   '<label class="control-label required" for="email">Email<sup style="color:red">*</sup></label>',
-                  '<input id="email" name="txtemail" type="text" class="form-control" placeholder="Entrez votre adresse mail">',
+                  '<input id="email" name="txtPseudo" type="text" class="form-control" placeholder="Entrez votre pseudo">',
                 '</div>',
                 '<div class="form-group">',
                   '<label class="control-label required" for="email">Mot de passe<sup style="color:red">*</sup></label>',
@@ -61,7 +62,7 @@
                 '<a href="#" class="forgot-password">Mot de passe oublié ?</a>',
                 '<div class="form-group">',
                   '<input type="checkbox" id="condition" name="condition" value="condition">',
-                  '<label class="checkCondition" for="condition">Se souvenir de moi</a></label>',
+                  '<label class="checkCondition" for="condition"> Se souvenir de moi</a></label>',
                 '</div>',
                 '<button class="btn btn-block btn-success" name="btnValider">Se connecter</button>',
               '</form>',
@@ -87,7 +88,7 @@
 	* la base de donnée et qui vérifie que le mot de passe correspond bien
 	* au même que celui qui se trouve dans la base de donnée.
 	* Si aucune erreur n'est détecté on connecte l'utilisateur et on le redirige
-	* vers la page cuiteur.
+	* vers la page acceuil.
 	*
 	* @return array $erreurs		Tableau des erreurs détectées.
 	*/
@@ -97,21 +98,21 @@
 		//-----------------------------------------------------
 		$erreurs = array();
 
-		// Vérification que le mail existe dans la BD
+		// Vérification que le pseudo existe dans la BD
 		$bd = bd_connexion();
-		$txtemail = trim($_POST['txtemail']);
-		$txtemail = mysqli_real_escape_string($bd, $txtemail);
+		$txtPseudo = trim($_POST['txtPseudo']);
+		$txtPseudo = mysqli_real_escape_string($bd, $txtPseudo);
 
 		$S = "SELECT	count(*)
 				FROM	compte
-				WHERE	nomCompte = '$txtemail'";
+				WHERE	nomCompte = '$txtPseudo'";
 
 		$R = mysqli_query($bd, $S) or nd_bd_erreur($bd, $S);
 
 		$D = mysqli_fetch_row($R);
 
 		if ($D[0] == 0) {
-			$erreurs[] = 'Le mail n\'existe pas !';
+			$erreurs[] = 'Le pseudo n\'existe pas !';
 		}
 
 		// Vérification du mot de passe
@@ -119,7 +120,7 @@
 		$txtPasse = md5($txtPasse);
 		$S2 = "SELECT	mdpCompte
 				FROM	compte
-				WHERE	nomCompte = '$txtemail'
+				WHERE	nomCompte = '$txtPseudo'
 				AND	mdpCompte = '$txtPasse'";
 		$R2 = mysqli_query($bd, $S2) or nd_bd_erreur($bd, $S2);
 
@@ -137,10 +138,10 @@
 		// Ouverture de la session et redirection vers la page cuiteur
 		//-----------------------------------------------------
 		session_start();
-		$_SESSION['nomCompte'] = $txtemail;
+		$_SESSION['nomCompte'] = $txtPseudo;
 		$S3 = "SELECT	idCompte
 				FROM	compte
-				WHERE	nomCompte = '$txtemail'";
+				WHERE	nomCompte = '$txtPseudo'";
 		$R3 = mysqli_query($bd, $S3) or nd_bd_erreur($bd, $S3);
 
 		$D3 = mysqli_fetch_row($R3);
