@@ -17,13 +17,6 @@ function openGestion(tabThingsId) {
   }
 }
 
-/* Fonction spécifique à l'écran de connexion pour choisir le type d'inscription */
-
-function enTantQue(who) {
-  document.getElementById("titleRegister").innerHTML = "JE M'INSCRIS " + who;
-}
-
-
 $(document).ready(function(){
   $('.gestion').hide();
 });
@@ -153,8 +146,13 @@ if (window.location.href.match('login.php') != null) {
 
 /* Fonction et initialisation spécifique à la page d'inscription */
 
+function enTantQue(who) {
+  document.getElementById("titleRegister").innerHTML = "JE M'INSCRIS " + who;
+}
+
 if (window.location.href.match('inscription.php') != null) {
   $(document).ready(function(){
     $('#company').hide();
+    $('#volunteer').hide();
   });
 }
