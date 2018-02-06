@@ -50,7 +50,7 @@ function html_head($titre, $css = '../css/style.css') {
 				'<link rel="stylesheet" href="../css/style.css">',
 				'<script src="../jq/jquery-2.1.1.min.js"></script>',
 				'<script src="../js/bootstrap.min.js"></script>',
-				'<script src="../js/fonction.js"></script>',
+				'<script src="../js/fonction4php.js"></script>',
 			'</head>';
 }
 /*******************************************************************************
@@ -83,6 +83,41 @@ function html_pied($little = "") {
 			'</footer></body></html>';
 }
 
+/*******************************************************************************
+ * Génère le code HTML du aside + du main pour les pages tableaux de bords
+*******************************************************************************/
+function html_aside_main_debut(){
+	echo '<div class="container-fluid">',
+    		'<div class="col-sm-3 col-md-2 sidebar">',
+      		'<ul class="nav nav-sidebar">',
+        		'<li><a href="#"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>',
+		        '<li><a href="./testStatistiqueAdmin.html"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>',
+      		'</ul>',
+      		'<ul class="nav nav-sidebar">',
+        		'<li><a href="./testFormationAdmin.html"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>',
+        		'<li><a href="./testStageAdmin.html"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>',
+      		'</ul>',
+      		'<ul class="nav nav-sidebar">',
+        		'<li class="active"><a href="./testEntrepriseAdmin.html"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises</a></li>',
+        		'<li><a href="./testEtudiantAdmin.html"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>',
+      		'</ul>',
+		      '<ul class="nav nav-sidebar">',
+        		'<li><a href="./testPoleFormation.html"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>',
+        		'<li><a href="./testActualiteAdmin.html"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualité</a></li>',
+      		'</ul>',
+      		'<ul class="nav nav-sidebar">',
+        		'<li><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>',
+		        '<li><a href="./testCompteGestion.html"><span class="fa fa-user" aria-hidden="true"></span>Paramètre compte</a></li>',
+        		'<li><a href=""><span class="fa fa-sign-out" aria-hidden="true"></span>Déconnexion</a></li>',
+      		'</ul>',
+    		'</div>',
+				'<main class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">',
+      		'<section>';
+}
+
+function html_aside_main_fin(){
+	echo 	'</section></main></div>';
+}
 /*******************************************************************************
  * Génère le code HTML du header des pages.
 *******************************************************************************/
@@ -146,7 +181,7 @@ function html_header($session = "") {
  * Le connecteur sera ainsi accessible partout.
  */
 function bd_connexion() {
-  return mysqli_connect("localhost","root","association_l3","association_l3");
+  return mysqli_connect("localhost","root","","association_l3");
 }
 
 /**
