@@ -180,10 +180,32 @@ function html_header($session = "") {
  * variable global : $GLOBALS['bd']
  * Le connecteur sera ainsi accessible partout.
  */
-function bd_connexion() {
+/*function bd_connexion() {
   return mysqli_connect("localhost","root","","association_l3");
-}
+}*/
+function bd_connexion() {
+$bd = mysqli_connect(APP_BD_URL, APP_BD_USER, APP_BD_PASS, APP_BD_NOM);
 
+  if ($bd !== FALSE) {
+    mysqli_set_charset($bd, 'utf8') or bd_erreurExit('<h4>Erreur lors du chargement du jeu de caractères utf8</h4>');
+    $GLOBALS['bd'] = $bd;
+    return;			// Sortie connexion OK
+  }
+
+  // Erreur de connexion
+  // Collecte des informations facilitant le debugage
+  $msg = '<h4>Erreur de connexion base MySQL</h4>'
+          .'<div style="margin: 20px auto; width: 350px;">'
+              .'APP_BD_URL : '.APP_BD_URL
+              .'<br>APP_BD_USER : '.APP_BD_USER
+              .'<br>APP_BD_PASS : '.APP_BD_PASS
+              .'<br>APP_BD_NOM : '.APP_BD_NOM
+              .'<p>Erreur MySQL num&eacute;ro : '.mysqli_connect_errno($bd)
+              .'<br>'.mysqli_connect_error($bd)
+          .'</div>';
+
+  bd_erreurExit($msg);
+}
 /**
  * Traitement erreur mysql, affichage et exit.
  *
