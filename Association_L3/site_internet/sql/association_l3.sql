@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 06 fév. 2018 à 13:01
+-- Généré le :  mar. 06 fév. 2018 à 13:13
 -- Version du serveur :  5.7.19
 -- Version de PHP :  5.6.31
 
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `questionCompte` char(200) COLLATE utf8_unicode_ci NOT NULL,
   `reponseCompte` char(100) COLLATE utf8_unicode_ci NOT NULL,
   `nomEntrepriseCompte` char(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `typeCompte` int(1) NOT NULL COMMENT '0 : admin, 1 : entreprise, 2 : etudiant',
+  `typeCompte` int(1) NOT NULL COMMENT '0 : admin, 1 : benevole, 2 : entreprise, 3 : etudiant',
   `coordonneesCompte` int(11) NOT NULL,
   PRIMARY KEY (`idCompte`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
