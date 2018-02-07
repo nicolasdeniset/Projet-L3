@@ -306,6 +306,8 @@
 
 		$R2 = mysqli_query($bd, $S2) or bd_erreur($bd, $S2);
 		
+		session_unset();
+		session_destroy();
 		header ('location: accueil.php');
 		exit();			// EXIT : le script est terminé
 	}
