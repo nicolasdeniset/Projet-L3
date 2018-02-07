@@ -159,9 +159,7 @@
 	//_______________________________________________________________
 
 	/**
-	* Permet de connecter un utilisateur si aucun problème n'est détecté.
-	*
-	* fonction qui permet de changer les informations reliées au compte de
+	* Fonction qui permet de changer les informations reliées au compte de
 	* l'utilisateur et qui vérifie que les changements sont correctes et peuvent
 	* être ajouté à la base de donnée.
 	* Si aucune erreur n'est détecté on change ses informations et on le redirige
