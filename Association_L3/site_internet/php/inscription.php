@@ -423,7 +423,7 @@
 				mdpCompte = '$txtPasse',
 				questionCompte = '$txtQuestion',
 				reponseCompte = '$txtReponse',
-				typeCompte = 1,
+				typeCompte = 2,
 				coordonneesCompte = '$idCoordonnees'";
 
 		mysqli_query($bd, $S3) or bd_erreur($bd, $S3);
