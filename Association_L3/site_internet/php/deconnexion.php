@@ -8,7 +8,7 @@ session_start();
 	'<body>';	
 	session_unset();
 	session_destroy();
-	header('location: ../accueil.php');
+	header('location: accueil.php');
 	exit();
 	echo '<body>',
 		'<html>';

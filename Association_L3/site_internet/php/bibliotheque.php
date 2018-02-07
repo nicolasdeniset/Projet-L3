@@ -18,7 +18,7 @@ define('APP_TEST', TRUE);
 // Gestion des infos base de données
 define('APP_BD_URL', 'localhost');
 define('APP_BD_USER', 'root');
-define('APP_BD_PASS', '');
+define('APP_BD_PASS', 'association_l3');
 define('APP_BD_NOM', 'association_l3');
 
 define('APP_NOM_APPLICATION','association_l3');
@@ -86,29 +86,29 @@ function html_pied($little = "") {
 /*******************************************************************************
  * Génère le code HTML du aside + du main pour les pages tableaux de bords
 *******************************************************************************/
-function html_aside_main_debut(){
+function html_aside_main_debut($active1,$active2,$active3,$active4,$active5,$active6,$active7,$active8,$active9,$active10){
 	echo '<div class="container-fluid">',
     		'<div class="col-sm-3 col-md-2 sidebar">',
       		'<ul class="nav nav-sidebar">',
-        		'<li><a href="#"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>',
-		        '<li><a href="./testStatistiqueAdmin.html"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>',
+        		'<li ' ,$active1,'><a href="#"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>',
+		        '<li ' ,$active2,'><a href="./testStatistiqueAdmin.html"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>',
       		'</ul>',
       		'<ul class="nav nav-sidebar">',
-        		'<li><a href="./testFormationAdmin.html"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>',
-        		'<li><a href="./testStageAdmin.html"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>',
+        		'<li ' ,$active3,'><a href="./testFormationAdmin.html"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>',
+        		'<li ' ,$active4,'><a href="./testStageAdmin.html"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>',
       		'</ul>',
       		'<ul class="nav nav-sidebar">',
-        		'<li class="active"><a href="./testEntrepriseAdmin.html"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises</a></li>',
-        		'<li><a href="./testEtudiantAdmin.html"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>',
+        		'<li ' ,$active5,'><a href="./testEntrepriseAdmin.html"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises</a></li>',
+        		'<li ' ,$active6,'><a href="./testEtudiantAdmin.html"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>',
       		'</ul>',
 		      '<ul class="nav nav-sidebar">',
-        		'<li><a href="./testPoleFormation.html"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>',
-        		'<li><a href="./testActualiteAdmin.html"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualité</a></li>',
+        		'<li ' ,$active7,'><a href="./testPoleFormation.html"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>',
+        		'<li ' ,$active8,'><a href="./testActualiteAdmin.html"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualité</a></li>',
       		'</ul>',
       		'<ul class="nav nav-sidebar">',
-        		'<li><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>',
-		        '<li><a href="./testCompteGestion.html"><span class="fa fa-user" aria-hidden="true"></span>Paramètre compte</a></li>',
-        		'<li><a href=""><span class="fa fa-sign-out" aria-hidden="true"></span>Déconnexion</a></li>',
+        		'<li ' ,$active9,'><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>',
+		        '<li ' ,$active10,'><a href="./testCompteGestion.html"><span class="fa fa-user" aria-hidden="true"></span>Paramètre compte</a></li>',
+        		'<li><a href="deconnexion.php"><span class="fa fa-sign-out" aria-hidden="true"></span>Déconnexion</a></li>',
       		'</ul>',
     		'</div>',
 				'<main class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">',
@@ -126,7 +126,7 @@ function html_header($session = "") {
 				 	'<header>',
 				 		'<nav class="navbar navbar-default navbar-fixed-top">',
 				 			'<div class="container">',
-				 				'<a id="logo" href="index.html" class="navbar-brand">(logo) - NOM ASSO</a>',
+				 				'<a id="logo" href="accueil.php" class="navbar-brand">(logo) - NOM ASSO</a>',
 				 					'<div id="navigation" class="navbar-right">',
 				 						'<ul class="nav navbar-nav hidden-sm hidden-xs">',
 				 							'<li><a href="#Actualité">Actualité</a></li>',
@@ -138,8 +138,8 @@ function html_header($session = "") {
 			echo 						'<li><a href="#Administration" class="navActive">Tableau d\'administration</a></li>';
 		}
 		else {
-			echo 						'<li><a href="#Connexion" class="navConnexion">Connexion</a> </li>',
-											'<li><a href="#Candidater" class="navInscription">S\'inscrire</a></li>';
+			echo 						'<li><a href="login.php" class="navConnexion">Connexion</a> </li>',
+											'<li><a href="inscription.php" class="navInscription">S\'inscrire</a></li>';
 		}
 		echo 						'</ul>',
 									'</div>',
@@ -156,8 +156,8 @@ function html_header($session = "") {
 			echo 						'<li><a href="#Connexion" class="navActive" onclick="closeNav()">Tableau d\'administration</a></li>';
 		}
 		else {
-			echo 						'<li><a href="#Connexion" onclick="closeNav()">Connexion</a> </li>',
-											'<li><a href="#Candidater" onclick="closeNav()">S\'inscrire</a></li>';
+			echo 						'<li><a href="login.php" onclick="closeNav()">Connexion</a> </li>',
+											'<li><a href="inscription.php" onclick="closeNav()">S\'inscrire</a></li>';
 		}
 		echo						'</ul>',
 									'</div>',
@@ -184,27 +184,7 @@ function html_header($session = "") {
   return mysqli_connect("localhost","root","","association_l3");
 }*/
 function bd_connexion() {
-$bd = mysqli_connect(APP_BD_URL, APP_BD_USER, APP_BD_PASS, APP_BD_NOM);
-
-  if ($bd !== FALSE) {
-    mysqli_set_charset($bd, 'utf8') or bd_erreurExit('<h4>Erreur lors du chargement du jeu de caractères utf8</h4>');
-    $GLOBALS['bd'] = $bd;
-    return;			// Sortie connexion OK
-  }
-
-  // Erreur de connexion
-  // Collecte des informations facilitant le debugage
-  $msg = '<h4>Erreur de connexion base MySQL</h4>'
-          .'<div style="margin: 20px auto; width: 350px;">'
-              .'APP_BD_URL : '.APP_BD_URL
-              .'<br>APP_BD_USER : '.APP_BD_USER
-              .'<br>APP_BD_PASS : '.APP_BD_PASS
-              .'<br>APP_BD_NOM : '.APP_BD_NOM
-              .'<p>Erreur MySQL num&eacute;ro : '.mysqli_connect_errno($bd)
-              .'<br>'.mysqli_connect_error($bd)
-          .'</div>';
-
-  bd_erreurExit($msg);
+	return mysqli_connect(APP_BD_URL, APP_BD_USER, APP_BD_PASS, APP_BD_NOM);
 }
 /**
  * Traitement erreur mysql, affichage et exit.
@@ -273,7 +253,7 @@ function verifie_session(){
          	$cookieParams['secure'],
          	$cookieParams['httponly']
     	);
-		header('location: login.php');
+		header('location: accueil.php');
 		exit();
 	}
 	return false;

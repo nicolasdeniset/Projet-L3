@@ -15,7 +15,7 @@
 	} else {
 		// On est dans la phase de soumission du formulaire on en
 		// fait la vérification. Si aucune erreur n'est détectée,
-		// cette fonction redirige la page sur le script cuiteur.
+		// cette fonction redirige la page d'accueil.
 		$erreurs = connect_user();
 		$nbErr = count($erreurs);
 	}
@@ -24,7 +24,7 @@
 	//-----------------------------------------------------
 	// Affichage de la page
 	//-----------------------------------------------------
-	html_head("TEST CSS & DESIGN login");
+	html_head("Login");
 	html_header();
 	
 	echo '<div class="container">',
@@ -40,7 +40,7 @@
                 '<li><span class="fa fa-check text-success"></span>Réalisez des formations et entrez dans le monde du travail</li>',
               '</ul>-->',
             '</div>',
-            '<a href="#" class="btn btn-success btn-block">S\'inscrire</a>',
+            '<a href="inscription.php" class="btn btn-success btn-block">S\'inscrire</a>',
           '</section>',
 
           '<section  id="login" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">',

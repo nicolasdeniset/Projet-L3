@@ -385,7 +385,6 @@
 		$txtPasse = mysqli_real_escape_string($bd, md5($txtPasse));
 		$txtQuestion = mysqli_real_escape_string($bd, $txtQuestion);
 		$txtReponse = mysqli_real_escape_string($bd, $txtReponse);
-		$idCoordonnees = mysqli_insert_id($bd);
 		$txtNom = mysqli_real_escape_string($bd, $txtNom);
 		$txtPrenom = mysqli_real_escape_string($bd, $txtPrenom);
 		$txtMail = mysqli_real_escape_string($bd, $txtMail);
@@ -395,17 +394,7 @@
 		$txtVille = mysqli_real_escape_string($bd, $txtVille);
 		$txtPays = mysqli_real_escape_string($bd, $txtPays);
 
-		$S = "INSERT INTO compte SET
-				inscriptionCompte = $dateInscription,
-				nomCompte = '$txtPseudo',
-				mdpCompte = '$txtPasse',
-				questionCompte = '$txtQuestion',
-				reponseCompte = '$txtReponse',
-				typeCompte = 2,
-				coordonneesCompte = '$idCoordonnees'";
-				
-		$S2 = "INSERT INTO coordonnees SET
-				idCoordonnees = $idCoordonnees,
+		$S = "INSERT INTO coordonnees SET
 				nomCoordonnees = '$txtNom',
 				prenomCoordonnees = '$txtPrenom',
 				emailCoordonnees = '$txtMail',
@@ -414,9 +403,30 @@
 				codePostalCoordonnees = '$txtCp',
 				villeCoordonnees = '$txtVille',
 				paysCoordonnees = '$txtPays'";
-
+		
 		mysqli_query($bd, $S) or bd_erreur($bd, $S);
-		mysqli_query($bd, $S2) or bd_erreur($bd, $S2);
+				
+		$S2 = "SELECT idCoordonnees
+				FROM coordonnees
+				WHERE nomCoordonnees = '$txtNom'
+				AND prenomCoordonnees = '$txtPrenom'
+				AND emailCoordonnees = '$txtMail'";
+				
+		$R2 = mysqli_query($bd, $S2) or bd_erreur($bd, $S2);
+
+		$D2 = mysqli_fetch_row($R2);
+		$idCoordonnees = $D2[0];
+				
+		$S3 = "INSERT INTO compte SET
+				inscriptionCompte = $dateInscription,
+				nomCompte = '$txtPseudo',
+				mdpCompte = '$txtPasse',
+				questionCompte = '$txtQuestion',
+				reponseCompte = '$txtReponse',
+				typeCompte = 1,
+				coordonneesCompte = '$idCoordonnees'";
+
+		mysqli_query($bd, $S3) or bd_erreur($bd, $S3);
 
 		//-----------------------------------------------------
 		// Ouverture de la session et redirection vers la page protegée
@@ -574,7 +584,6 @@
 		$txtPasse = mysqli_real_escape_string($bd, md5($txtPasse));
 		$txtQuestion = mysqli_real_escape_string($bd, $txtQuestion);
 		$txtReponse = mysqli_real_escape_string($bd, $txtReponse);
-		$idCoordonnees = mysqli_insert_id($bd);
 		$txtNom = mysqli_real_escape_string($bd, $txtNom);
 		$txtPrenom = mysqli_real_escape_string($bd, $txtPrenom);
 		$txtMail = mysqli_real_escape_string($bd, $txtMail);
@@ -583,18 +592,8 @@
 		$txtCp = mysqli_real_escape_string($bd, $txtCp);
 		$txtVille = mysqli_real_escape_string($bd, $txtVille);
 		$txtPays = mysqli_real_escape_string($bd, $txtPays);
-
-		$S = "INSERT INTO compte SET
-				inscriptionCompte = $dateInscription,
-				nomCompte = '$txtPseudo',
-				mdpCompte = '$txtPasse',
-				questionCompte = '$txtQuestion',
-				reponseCompte = '$txtReponse',
-				typeCompte = 1,
-				coordonneesCompte = '$idCoordonnees'";
 				
-		$S2 = "INSERT INTO coordonnees SET
-				idCoordonnees = $dateInscription,
+		$S = "INSERT INTO coordonnees SET
 				nomCoordonnees = '$txtNom',
 				prenomCoordonnees = '$txtPrenom',
 				emailCoordonnees = '$txtMail',
@@ -603,9 +602,30 @@
 				codePostalCoordonnees = '$txtCp',
 				villeCoordonnees = '$txtVille',
 				paysCoordonnees = '$txtPays'";
-
+		
 		mysqli_query($bd, $S) or bd_erreur($bd, $S);
-		mysqli_query($bd, $S2) or bd_erreur($bd, $S2);
+				
+		$S2 = "SELECT idCoordonnees
+				FROM coordonnees
+				WHERE nomCoordonnees = '$txtNom'
+				AND prenomCoordonnees = '$txtPrenom'
+				AND emailCoordonnees = '$txtMail'";
+				
+		$R2 = mysqli_query($bd, $S2) or bd_erreur($bd, $S2);
+
+		$D2 = mysqli_fetch_row($R2);
+		$idCoordonnees = $D2[0];
+				
+		$S3 = "INSERT INTO compte SET
+				inscriptionCompte = $dateInscription,
+				nomCompte = '$txtPseudo',
+				mdpCompte = '$txtPasse',
+				questionCompte = '$txtQuestion',
+				reponseCompte = '$txtReponse',
+				typeCompte = 1,
+				coordonneesCompte = '$idCoordonnees'";
+
+		mysqli_query($bd, $S3) or bd_erreur($bd, $S3);
 
 		//-----------------------------------------------------
 		// Ouverture de la session et redirection vers la page protegée
