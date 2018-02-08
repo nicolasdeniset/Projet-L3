@@ -2,6 +2,9 @@
 	// Inclusion de la bibliothèque.
 	require('bibliotheque.php');
 
+	ob_start();
+  	bd_connexion();
+
 	//-----------------------------------------------------
 	// Détermination de la phase de traitement : 1er affichage
 	// ou soumission du formulaire
@@ -15,18 +18,18 @@
 	} else {
 		// On est dans la phase de soumission du formulaire on en
 		// fait la vérification. Si aucune erreur n'est détectée,
-		// cette fonction redirige la page d'accueil.
+		// cette fonction redirige la page sur le script cuiteur.
 		$erreurs = connect_user();
 		$nbErr = count($erreurs);
 	}
 
-	
+
 	//-----------------------------------------------------
 	// Affichage de la page
 	//-----------------------------------------------------
-	html_head("Login");
+	html_head("Connexion");
 	html_header();
-	
+
 	echo '<div class="container">',
       '<div class="row">',
         '<main>',
@@ -40,13 +43,13 @@
                 '<li><span class="fa fa-check text-success"></span>Réalisez des formations et entrez dans le monde du travail</li>',
               '</ul>-->',
             '</div>',
-            '<a href="inscription.php" class="btn btn-success btn-block">S\'inscrire</a>',
+            '<a href="./inscription.php" class="btn btn-success btn-block">S\'inscrire</a>',
           '</section>',
 
           '<section  id="login" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">',
             '<h2 class="text-center">JE ME CONNECTE</h2>',
             '<div class="row">';
-			
+
 			// Si il y a des erreurs on les affiche
 			if ($nbErr > 0) {
 				echo '<strong>Les erreurs suivantes ont &eacute;t&eacute; d&eacute;tect&eacute;es</strong>';
@@ -54,8 +57,8 @@
 					echo '<br>', $erreurs[$i];
 				}
 			}
-			
-			
+
+
               echo '<form method="POST" action="login.php" accept-charset="iso-8859-1">',
                 '<div class="form-group">',
                   '<label class="control-label required" for="email">Email<sup style="color:red">*</sup></label>',
@@ -72,8 +75,8 @@
                 '</div>',
                 '<button class="btn btn-block btn-success" name="btnValider">Se connecter</button>',
               '</form>',
-			  
-			  
+
+
             '</div>',
           '</section>',
         '</main>',
@@ -81,7 +84,7 @@
       '</div>';
 
 	html_pied("little");
-	
+
 	//_______________________________________________________________
 	//
 	//		FONCTIONS LOCALES
@@ -105,15 +108,14 @@
 		$erreurs = array();
 
 		// Vérification que le pseudo existe dans la BD
-		$bd = bd_connexion();
 		$txtPseudo = trim($_POST['txtPseudo']);
-		$txtPseudo = mysqli_real_escape_string($bd, $txtPseudo);
+		$txtPseudo = mysqli_real_escape_string($GLOBALS['bd'], $txtPseudo);
 
 		$S = "SELECT	count(*)
 				FROM	compte
 				WHERE	nomCompte = '$txtPseudo'";
 
-		$R = mysqli_query($bd, $S) or bd_erreur($bd, $S);
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 
 		$D = mysqli_fetch_row($R);
 
@@ -128,7 +130,7 @@
 				FROM	compte
 				WHERE	nomCompte = '$txtPseudo'
 				AND	mdpCompte = '$txtPasse'";
-		$R2 = mysqli_query($bd, $S2) or bd_erreur($bd, $S2);
+		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
 
 		$D2 = mysqli_fetch_row($R2);
 		if (($D2[0] == 0)||($D2[0] < 0)) {
@@ -148,12 +150,14 @@
 		$S3 = "SELECT	idCompte
 				FROM	compte
 				WHERE	nomCompte = '$txtPseudo'";
-		$R3 = mysqli_query($bd, $S3) or bd_erreur($bd, $S3);
+		$R3 = mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
 
 		$D3 = mysqli_fetch_row($R3);
-		$_SESSION['idCompte'] = $D3[0]; 
+		$_SESSION['idCompte'] = $D3[0];
 		header ('location: accueil.php');
 
 		exit();			// EXIT : le script est terminé
+
+		ob_end_flush();
 }
 ?>
