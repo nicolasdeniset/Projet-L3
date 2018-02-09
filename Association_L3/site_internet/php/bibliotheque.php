@@ -90,7 +90,7 @@ function html_aside_main_debut($active1,$active2,$active3,$active4,$active5,$act
 	echo '<div class="container-fluid">',
     		'<div class="col-sm-3 col-md-2 sidebar">',
       		'<ul class="nav nav-sidebar">',
-        		'<li ', $active1,'><a href="#"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>',
+        		'<li ', $active1,'><a href="accueil.php"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>',
 		        '<li ', $active2,'><a href="./testStatistiqueAdmin.html"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>',
       		'</ul>',
       		'<ul class="nav nav-sidebar">',
