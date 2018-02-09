@@ -50,7 +50,7 @@
 	//-----------------------------------------------------
 	// Affichage de la page
 	//-----------------------------------------------------
-	html_head("Paramètre Compte");
+	html_head("Ajouter une Formation");
 	html_header($id);
 	html_aside_main_debut("","","class=\"active\"","","","","","","","");
 	
@@ -85,11 +85,11 @@
               '</div>',
               '<div class="form-group">',
                 '<label class="control-label required">Disponniblité de la formation<sup style="color:red">*</sup></label><br>',
-                '<label class="radio-inline"><input type="radio" name="optradio" checked>Public</label>',
-                '<label class="radio-inline"><input type="radio" name="optradio">Privée</label>',
+                '<label class="radio-inline"><input type="radio" name="optradio" value="1" checked>Public</label>',
+                '<label class="radio-inline"><input type="radio" name="optradio" value="0">Privée</label>',
               '</div>',
               '<div class="col-md-12">',
-                '<button type="submit" value="enregistrer" class="btn btn-inline btn-success btn-block"><span class="fa fa-check" aria-hidden="true"></span>Créer la nouvelle formation</button>',
+                '<button type="submit" value="enregistrer" class="btn btn-inline btn-success btn-block" name="btnValider"><span class="fa fa-check" aria-hidden="true"></span>Créer la nouvelle formation</button>',
               '</div>',
             '</form>',
           '</div>';
@@ -135,11 +135,45 @@
 			$erreurs[] = 'Vous avez mis une durée incorrecte !';
 		}
 		
-		// Vérification du titre
-		$txtTitre = trim($_POST['titre']);
-		if ($txtTitre == '') {
-			$erreurs[] = 'Vous avez oublié le titre !';
+		// Vérification du fichier
+		$dossier = "../upload/";
+		$fichier = basename($_FILES['formation']['name']);
+		$taille = filesize($_FILES['formation']['tmp_name']);
+		$extension = strrchr($_FILES['formation']['name'], '.');
+		
+		if($extension != ".pdf") {
+			$erreurs[] = 'Votre fichier n\'est pas au format PDF ';
 		}
+		
+		//renomage du fichier
+		//rename("$fichier", "file" .time(). "1");
+		
+		if(!move_uploaded_file($_FILES['formation']['tmp_name'], $dossier . $fichier)) {
+			$erreurs[] = "Erreur interne de transfert";
+		}
+		
+		// Si il y a des erreurs, la fonction renvoie le tableau d'erreurs
+		if (count($erreurs) > 0) {
+			return $erreurs;		// RETURN : des erreurs ont été détectées
+		}
+		
+		// Ajout des informations.
+		$txtTitre = mysqli_real_escape_string($GLOBALS['bd'], $txtTitre);
+		$txtDescription = mysqli_real_escape_string($GLOBALS['bd'], $txtDescription);
+		$txtDuree = mysqli_real_escape_string($GLOBALS['bd'], $txtDuree);
+		$fichier = mysqli_real_escape_string($GLOBALS['bd'], $fichier);
+		$taille = mysqli_real_escape_string($GLOBALS['bd'], $taille);
+		$formationDispo = mysqli_real_escape_string($GLOBALS['bd'], $_POST['optradio']);
+		
+		$S = "INSERT INTO formation SET
+				titreFormation = '$txtTitre',
+				descriptionFormation = '$txtDescription',
+				documentFormation = '$txtDuree',
+				tailleDocumentFormation = '$fichier',
+				dureeFormation = '$taille',
+				dispoFormation = '$formationDispo'";
+		
+		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 		
 		header('location: formation.php');
 		exit();			// EXIT : le script est terminé
