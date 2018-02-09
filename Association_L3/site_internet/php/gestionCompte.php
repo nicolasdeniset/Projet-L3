@@ -3,7 +3,8 @@
 	require('bibliotheque.php');
 
 	// Connexion a la base de donnée.
-	$bd = bd_connexion();
+	ob_start();
+  	bd_connexion();
 
 	// Démarage d'une session et récupération de notre identifiant.
 	verifie_session();
@@ -14,7 +15,7 @@
 			FROM	compte
 			WHERE	idCompte = '$id'";
 
-	$R = mysqli_query($bd, $S) or bd_erreur($bd, $S);
+	$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 	$D = mysqli_fetch_row($R);
 	
 	// Traitement des variables obtenues.
@@ -29,7 +30,7 @@
 			FROM	coordonnees
 			WHERE	idCoordonnees = '$idCoordoneesCompte'";
 
-	$R2 = mysqli_query($bd, $S2) or bd_erreur($bd, $S2);
+	$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
 	$D2 = mysqli_fetch_row($R2);
 	
 	// Traitement des variables obtenues.
@@ -172,7 +173,7 @@
 		// Vérification des zones
 		//-----------------------------------------------------	
 		$erreurs = array();
-		$bd = bd_connexion();
+		$GLOBALS['bd'] = bd_connexion();
 		
 		// Vérification du mail
 		$txtMail = trim($_POST['email']);
@@ -253,31 +254,32 @@
 		}
 		
 		// Mise à jour des informations.
-		$txtPasse = mysqli_real_escape_string($bd, md5($txtPasse));
-		$txtQuestion = mysqli_real_escape_string($bd, $txtQuestion);
-		$txtReponse = mysqli_real_escape_string($bd, $txtReponse);
-		$txtMail = mysqli_real_escape_string($bd, $txtMail);
-		$txttelephone = mysqli_real_escape_string($bd, $txttelephone);
-		$txtAdresse = mysqli_real_escape_string($bd, $txtAdresse);
-		$txtCp = mysqli_real_escape_string($bd, $txtCp);
-		$txtVille = mysqli_real_escape_string($bd, $txtVille);
-		$txtPays = mysqli_real_escape_string($bd, $txtPays);
+		$txtPasse = mysqli_real_escape_string($GLOBALS['bd'], md5($txtPasse));
+		$txtQuestion = mysqli_real_escape_string($GLOBALS['bd'], $txtQuestion);
+		$txtReponse = mysqli_real_escape_string($GLOBALS['bd'], $txtReponse);
+		$txtMail = mysqli_real_escape_string($GLOBALS['bd'], $txtMail);
+		$txttelephone = mysqli_real_escape_string($GLOBALS['bd'], $txttelephone);
+		$txtAdresse = mysqli_real_escape_string($GLOBALS['bd'], $txtAdresse);
+		$txtCp = mysqli_real_escape_string($GLOBALS['bd'], $txtCp);
+		$txtVille = mysqli_real_escape_string($GLOBALS['bd'], $txtVille);
+		$txtPays = mysqli_real_escape_string($GLOBALS['bd'], $txtPays);
 		
 		$S = "UPDATE	compte
 					SET	mdpCompte = '$txtPasse', questionCompte = '$txtQuestion', reponseCompte = '$txtReponse'
 					WHERE	idCompte = '$id'";
 
-		$R = mysqli_query($bd, $S) or bd_erreur($bd, $S);
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 		
 		$S2 = "UPDATE	coordonnees
 					SET	emailCoordonnees = '$txtMail', telephoneCoordonnees = '$txttelephone', adresseCoordonnees = '$txtAdresse',
 						codePostalCoordonnees = '$txtCp', villeCoordonnees = '$txtVille', paysCoordonnees = '$txtPays'
 					WHERE	idCoordonnees = '$idCoordoneesCompte'";
 
-		$R2 = mysqli_query($bd, $S2) or bd_erreur($bd, $S2);
+		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
 		
 		header ('location: gestionCompte.php');
 		exit();			// EXIT : le script est terminé
+		ob_end_flush();
 	}
 	
 	/**
@@ -290,21 +292,22 @@
 	* @return array $erreurs		Tableau des erreurs détectées.
 	*/
 	function supprimer_user($id, $idCoordoneesCompte) {
-		$bd = bd_connexion();
+		$GLOBALS['bd'] = bd_connexion();
 		
 		$S = "DELETE FROM compte
 					WHERE	idCompte = '$id'";
 
-		$R = mysqli_query($bd, $S) or bd_erreur($bd, $S);
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 		
 		$S2 = "DELETE FROM coordonnees
 					WHERE	idCoordonnees = '$idCoordoneesCompte'";
 
-		$R2 = mysqli_query($bd, $S2) or bd_erreur($bd, $S2);
+		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
 		
 		session_unset();
 		session_destroy();
 		header ('location: accueil.php');
 		exit();			// EXIT : le script est terminé
+		ob_end_flush();
 	}
 ?>

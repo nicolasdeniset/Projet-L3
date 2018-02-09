@@ -138,8 +138,8 @@ function html_header($session = "") {
 			echo 						'<li><a href="#Administration" class="navActive">Tableau d\'administration</a></li>';
 		}
 		else {
-			echo 						'<li><a href="#Connexion" class="navConnexion">Connexion</a> </li>',
-											'<li><a href="#Candidater" class="navInscription">S\'inscrire</a></li>';
+			echo 						'<li><a href="login.php" class="navConnexion">Connexion</a> </li>',
+											'<li><a href="inscription.php" class="navInscription">S\'inscrire</a></li>';
 		}
 		echo 						'</ul>',
 									'</div>',
@@ -156,8 +156,8 @@ function html_header($session = "") {
 			echo 						'<li><a href="#Connexion" class="navActive" onclick="closeNav()">Tableau d\'administration</a></li>';
 		}
 		else {
-			echo 						'<li><a href="#Connexion" onclick="closeNav()">Connexion</a> </li>',
-											'<li><a href="#Candidater" onclick="closeNav()">S\'inscrire</a></li>';
+			echo 						'<li><a href="login.php" onclick="closeNav()">Connexion</a> </li>',
+											'<li><a href="inscription.php" onclick="closeNav()">S\'inscrire</a></li>';
 		}
 		echo						'</ul>',
 									'</div>',

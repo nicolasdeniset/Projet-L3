@@ -270,15 +270,16 @@
 			$erreurs[] = 'Le pseudo doit avoir de 4 &agrave; 30 caract&egrave;res';
 		} else {
 			// Vérification que le pseudo n'existe pas dans la BD
-			$bd = bd_connexion();
+			ob_start();
+			bd_connexion();
 
-			$txtPseudo = mysqli_real_escape_string($bd, $txtPseudo);
+			$txtPseudo = mysqli_real_escape_string($GLOBALS['bd'], $txtPseudo);
 
 			$S = "SELECT	count(*)
 					FROM	compte
 					WHERE	nomCompte = '$txtPseudo'";
 
-			$R = mysqli_query($bd, $S) or bd_erreur($bd, $S);
+			$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 
 			$D = mysqli_fetch_row($R);
 
@@ -382,17 +383,17 @@
 		// Insertion d'un nouvel enregistrement dans la base de données
 		//-----------------------------------------------------
 		$dateInscription = date('Ymd');
-		$txtPasse = mysqli_real_escape_string($bd, md5($txtPasse));
-		$txtQuestion = mysqli_real_escape_string($bd, $txtQuestion);
-		$txtReponse = mysqli_real_escape_string($bd, $txtReponse);
-		$txtNom = mysqli_real_escape_string($bd, $txtNom);
-		$txtPrenom = mysqli_real_escape_string($bd, $txtPrenom);
-		$txtMail = mysqli_real_escape_string($bd, $txtMail);
-		$txttelephone = mysqli_real_escape_string($bd, $txttelephone);
-		$txtAdresse = mysqli_real_escape_string($bd, $txtAdresse);
-		$txtCp = mysqli_real_escape_string($bd, $txtCp);
-		$txtVille = mysqli_real_escape_string($bd, $txtVille);
-		$txtPays = mysqli_real_escape_string($bd, $txtPays);
+		$txtPasse = mysqli_real_escape_string($GLOBALS['bd'], md5($txtPasse));
+		$txtQuestion = mysqli_real_escape_string($GLOBALS['bd'], $txtQuestion);
+		$txtReponse = mysqli_real_escape_string($GLOBALS['bd'], $txtReponse);
+		$txtNom = mysqli_real_escape_string($GLOBALS['bd'], $txtNom);
+		$txtPrenom = mysqli_real_escape_string($GLOBALS['bd'], $txtPrenom);
+		$txtMail = mysqli_real_escape_string($GLOBALS['bd'], $txtMail);
+		$txttelephone = mysqli_real_escape_string($GLOBALS['bd'], $txttelephone);
+		$txtAdresse = mysqli_real_escape_string($GLOBALS['bd'], $txtAdresse);
+		$txtCp = mysqli_real_escape_string($GLOBALS['bd'], $txtCp);
+		$txtVille = mysqli_real_escape_string($GLOBALS['bd'], $txtVille);
+		$txtPays = mysqli_real_escape_string($GLOBALS['bd'], $txtPays);
 
 		$S = "INSERT INTO coordonnees SET
 				nomCoordonnees = '$txtNom',
@@ -404,7 +405,7 @@
 				villeCoordonnees = '$txtVille',
 				paysCoordonnees = '$txtPays'";
 		
-		mysqli_query($bd, $S) or bd_erreur($bd, $S);
+		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 				
 		$S2 = "SELECT idCoordonnees
 				FROM coordonnees
@@ -412,7 +413,7 @@
 				AND prenomCoordonnees = '$txtPrenom'
 				AND emailCoordonnees = '$txtMail'";
 				
-		$R2 = mysqli_query($bd, $S2) or bd_erreur($bd, $S2);
+		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
 
 		$D2 = mysqli_fetch_row($R2);
 		$idCoordonnees = $D2[0];
@@ -426,17 +427,18 @@
 				typeCompte = 2,
 				coordonneesCompte = '$idCoordonnees'";
 
-		mysqli_query($bd, $S3) or bd_erreur($bd, $S3);
+		mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
 
 		//-----------------------------------------------------
 		// Ouverture de la session et redirection vers la page protegée
 		//-----------------------------------------------------
 		session_start();
-		$_SESSION['idCompte'] = mysqli_insert_id($bd);
+		$_SESSION['idCompte'] = mysqli_insert_id($GLOBALS['bd']);
 		$_SESSION['nomCompte'] = $txtPseudo;
 		header ('location: accueil.php');
 
 		exit();			// EXIT : le script est terminé
+		ob_end_flush();
 	}
 	
 	//_______________________________________________________________
@@ -469,15 +471,16 @@
 			$erreurs2[] = 'Le pseudo doit avoir de 4 &agrave; 30 caract&egrave;res';
 		} else {
 			// Vérification que le pseudo n'existe pas dans la BD
-			$bd = bd_connexion();
+			ob_start();
+			bd_connexion();
 
-			$txtPseudo = mysqli_real_escape_string($bd, $txtPseudo);
+			$txtPseudo = mysqli_real_escape_string($GLOBALS['bd'], $txtPseudo);
 
 			$S = "SELECT	count(*)
 					FROM	compte
 					WHERE	nomCompte = '$txtPseudo'";
 
-			$R = mysqli_query($bd, $S) or bd_erreur($bd, $S);
+			$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 
 			$D = mysqli_fetch_row($R);
 
@@ -581,17 +584,17 @@
 		// Insertion d'un nouvel enregistrement dans la base de données
 		//-----------------------------------------------------
 		$dateInscription = date('Ymd');
-		$txtPasse = mysqli_real_escape_string($bd, md5($txtPasse));
-		$txtQuestion = mysqli_real_escape_string($bd, $txtQuestion);
-		$txtReponse = mysqli_real_escape_string($bd, $txtReponse);
-		$txtNom = mysqli_real_escape_string($bd, $txtNom);
-		$txtPrenom = mysqli_real_escape_string($bd, $txtPrenom);
-		$txtMail = mysqli_real_escape_string($bd, $txtMail);
-		$txttelephone = mysqli_real_escape_string($bd, $txttelephone);
-		$txtAdresse = mysqli_real_escape_string($bd, $txtAdresse);
-		$txtCp = mysqli_real_escape_string($bd, $txtCp);
-		$txtVille = mysqli_real_escape_string($bd, $txtVille);
-		$txtPays = mysqli_real_escape_string($bd, $txtPays);
+		$txtPasse = mysqli_real_escape_string($GLOBALS['bd'], md5($txtPasse));
+		$txtQuestion = mysqli_real_escape_string($GLOBALS['bd'], $txtQuestion);
+		$txtReponse = mysqli_real_escape_string($GLOBALS['bd'], $txtReponse);
+		$txtNom = mysqli_real_escape_string($GLOBALS['bd'], $txtNom);
+		$txtPrenom = mysqli_real_escape_string($GLOBALS['bd'], $txtPrenom);
+		$txtMail = mysqli_real_escape_string($GLOBALS['bd'], $txtMail);
+		$txttelephone = mysqli_real_escape_string($GLOBALS['bd'], $txttelephone);
+		$txtAdresse = mysqli_real_escape_string($GLOBALS['bd'], $txtAdresse);
+		$txtCp = mysqli_real_escape_string($GLOBALS['bd'], $txtCp);
+		$txtVille = mysqli_real_escape_string($GLOBALS['bd'], $txtVille);
+		$txtPays = mysqli_real_escape_string($GLOBALS['bd'], $txtPays);
 				
 		$S = "INSERT INTO coordonnees SET
 				nomCoordonnees = '$txtNom',
@@ -603,7 +606,7 @@
 				villeCoordonnees = '$txtVille',
 				paysCoordonnees = '$txtPays'";
 		
-		mysqli_query($bd, $S) or bd_erreur($bd, $S);
+		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 				
 		$S2 = "SELECT idCoordonnees
 				FROM coordonnees
@@ -611,7 +614,7 @@
 				AND prenomCoordonnees = '$txtPrenom'
 				AND emailCoordonnees = '$txtMail'";
 				
-		$R2 = mysqli_query($bd, $S2) or bd_erreur($bd, $S2);
+		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
 
 		$D2 = mysqli_fetch_row($R2);
 		$idCoordonnees = $D2[0];
@@ -625,16 +628,17 @@
 				typeCompte = 1,
 				coordonneesCompte = '$idCoordonnees'";
 
-		mysqli_query($bd, $S3) or bd_erreur($bd, $S3);
+		mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
 
 		//-----------------------------------------------------
 		// Ouverture de la session et redirection vers la page protegée
 		//-----------------------------------------------------
 		session_start();
-		$_SESSION['idCompte'] = mysqli_insert_id($bd);
+		$_SESSION['idCompte'] = mysqli_insert_id($GLOBALS['bd']);
 		$_SESSION['nomCompte'] = $txtPseudo;
 		header ('location: accueil.php');
 
 		exit();			// EXIT : le script est terminé
+		ob_end_flush();
 	}
 ?>

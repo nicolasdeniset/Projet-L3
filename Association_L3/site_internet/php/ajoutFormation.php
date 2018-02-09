@@ -3,7 +3,8 @@
 	require('bibliotheque.php');
 
 	// Connexion a la base de donnée.
-	$bd = bd_connexion();
+	ob_start();
+  	bd_connexion();
 
 	// Démarage d'une session et récupération de notre identifiant.
 	verifie_session();
@@ -14,7 +15,7 @@
 			FROM	compte
 			WHERE	idCompte = '$id'";
 
-	$R = mysqli_query($bd, $S) or bd_erreur($bd, $S);
+	$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 	$D = mysqli_fetch_row($R);
 	
 	$estAdmin = $D[0];
@@ -42,7 +43,7 @@
 		// On est dans la phase de soumission du formulaire on en
 		// fait la vérification. Si aucune erreur n'est détectée,
 		// cette fonction redirige la page sur le script compte.
-		$erreurs = ajouter_formation($bd);
+		$erreurs = ajouter_formation();
 		$nbErr = count($erreurs);
 	}
 	
@@ -110,7 +111,7 @@
 	*
 	* @return array $erreurs		Tableau des erreurs détectées.
 	*/
-	function ajouter_formation($bd) {
+	function ajouter_formation() {
 		//-----------------------------------------------------
 		// Vérification des zones
 		//-----------------------------------------------------	
@@ -142,5 +143,6 @@
 		
 		header('location: formation.php');
 		exit();			// EXIT : le script est terminé
+		ob_end_flush();
 	}
 ?>
