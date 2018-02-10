@@ -121,21 +121,21 @@ function html_aside_main_fin(){
 /*******************************************************************************
  * Génère le code HTML du header des pages.
 *******************************************************************************/
-function html_header($session = "") {
+function html_header($session = '') {
 		echo '<body>',
 				 	'<header>',
 				 		'<nav class="navbar navbar-default navbar-fixed-top">',
 				 			'<div class="container">',
-				 				'<a id="logo" href="index.html" class="navbar-brand">(logo) - NOM ASSO</a>',
+				 				'<a id="logo" href="./accueil.php" class="navbar-brand">(logo) - NOM ASSO</a>',
 				 					'<div id="navigation" class="navbar-right">',
 				 						'<ul class="nav navbar-nav hidden-sm hidden-xs">',
-				 							'<li><a href="#Actualité">Actualité</a></li>',
-				 							'<li><a href="#Formation">Formation</a></li>',
-				 							'<li><a href="#Partenaire">Partenaire</a></li>',
-				 							'<li><a href="#Donation">Donation</a></li>',
-				 							'<li><a href="#Contacter">Nous contacter</a></li>';
+				 							'<li><a href="./accueil.php#actualite">Actualités</a></li>',
+				 							'<li><a href="./accueil.php#formation">Formations</a></li>',
+				 							'<li><a href="./accueil.php#partenaire">Partenaires</a></li>',
+				 							'<li><a href="./accueil.php#donation">Donation</a></li>',
+				 							'<li><a href="./accueil.php#contacter">Nous contacter</a></li>';
 		if($session != ""){
-			echo 						'<li><a href="#Administration" class="navActive">Tableau d\'administration</a></li>';
+			echo 						'<li><a href="./listeEntreprise.php" class="navActive">Tableau d\'administration</a></li>';
 		}
 		else {
 			echo 						'<li><a href="login.php" class="navConnexion">Connexion</a> </li>',
@@ -147,11 +147,11 @@ function html_header($session = "") {
 										'<button type="button" class="close" aria-label="Close" onclick="closeNav()"><span aria-hidden="true">&times;</span></button>',
 										'<a class="closebtn" onclick="closeNav()">&times;</a>',
 										'<ul class="overlay-content">',
-											'<li><a href="http://google.Com" onclick="closeNav()">Actualités</a></li>',
-											'<li><a href="#Statitistique" onclick="closeNav()">Statistiques</a></li>',
-											'<li><a href="#Partenaire" onclick="closeNav()">Partenaires</a></li>',
-											'<li><a href="#Donation" onclick="closeNav()">Donation</a></li>',
-											'<li><a href="#Contacter" onclick="closeNav()">Nous Contacter</a></li>';
+											'<li><a href="./accueil.php#actualite" onclick="closeNav()">Actualités</a></li>',
+											'<li><a href="./accueil.php#formation" onclick="closeNav()">Formations</a></li>',
+											'<li><a href="./accueil.php#partenaire" onclick="closeNav()">Partenaires</a></li>',
+											'<li><a href="./accueil.php#donation" onclick="closeNav()">Donation</a></li>',
+											'<li><a href="./accueil.php#contacter" onclick="closeNav()">Nous Contacter</a></li>';
 		if($session != ""){
 			echo 						'<li><a href="#Connexion" class="navActive" onclick="closeNav()">Tableau d\'administration</a></li>';
 		}
@@ -278,4 +278,32 @@ function verifie_session(){
 	}
 	return false;
 }
+
+function getTypeCompte($id=''){
+    // Requête qui va récuperer les informations nous concernant (typeCompte).
+    $S = "SELECT    typeCompte
+            FROM    compte
+            WHERE    idCompte = '$id'";
+    $R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+    $D = mysqli_fetch_row($R);
+
+    return $D[0];
+}
+
+/**
+ * Génère le code HTML d'un item de statistiques.
+ *
+ * @param integer $nb      Nombre de [...] pour cet item
+ * @param string  $item    Nom de l'item
+ * @param string  $image   Chemin vers l'image souhaitée
+ * @param string  $details Détails supplémentaires
+ */
+function item_stat($nb, $item, $image, $details) {
+  echo '<div class="item col-md-4 col-sm-6">',
+          '<img class="img-responsive center-block" src="',$image,'" alt="Une image" height="100px" width="100px"/>',
+          '<h3 class="text-center">',$nb,' ',$item,'</h3>',
+          '<p>',$details,'</p>',
+        '</div>';
+}
+
 ?>
