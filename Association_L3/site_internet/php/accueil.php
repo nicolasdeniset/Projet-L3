@@ -38,18 +38,6 @@ echo  '<section>',
     '</section>';
   // Fin section
 
-  // Section à propos (A supprimer ??)
-    echo '<!-- Début section a propos-->',
-    '<section>',
-      '<div class="container">',
-        '<div class="row">',
-          '<h2 class="text-center">A PROPOS</h2>',
-          '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
-        '</div>',
-      '</div>',
-    '</section>';
-  // Fin section
-
   // Début section statistiques
   echo '<section>',
       '<div class="container">',
@@ -60,7 +48,7 @@ echo  '<section>',
           // Nouvel item
           $S2 = 'SELECT COUNT(idCompte) as total
                  FROM compte 
-                 WHERE typeCompte = 2';
+                 WHERE typeCompte = 1';
           $R2 =  mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($S2);
           $nbEntrep = mysqli_fetch_assoc($R2);
 
@@ -69,7 +57,7 @@ echo  '<section>',
           // Nouvel item
           $S3 = 'SELECT COUNT(idCompte) as total
                  FROM compte 
-                 WHERE typeCompte = 1';
+                 WHERE typeCompte = 3';
           $R3 =  mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($S3);
           $nbBene = mysqli_fetch_assoc($R3);
           item_stat($nbBene['total'], 'bénévoles', '../images/benevole.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
@@ -77,7 +65,7 @@ echo  '<section>',
           // Nouvel item
           $S4 = 'SELECT COUNT(idCompte) as total
                  FROM compte 
-                 WHERE typeCompte = 3';
+                 WHERE typeCompte = 2';
           $R4 =  mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($S4);
           $nbEtu = mysqli_fetch_assoc($R4);
           item_stat($nbEtu['total'], 'étudiants', '../images/studentgirl.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
@@ -170,7 +158,7 @@ echo  '<section>',
     // Fin section témoignages
 
     // Début section formations
-  echo '<section>',
+  echo '<section id="formation">',
       '<div class="container">',
         '<div class="row">',
           '<h2 class="text-center">FORMATIONS</h2>',
@@ -216,7 +204,7 @@ echo  '<section>',
     // Fin section formations
 
     // D&but section partenaires
-    echo '<section>',
+    echo '<section id="partenaire">',
       '<div class="container">',
         '<div class="row">',
           '<h2 class="text-center">PARTENAIRES</h2>',
@@ -306,14 +294,6 @@ echo  '<section>',
           '<!-- End Item-->',
 
         '</div>',
-        '<div class="row">',
-          '<div class="text col-md-6 col-sm-12">',
-            '<a href="#about" class="btn btn-info btn-block">Découvrire nos autres partenaires</a>',
-          '</div>',
-          '<div class="text col-md-6 col-sm-12">',
-            '<a href="#about" class="btn btn-success btn-block">Candidater pour devenir partenaire</a>',
-          '</div>',
-        '</div>',
       '</div>',
     '</section>';
     // Fin section partenaires
@@ -353,10 +333,10 @@ echo  '<section>',
     // Fin section candidater
 
     // Début section articles
-    echo '<section>',
+    echo '<section id="actualite">',
       '<div class="container">',
         '<div class="row">',
-          '<h2 class="text-center">ARTICLES</h2>',
+          '<h2 class="text-center">ACTUALITES</h2>',
           '<h3 class="text-center">Nos dernières actualités</h3>',
           '<!-- Item-->',
           '<div class="item col-md-4">',
@@ -399,22 +379,26 @@ echo  '<section>',
     '</section>';
     // Fin section articles
 
-    // Début section newletter (à supprimer ?)
-  echo '<!-- Début section newletter -->',
-    '<section>',
+    // Début section donations
+  echo '<section id="donation">',
       '<div class="container">',
         '<div class="row">',
-          '<h2 class="text-center">NEWSLETTER</h2>',
-          '<h3 class="text-center">Souscrivez à notre newsletter pour rester informé</h3>',
+          '<h2 class="text-center">DONATIONS</h2>',
+          '<h3 class="text-center">Aidez-nous à améliorer notre association en faisant un don !</h3>',
           '<div class="item col-md-6">',
-            '<p>Chaque mois recevez un mail pour vous tenir au courant de nos activités et actualités Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip est laborum.</p>',
+            '<p>En faisant un don nous pourrons améliorer nos services ect... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip est laborum.</p>',
           '</div>',
           '<div class="item col-md-6 col-sm-12">',
             '<form>',
               '<div class="form-group">',
-                '<input type="email" class="form-control" id="email" placeholder="Votre e-mail" required>',
+                '<label class="control-label required" for="nom">Votre nom</label>',
+                '<input type="text" class="form-control" id="name" placeholder="Ne remplissez pas ce champ si vous souhaitez faire un don anonyme">',
               '</div>',
-              '<button type="submit" class="btn btn-success btn-block">Souscrire à la newsletter</button>',
+              '<div class="form-group">',
+                '<label class="control-label required" for="montant">Montant du don<sup style="color:red">*</sup></label>',
+                '<input type="number" class="form-control" id="howmuch" placeholder="Montant en €" required>',
+              '</div>',
+              '<button type="submit" class="btn btn-success btn-block">Faire une promesse de don</button>',
             '</form>',
           '</div>',
         '</div>',
@@ -423,7 +407,7 @@ echo  '<section>',
     // Fin section newsletter
 
     // Début section nous contacter
-  echo '<section>',
+  echo '<section id="contacter">',
       '<div class="container">',
         '<div class="row">',
           '<h2 class="text-center">NOUS CONTACTER</h2>',
