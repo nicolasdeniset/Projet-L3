@@ -5,7 +5,7 @@
   session_start();
   html_head('Nos partenaires');
   html_header();
-  html_aside_main_debut();
+  html_aside_main_debut("","","","","class=\"active\"","","","","","");
   echo '<h1 class="page-header">Nos entreprises partenaires</h1>';
   rechercheEntreprise();
   html_aside_main_fin();
