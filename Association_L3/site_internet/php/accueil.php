@@ -467,22 +467,4 @@ echo  '<section>',
 	html_pied();
   ob_end_flush();
 
-//____________________________________________________________________________
-
-/**
- * Génère le code HTML d'un item de statistiques.
- *
- * @param integer $nb      Nombre de [...] pour cet item
- * @param string  $item    Nom de l'item
- * @param string  $image   Chemin vers l'image souhaitée
- * @param string  $details Détails supplémentaires
- */
-function item_stat($nb, $item, $image, $details) {
-  echo '<div class="item col-md-4 col-sm-6">',
-          '<img class="img-responsive center-block" src="',$image,'" alt="Une image" height="100px" width="100px"/>',
-          '<h3 class="text-center">',$nb,' ',$item,'</h3>',
-          '<p>',$details,'</p>',
-        '</div>';
-}
-
 ?>
