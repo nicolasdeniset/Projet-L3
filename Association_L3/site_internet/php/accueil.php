@@ -6,19 +6,28 @@
   session_start();
   html_head('Accueil');
   html_header();
-	
-echo  '<!-- Début section -->',
-    '<section>',
+
+  $S1 = 'SELECT *
+        FROM association';
+  $R1 = mysqli_query($GLOBALS['bd'], $S1) or bd_erreur($S1);
+  while ($assoc = mysqli_fetch_assoc($R1)) {
+    $nom = $assoc['nomAssociation'];
+    $slogan = $assoc['sloganAssociation'];
+    $description = $assoc['descriptionAssociation'];
+  }
+  
+// Section jumbotron - présentation
+echo  '<section>',
       '<div class="jumbotron">',
         '<div class="container">',
           '<div class="row">',
-            '<h1>NOM ASSOCIATION</h1>',
-            '<h3>Un slogan plutôt sympa ! patatipatata patatapatati</h3>',
-            '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+            '<h1>',$nom,'</h1>',
+            '<h3>',$slogan,'</h3>',
+            '<p>',$description,'</p>',
           '</div>',
           '<div class="row">',
             '<div class="text col-md-6 col-sm-12">',
-              '<a href="#about" class="btn btn-info btn-block">Découvrire</a>',
+              '<a href="#about" class="btn btn-info btn-block">Découvrir</a>',
             '</div>',
             '<div class="text col-md-6 col-sm-12">',
               '<a href="#about" class="btn btn-success btn-block">Candidater</a>',
@@ -26,9 +35,11 @@ echo  '<!-- Début section -->',
           '</div>',
         '</div>',
       '</div>',
-    '</section>',
-    '<!-- Fin section -->',
-    '<!-- Début section a propos-->',
+    '</section>';
+  // Fin section
+
+  // Section à propos (A supprimer ??)
+    echo '<!-- Début section a propos-->',
     '<section>',
       '<div class="container">',
         '<div class="row">',
@@ -36,62 +47,69 @@ echo  '<!-- Début section -->',
           '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
         '</div>',
       '</div>',
-    '</section>',
-    '<!-- Fin section -->',
-    '<!-- Début section statistiques-->',
-    '<section>',
+    '</section>';
+  // Fin section
+
+  // Début section statistiques
+  echo '<section>',
       '<div class="container">',
         '<div class="row">',
           '<h2 class="text-center">STATISTIQUES</h2>',
-          '<h3 class="text-center">L\'association en quelques chiffres clés</h3>',
-          '<!-- Item-->',
-          '<div class="item col-md-4 col-sm-6">',
-            '<img class="img-responsive center-block" src="../images/001-network.svg" alt="Une image" height="100px" width="100px"/>',
-            '<h3 class="text-center">75 Partenaires</h3>',
-            '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>',
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-4 col-sm-6">',
-            '<img class="img-responsive center-block" src="../images/benevole.svg" alt="Une image" height="100px" width="100px"/>',
-            '<h3 class="text-center">75 bénévoles</h3>',
-            '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>',
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-4 col-sm-6">',
-            '<img class="img-responsive center-block" src="../images/studentgirl.svg" alt="Une image" height="100px" width="100px" />',
-            '<h3 class="text-center">75 étudiants</h3>',
-            '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>',
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-4 col-sm-6">',
-            '<img class="img-responsive center-block" src="../images/studentman.svg" alt="Une image" height="100px" width="100px" />',
-            '<h3 class="text-center">75 Stages proposés</h3>',
-            '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>',
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-4 col-sm-6">',
-            '<img class="img-responsive center-block" src="../images/formation.svg" alt="Une image" height="100px" width="100px" />',
-            '<h3 class="text-center">75 Formations</h3>',
-            '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>',
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-4 col-sm-6">',
-            '<img class="img-responsive center-block" src="../images/005-maps-and-flags.svg" alt="Une image" height="100px" width="100px" />',
-            '<h3 class="text-center">75 Pôles en Afrique</h3>',
-            '<p>loremLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>',
-          '</div>',
-          '<!-- End Item-->',
-        '</div>',
+          '<h3 class="text-center">L\'association en quelques chiffres clés</h3>';
+
+          // Nouvel item
+          $S2 = 'SELECT COUNT(idCompte) as total
+                 FROM compte 
+                 WHERE typeCompte = 2';
+          $R2 =  mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($S2);
+          $nbEntrep = mysqli_fetch_assoc($R2);
+
+          item_stat($nbEntrep['total'], 'partenaires', '../images/001-network.svg', 'Les partenaires correspondent bien aux entreprises inscrites ?');
+
+          // Nouvel item
+          $S3 = 'SELECT COUNT(idCompte) as total
+                 FROM compte 
+                 WHERE typeCompte = 1';
+          $R3 =  mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($S3);
+          $nbBene = mysqli_fetch_assoc($R3);
+          item_stat($nbBene['total'], 'bénévoles', '../images/benevole.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+
+          // Nouvel item
+          $S4 = 'SELECT COUNT(idCompte) as total
+                 FROM compte 
+                 WHERE typeCompte = 3';
+          $R4 =  mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($S4);
+          $nbEtu = mysqli_fetch_assoc($R4);
+          item_stat($nbEtu['total'], 'étudiants', '../images/studentgirl.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+
+          // Nouvel item
+          $S5 = 'SELECT COUNT(idStage) as total
+                 FROM stage';
+          $R5 =  mysqli_query($GLOBALS['bd'], $S5) or bd_erreur($S5);
+          $nbStages = mysqli_fetch_assoc($R5);
+          item_stat($nbStages['total'], 'stages proposés', '../images/studentman.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+
+          // Nouvel item
+          $S6 = 'SELECT COUNT(idFormation) as total
+                 FROM formation';
+          $R6 =  mysqli_query($GLOBALS['bd'], $S6) or bd_erreur($S6);
+          $nbForm = mysqli_fetch_assoc($R6);
+          item_stat($nbForm['total'], 'formations', '../images/formation.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+
+          // Nouvel item
+          $S7 = 'SELECT COUNT(idPoleFormation) as total
+                 FROM poleformation';
+          $R7 =  mysqli_query($GLOBALS['bd'], $S7) or bd_erreur($S7);
+          $nbPoles = mysqli_fetch_assoc($R7);
+          item_stat($nbPoles['total'], 'pôles en Afrique', '../images/005-maps-and-flags.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+
+      echo '</div>',
       '</div>',
-    '</section>',
-    '<!-- Fin section -->',
-    '<!-- Début section témoignage -->',
-    '<section>',
+    '</section>';
+  // Fin section statistiques
+
+  // Début section témoignages
+  echo '<section>',
       '<div class="container">',
         '<h2 class="text-center">TEMOIGNAGES</h2>',
         '<div id="myCarousel" class="carousel slide" data-ride="carousel">',
@@ -148,10 +166,11 @@ echo  '<!-- Début section -->',
 
         '</div>',
      '</div>',
-    '</section>',
-    '<!-- Fin section -->',
-    '<!-- Début section formation -->',
-    '<section>',
+    '</section>';
+    // Fin section témoignages
+
+    // Début section formations
+  echo '<section>',
       '<div class="container">',
         '<div class="row">',
           '<h2 class="text-center">FORMATIONS</h2>',
@@ -193,10 +212,11 @@ echo  '<!-- Début section -->',
           '<a href="#about" class="btn btn-info btn-block">Acceder à nos autres formations</a>',
         '</div>',
       '</div>',
-    '</section>',
-    '<!-- Fin section -->',
-    '<!-- Début section partenaire-->',
-    '<section>',
+    '</section>';
+    // Fin section formations
+
+    // D&but section partenaires
+    echo '<section>',
       '<div class="container">',
         '<div class="row">',
           '<h2 class="text-center">PARTENAIRES</h2>',
@@ -295,10 +315,11 @@ echo  '<!-- Début section -->',
           '</div>',
         '</div>',
       '</div>',
-    '</section>',
-    '<!-- Fin section -->',
-    '<!-- Début section candidater -->',
-    '<section>',
+    '</section>';
+    // Fin section partenaires
+
+    // Début section candidater
+    echo '<section>',
       '<div class="container">',
         '<div class="row">',
           '<h2 class="text-center">CANDIDATER</h2>',
@@ -328,10 +349,11 @@ echo  '<!-- Début section -->',
           '<!-- End Item-->',
         '</div>',
       '</div>',
-    '</section>',
-    '<!-- Fin section -->',
-    '<!-- Début section article -->',
-    '<section>',
+    '</section>';
+    // Fin section candidater
+
+    // Début section articles
+    echo '<section>',
       '<div class="container">',
         '<div class="row">',
           '<h2 class="text-center">ARTICLES</h2>',
@@ -374,9 +396,11 @@ echo  '<!-- Début section -->',
           '<a href="#about" class="btn btn-info btn-block">Acceder à nos autres articles</a>',
         '</div>',
       '</div>',
-    '</section>',
-    '<!-- Fin section -->',
-    '<!-- Début section newletter -->',
+    '</section>';
+    // Fin section articles
+
+    // Début section newletter (à supprimer ?)
+  echo '<!-- Début section newletter -->',
     '<section>',
       '<div class="container">',
         '<div class="row">',
@@ -395,10 +419,11 @@ echo  '<!-- Début section -->',
           '</div>',
         '</div>',
       '</div>',
-    '</section>',
-    '<!-- Fin section-->',
-    '<!-- Début section contacter -->',
-    '<section>',
+    '</section>';
+    // Fin section newsletter
+
+    // Début section nous contacter
+  echo '<section>',
       '<div class="container">',
         '<div class="row">',
           '<h2 class="text-center">NOUS CONTACTER</h2>',
@@ -436,9 +461,28 @@ echo  '<!-- Début section -->',
           '</div>',
         '</div>',
       '</div>',
-    '</section>',
-    '<!-- Fin section -->';
+    '</section>';
+    // Fin section nous contacter
 
 	html_pied();
   ob_end_flush();
+
+//____________________________________________________________________________
+
+/**
+ * Génère le code HTML d'un item de statistiques.
+ *
+ * @param integer $nb      Nombre de [...] pour cet item
+ * @param string  $item    Nom de l'item
+ * @param string  $image   Chemin vers l'image souhaitée
+ * @param string  $details Détails supplémentaires
+ */
+function item_stat($nb, $item, $image, $details) {
+  echo '<div class="item col-md-4 col-sm-6">',
+          '<img class="img-responsive center-block" src="',$image,'" alt="Une image" height="100px" width="100px"/>',
+          '<h3 class="text-center">',$nb,' ',$item,'</h3>',
+          '<p>',$details,'</p>',
+        '</div>';
+}
+
 ?>
