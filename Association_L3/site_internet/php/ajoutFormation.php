@@ -42,7 +42,7 @@
 	} else {
 		// On est dans la phase de soumission du formulaire on en
 		// fait la vérification. Si aucune erreur n'est détectée,
-		// cette fonction redirige la page sur le script compte.
+		// cette fonction redirige la page sur le script formation.
 		$erreurs = ajouter_formation();
 		$nbErr = count($erreurs);
 	}
