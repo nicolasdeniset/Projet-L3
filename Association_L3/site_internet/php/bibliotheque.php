@@ -37,7 +37,7 @@ define('APP_PAGE_ACCUEIL', 'accueil.php');
  * @param string	$titre		Titre de la page
  * @param string	$css		url de la feuille de styles liée
  ******************************************************************************/
-function html_head($titre, $css = '../css/style.css') {
+function html_head($titre) {
 	echo '<!DOCTYPE HTML>',
 		'<html>',
 			'<head>',
@@ -261,21 +261,6 @@ function bd_erreurExit($msg) {
 
 function verifie_session(){
 	session_start();
-	if($_SESSION['actifCompte'] == "0") {
-		session_unset();
-		session_destroy();
-		$cookieParams = session_get_cookie_params();
-		setcookie(session_name(),
-			'',
-			time() - 86400,
-         	$cookieParams['path'],
-         	$cookieParams['domain'],
-         	$cookieParams['secure'],
-         	$cookieParams['httponly']
-    	);
-		header('location: login.php');
-		exit();
-	}
 	if(!isset($_SESSION['idCompte'])){
 		session_unset();
 		session_destroy();
@@ -291,6 +276,23 @@ function verifie_session(){
 		header('location: login.php');
 		exit();
 	}
+	/*if(!isset($_SESSION['actifCompte'])){
+		if($_SESSION['actifCompte'] == "0") {
+			session_unset();
+			session_destroy();
+			$cookieParams = session_get_cookie_params();
+			setcookie(session_name(),
+				'',
+				time() - 86400,
+				$cookieParams['path'],
+				$cookieParams['domain'],
+				$cookieParams['secure'],
+				$cookieParams['httponly']
+			);
+			header('location: login.php');
+			exit();
+		}
+	}*/
 	return false;
 }
 
