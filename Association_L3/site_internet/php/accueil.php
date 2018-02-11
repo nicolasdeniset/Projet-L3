@@ -109,40 +109,86 @@ echo  '<section>',
             '<li data-target="#myCarousel" data-slide-to="2"></li>',
           '</ol>',
 
-          '<!-- Wrapper for slides -->',
-          '<div class="carousel-inner">',
-            '<div class="item active ">',
-              '<div class="item col-md-offset-1 col-sm-offset-1 col-md-2 col-sm-3">',
-                '<img class="img-responsive center-block" src="../images/quotation-mark.svg" alt="Quote" height="100px" width="100px">',
-              '</div>',
-              '<p class="item col-md-8 col-sm-7">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>',
-              '<!--<div class="carousel-caption">',
-                '<h4>Témoignage par : Inconnu</h4>',
-              '</div>-->',
-            '</div>',
+          // Wrapper for slides
+          '<div class="carousel-inner">';
 
-            '<div class="item">',
-              '<div class="item col-md-offset-1 col-sm-offset-1 col-md-2 col-sm-3">',
-                '<img class="img-responsive center-block" src="../images/quotation-mark.svg" alt="Quote" height="100px" width="100px">',
-              '</div>',
-              '<p class="item col-md-8 col-sm-7">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>',
-              '<!--<div class="carousel-caption">',
-                '<h4>Témoignage par : Inconnu</h4>',
-              '</div>-->',
-            '</div>',
+          // On compte le nombre de témoignages dans la base de données
+          $S1 = 'SELECT COUNT(idTemoignages) as total
+                FROM temoignages';
+          $R1 = mysqli_query($GLOBALS['bd'], $S1) or bd_erreur($S1);
+          $nbTem = mysqli_fetch_assoc($R1);
 
-            '<div class="item">',
-              '<div class="item col-md-offset-1 col-sm-offset-1 col-md-2 col-sm-3">',
-                '<img class="img-responsive center-block" src="../images/quotation-mark.svg" alt="Quote" height="100px" width="100px">',
-              '</div>',
-              '<p class="item col-md-8 col-sm-7">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>',
-              '<!--<div class="carousel-caption">',
-                '<h4>Témoignage par : Inconnu</h4>',
-              '</div>-->',
-            '</div>',
-          '</div>',
+          $first = -1;
+          $second = -1;
+          $third = -1;
 
-          '<!-- Left and right controls -->',
+          // S'il y a plus de 3 témoignages, on en choisit 3 au hasard
+          if ($nbTem['total'] > 3) {
+            $first = rand(0, $nbTem['total']-1);
+            do {
+              $second = rand(0, $nbTem['total']-1);
+            } while ($second == $first);
+             do {
+              $third = rand(0, $nbTem['total']-1);
+            } while ($third == $first || $third == $second);
+          }
+
+
+          $S2 = 'SELECT compteTemoignages, texteTemoignages, anonymeTemoignages
+                FROM temoignages';
+          $R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($S2);
+          $countLoop = 0; // Nombre de lignes de la requête parcourues
+          $countItems = 0; // Nombre de témoignages affichés
+          while ($tem = mysqli_fetch_assoc($R2)) {
+            if ($countLoop == $first || $countLoop == $second || $countLoop == $third || $nbTem['total'] <= 3) {
+
+              if ($tem['anonymeTemoignages'] == 1) {
+                if ($countItems == 0) {
+                  item_temoignage($tem['texteTemoignages'], 'Anonyme', 'active');
+                }
+                else {
+                  item_temoignage($tem['texteTemoignages'], 'Anonyme');
+                }
+              }
+              else {
+                $S3 = 'SELECT typeCompte, nomEntrepriseCompte
+                      FROM temoignages, compte
+                      WHERE idCompte="'.$tem['compteTemoignages'].'"';
+                $R3 = mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($S3);
+                $compte = mysqli_fetch_assoc($R3);
+                if ($compte['typeCompte'] == 1) {
+                  if ($countItems == 0) {
+                    item_temoignage($tem['texteTemoignages'], $compte['nomEntrepriseCompte'], 'active');
+                  }
+                  else {
+                    item_temoignage($tem['texteTemoignages'], $compte['nomEntrepriseCompte']);
+                  }
+                }
+                else {
+                  $S4 = 'SELECT nomCoordonnees, prenomCoordonnees
+                        FROM temoignages, compte, coordonnees
+                        WHERE idCompte="'.$tem['compteTemoignages'].'"
+                        AND coordonneesCompte = idCoordonnees';
+                  $R4 = mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($S4);
+                  $personne = mysqli_fetch_assoc($R4);
+                  $nomTem = $personne['prenomCoordonnees'].' '.$personne['nomCoordonnees'];
+                  if ($countItems == 0) {
+                    item_temoignage($tem['texteTemoignages'], $nomTem, 'active');
+                  }
+                  else {
+                    item_temoignage($tem['texteTemoignages'], $nomTem);
+                  }
+                }
+              }
+
+              $countItems++;
+            }
+            $countLoop++;
+          }
+
+      echo '</div>',
+
+          // Left and right controls
           '<a class="carousel-control left" href="#myCarousel" data-slide="prev">',
             '<span class="glyphicon glyphicon-chevron-left"></span>',
             '<span class="sr-only">Previous</span>',
@@ -161,41 +207,46 @@ echo  '<section>',
   echo '<section id="formation">',
       '<div class="container">',
         '<div class="row">',
-          '<h2 class="text-center">FORMATIONS</h2>',
-          '<!-- Item-->',
-          '<div class="item col-md-4">',
-            '<div id="formation1">',
-              '<img class="img-responsive center-block" src="../images/help.svg" alt="Une image" height="100px" width="100px"/>',
-              '<h3>Titre de la formation</h3>',
-              '<p class="small">Durée formation : 2mois</p>',
-              '<p>Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
-            '</div>',
-            '<a href="#about" class="btn btn-success btn-block">Acceder à la formation</a>',
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-4">',
-            '<div id="formation2">',
-              '<img class="img-responsive center-block" src="../images/help.svg" alt="Une image" height="100px" width="100px"/>',
-              '<h3>Titre de la formation</h3>',
-              '<p class="small">Durée formation : 2mois</p>',
-              '<p>Rapide description</p>',
-            '</div>',
-            '<a href="#about" class="btn btn-success btn-block">Acceder à la formation</a>',
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-4">',
-            '<div id="formation3">',
-              '<img class="img-responsive center-block" src="../images/help.svg" alt="Une image" height="100px" width="100px"/>',
-              '<h3>Titre de la formation</h3>',
-              '<p class="small">Durée formation : 2mois</p>',
-              '<p>Rapide description</p>',
-            '</div>',
-            '<a href="#about" class="btn btn-success btn-block">Acceder à la formation</a>',
-          '</div>',
-          '<!-- End Item-->',
-        '</div>',
+          '<h2 class="text-center">FORMATIONS</h2>';
+
+          // On compte le nombre de formations disponibles dans la base de données
+          $S1 = 'SELECT COUNT(idFormation) as total
+                FROM formation
+                WHERE dispoFormation = 1';
+          $R1 = mysqli_query($GLOBALS['bd'], $S1) or bd_erreur($S1);
+          $nbFormations = mysqli_fetch_assoc($R1);
+
+          $first = -1;
+          $second = -1;
+          $third = -1;
+
+          // S'il y a plus de 3 formations disponibles, on en choisit 3 au hasard
+          if ($nbFormations['total'] > 3) {
+            $first = rand(0, $nbFormations['total']-1);
+            do {
+              $second = rand(0, $nbFormations['total']-1);
+            } while ($second == $first);
+             do {
+              $third = rand(0, $nbFormations['total']-1);
+            } while ($third == $first || $third == $second);
+          }
+
+          $S2 = 'SELECT titreFormation, descriptionFormation, dureeFormation
+                FROM formation
+                WHERE dispoFormation = 1';
+          $R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($S2);
+
+          $count = 0; // Nombre de lignes de la requête parcourues
+          $numID = 1; // ID de la prochaine formation
+          while ($formations = mysqli_fetch_assoc($R2)) {
+            if ($count == $first || $count == $second || $count == $third || $nbFormations['total'] <= 3) {
+              item_formation('formation'.$numID, '../images/help.svg', $formations['titreFormation'], $formations['dureeFormation'], $formations['descriptionFormation']);
+              $numID++;
+            }
+            $count++;
+          }
+
+    echo '</div>',
         '<div class="row">',
           '<a href="#about" class="btn btn-info btn-block">Acceder à nos autres formations</a>',
         '</div>',
@@ -449,6 +500,49 @@ echo  '<section>',
     // Fin section nous contacter
 
 	html_pied();
+
+  //_______________________________________________________________
+  //
+  //    FONCTIONS LOCALES
+  //_______________________________________________________________
+
+
+  /**
+   * Génère le code HTML d'un item de témoignage dans le carousel.
+   *
+   * @param string  $text    Texte du témoignage
+   * @param string  $author  Auteur du témoignage ou "Anonyme"
+   * @param string  $active  Indicateur qui indique si on est dans l'item actif
+   */
+  function item_temoignage($text, $author, $active='') {
+    echo '<div class="item ',$active,' ">',
+              '<div class="item col-md-offset-1 col-sm-offset-1 col-md-2 col-sm-3">',
+                '<img class="img-responsive center-block" src="../images/quotation-mark.svg" alt="Quote" height="100px" width="100px">',
+              '</div>',
+              '<h4>Témoignage par : ',$author,'</h4>',
+              '<p class="item col-md-8 col-sm-7">',$text,'</p>',
+            '</div>';
+  }
+
+  /**
+   * Génère le code HTML d'un item de témoignage dans le carousel.
+   *
+   * @param string  $text    Texte du témoignage
+   * @param string  $author  Auteur du témoignage ou "Anonyme"
+   * @param string  $active  Indicateur qui indique si on est dans l'item actif
+   */
+  function item_formation($id, $image, $title, $duration, $description) {
+    echo '<div class="item col-md-4">',
+            '<div id="',$id,'">',
+              '<img class="img-responsive center-block" src="',$image,'" alt="Une image" height="100px" width="100px"/>',
+              '<h3>',$title,'</h3>',
+              '<p class="small">Durée formation : ',$duration,' semaines</p>',
+              '<p>',$description,'</p>',
+            '</div>',
+            '<a href="#about" class="btn btn-success btn-block">Accéder à la formation</a>',
+          '</div>';
+  }
+
   ob_end_flush();
 
 ?>
