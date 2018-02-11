@@ -120,12 +120,12 @@
 					  '</div>',
 					  '<div class="row">';
 						if($estAdmin != 0) {
-							echo '<div class="col-md-6 col-sm-12">',
+							echo '<div class="col-md-12 col-sm-12">',
 							  '<a href="#about" class="btn btn-info btn-block"><span class="fa fa-eye" aria-hidden="true"></span>Acceder à la formation</a>',
 							'</div>';
 						}
 						if($estAdmin == 0) {
-							echo '<div class="col-md-6 col-sm-12">',
+							echo '<div class="col-md-12 col-sm-12">',
 							  '<a href="gestionFormation.php" class="btn btn-success btn-block"><span class="fa fa-cogs" aria-hidden="true"></span>Gerer la formation</a>',
 							'</div>';
 						}
@@ -193,12 +193,12 @@
 					  '</div>',
 					  '<div class="row">';
 						if($estAdmin != 0) {
-							echo '<div class="col-md-6 col-sm-12">',
+							echo '<div class="col-md-12 col-sm-12">',
 							  '<a href="#about" class="btn btn-info btn-block"><span class="fa fa-eye" aria-hidden="true"></span>Acceder à la formation</a>',
 							'</div>';
 						}
 						if($estAdmin == 0) {
-							echo '<div class="col-md-6 col-sm-12">',
+							echo '<div class="col-md-12 col-sm-12">',
 							  '<a href="gestionFormation.php" class="btn btn-success btn-block"><span class="fa fa-cogs" aria-hidden="true"></span>Gerer la formation</a>',
 							'</div>';
 						}
@@ -207,7 +207,7 @@
 				}
 			}
 			else {
-				echo '<h3> Aucune formation n\'est disponible a l\'heure actuelle. </h3>';
+				echo '<h3> Aucune formation possèdant ce titre a été trouvé. </h3>';
 			}
 		}
 		

@@ -292,7 +292,6 @@
 	* @return array $erreurs		Tableau des erreurs détectées.
 	*/
 	function supprimer_user($id, $idCoordoneesCompte) {
-		$GLOBALS['bd'] = bd_connexion();
 		
 		$S = "DELETE FROM compte
 					WHERE	idCompte = '$id'";

@@ -77,7 +77,7 @@
               '</div>',
               '<div class="form-group">',
                 '<label class="control-label required" for="name">Durée de la formation<sup style="color:red">*</sup></label>',
-                '<input id="duree" name="duree" type="number" class="form-control" placeholder="Entrez la durée de la formation" value="85">',
+                '<input id="duree" name="duree" type="number" class="form-control" placeholder="Entrez la durée de la formation" value="5">',
               '</div>',
               '<div class="form-group">',
                 '<label class="control-label required" for="name">Fichier de la formation<sup style="color:red">*</sup></label>',
