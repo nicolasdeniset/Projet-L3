@@ -136,7 +136,7 @@ echo  '<section>',
 
           $S2 = 'SELECT compteTemoignages, texteTemoignages, anonymeTemoignages
                 FROM temoignages';
-          $R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($S2);
+          $R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'],$S2);
           $countLoop = 0; // Nombre de lignes de la requête parcourues
           $countItems = 0; // Nombre de témoignages affichés
           while ($tem = mysqli_fetch_assoc($R2)) {
