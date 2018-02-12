@@ -176,7 +176,7 @@
 		$GLOBALS['bd'] = bd_connexion();
 		
 		// Vérification du mail
-		$txtMail = trim($_POST['email']);
+		$txtMail = trim(utf8_encode($_POST['email']));
 		if ($txtMail == '') {
 			$erreurs[] = 'L\'adresse mail est obligatoire';
 		} elseif (strpos($txtMail, '@') === FALSE
@@ -186,7 +186,7 @@
 		}
 		
 		// Vérification du mot de passe
-		$txtPasse = trim($_POST['password1']);
+		$txtPasse = trim(utf8_encode($_POST['password1']));
 		if ($txtPasse == '') {
 			$erreurs[] = 'Le mot de passe est obligatoire';
 		}
@@ -197,19 +197,19 @@
 		}
 		
 		// Vérification de la question
-		$txtQuestion = trim($_POST['question']);
+		$txtQuestion = trim(utf8_encode($_POST['question']));
 		if ($txtQuestion == '') {
 			$erreurs[] = 'La question est obligatoire';
 		}
 		
 		// Vérification de la réponse
-		$txtReponse = trim($_POST['answer']);
+		$txtReponse = trim(utf8_encode($_POST['answer']));
 		if ($txtReponse == '') {
 			$erreurs[] = 'La r&eacute;ponse est obligatoire';
 		}
 		
 		// Vérification du téléphone
-		$txttelephone = trim($_POST['phone']);
+		$txttelephone = trim(utf8_encode($_POST['phone']));
 		if ($txttelephone == '') {
 			$erreurs[] = 'Le t&eacute;l&eacute;phone est obligatoire';
 		}
@@ -220,13 +220,13 @@
 		}
 		
 		// Vérification de l'adresse
-		$txtAdresse = trim($_POST['address']);
+		$txtAdresse = trim(utf8_encode($_POST['address']));
 		if ($txtAdresse == '') {
 			$erreurs[] = 'L\'adresse est obligatoire';
 		}
 		
 		// Vérification du code postal
-		$txtCp = trim($_POST['cp']);
+		$txtCp = trim(utf8_encode($_POST['cp']));
 		if ($txtCp == '') {
 			$erreurs[] = 'Le code postal est obligatoire';
 		}
@@ -237,13 +237,13 @@
 		}
 		
 		// Vérification de la ville
-		$txtVille = trim($_POST['city']);
+		$txtVille = trim(utf8_encode($_POST['city']));
 		if ($txtVille == '') {
 			$erreurs[] = 'La ville est obligatoire';
 		}
 
 		// Vérification du pays
-		$txtPays = trim($_POST['country']);
+		$txtPays = trim(utf8_encode($_POST['country']));
 		if ($txtPays == '') {
 			$erreurs[] = 'Le pays est obligatoire';
 		}	

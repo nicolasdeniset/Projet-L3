@@ -386,53 +386,53 @@
 		$erreurs = array();
 
 		if ($type == 2) {
-			$txtPseudo = trim($_POST['pseudo']);
-			$txtPasse = trim($_POST['password1']);
-			$txtVerif = trim($_POST['password2']);
-			$txtNom = trim($_POST['name']);
-			$txtPrenom = trim($_POST['firstname']);
-			$txtMail = trim($_POST['email']);
-			$txtQuestion = trim($_POST['question']);
-			$txtReponse = trim($_POST['answer']);
-			$txttelephone = trim($_POST['phone']);
-			$txtAdresse = trim($_POST['address']);
-			$txtCp = trim($_POST['cp']);
-			$txtVille = trim($_POST['city']);
-			$txtPays = trim($_POST['country']);
-			$txtMotivation = trim($_POST['motivation']);			
+			$txtPseudo = trim(utf8_encode($_POST['pseudo']));
+			$txtPasse = trim(utf8_encode($_POST['password1']));
+			$txtVerif = trim(utf8_encode($_POST['password2']));
+			$txtNom = trim(utf8_encode($_POST['name']));
+			$txtPrenom = trim(utf8_encode($_POST['firstname']));
+			$txtMail = trim(utf8_encode($_POST['email']));
+			$txtQuestion = trim(utf8_encode($_POST['question']));
+			$txtReponse = trim(utf8_encode($_POST['answer']));
+			$txttelephone = trim(utf8_encode($_POST['phone']));
+			$txtAdresse = trim(utf8_encode($_POST['address']));
+			$txtCp = trim(utf8_encode($_POST['cp']));
+			$txtVille = trim(utf8_encode($_POST['city']));
+			$txtPays = trim(utf8_encode($_POST['country']));
+			$txtMotivation = trim(utf8_encode($_POST['motivation']));			
 		}
 		else {
 			if($type == 3) {
-				$txtPseudo = trim($_POST['pseudo2']);
-				$txtPasse = trim($_POST['password12']);
-				$txtVerif = trim($_POST['password22']);
-				$txtNom = trim($_POST['name2']);
-				$txtPrenom = trim($_POST['firstname2']);
-				$txtMail = trim($_POST['email2']);
-				$txtQuestion = trim($_POST['question2']);
-				$txtReponse = trim($_POST['answer2']);
-				$txttelephone = trim($_POST['phone2']);
-				$txtAdresse = trim($_POST['address2']);
-				$txtCp = trim($_POST['cp2']);
-				$txtVille = trim($_POST['city2']);
-				$txtPays = trim($_POST['country2']);
-				$txtMotivation = trim($_POST['motivation2']);	
+				$txtPseudo = trim(utf8_encode($_POST['pseudo2']));
+				$txtPasse = trim(utf8_encode($_POST['password12']));
+				$txtVerif = trim(utf8_encode($_POST['password22']));
+				$txtNom = trim(utf8_encode($_POST['name2']));
+				$txtPrenom = trim(utf8_encode($_POST['firstname2']));
+				$txtMail = trim(utf8_encode($_POST['email2']));
+				$txtQuestion = trim(utf8_encode($_POST['question2']));
+				$txtReponse = trim(utf8_encode($_POST['answer2']));
+				$txttelephone = trim(utf8_encode($_POST['phone2']));
+				$txtAdresse = trim(utf8_encode($_POST['address2']));
+				$txtCp = trim(utf8_encode($_POST['cp2']));
+				$txtVille = trim(utf8_encode($_POST['city2']));
+				$txtPays = trim(utf8_encode($_POST['country2']));
+				$txtMotivation = trim(utf8_encode($_POST['motivation2']));	
 			}
 			else {
-				$txtPseudo = trim($_POST['pseudo3']);
-				$txtPasse = trim($_POST['password13']);
-				$txtVerif = trim($_POST['password23']);
-				$txtNom = trim($_POST['name3']);
-				$txtPrenom = trim($_POST['firstname3']);
-				$txtMail = trim($_POST['email3']);
-				$txtQuestion = trim($_POST['question3']);
-				$txtReponse = trim($_POST['answer3']);
-				$txttelephone = trim($_POST['phone3']);
-				$txtAdresse = trim($_POST['address3']);
-				$txtCp = trim($_POST['cp3']);
-				$txtVille = trim($_POST['city3']);
-				$txtPays = trim($_POST['country3']);
-				$txtMotivation = trim($_POST['motivation3']);	
+				$txtPseudo = trim(utf8_encode($_POST['pseudo3']));
+				$txtPasse = trim(utf8_encode($_POST['password13']));
+				$txtVerif = trim(utf8_encode($_POST['password23']));
+				$txtNom = trim(utf8_encode($_POST['name3']));
+				$txtPrenom = trim(utf8_encode($_POST['firstname3']));
+				$txtMail = trim(utf8_encode($_POST['email3']));
+				$txtQuestion = trim(utf8_encode($_POST['question3']));
+				$txtReponse = trim(utf8_encode($_POST['answer3']));
+				$txttelephone = trim(utf8_encode($_POST['phone3']));
+				$txtAdresse = trim(utf8_encode($_POST['address3']));
+				$txtCp = trim(utf8_encode($_POST['cp3']));
+				$txtVille = trim(utf8_encode($_POST['city3']));
+				$txtPays = trim(utf8_encode($_POST['country3']));
+				$txtMotivation = trim(utf8_encode($_POST['motivation3']));	
 			}
 		}
 		// Vérification du pseudo
@@ -462,7 +462,7 @@
 		}
 		
 		if($type == "1") {
-			$txtCompanyName = trim($_POST['compagnyName']);
+			$txtCompanyName = trim(utf8_encode($_POST['compagnyName']));
 			if ($txtCompanyName == '') {
 				$erreurs[] = 'Le nom de l\'entreprise est obligatoire';
 			}

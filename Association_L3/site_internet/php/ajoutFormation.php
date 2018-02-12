@@ -66,7 +66,7 @@
 	
     echo '<div class="item">',
           '<div class="row">',
-            '<form method="POST" action="ajoutFormation.php" accept-charset="iso-8859-1">',
+            '<form method="POST" action="ajoutFormation.php" accept-charset="iso-8859-1" enctype="multipart/form-data">',
               '<div class="form-group">',
                 '<label class="control-label required" for="name">Titre de la formation<sup style="color:red">*</sup></label>',
                 '<input id="titre" name="titre" type="text" class="form-control" placeholder="Entrez le titre de la formation">',
@@ -81,7 +81,7 @@
               '</div>',
               '<div class="form-group">',
                 '<label class="control-label required" for="name">Fichier de la formation<sup style="color:red">*</sup></label>',
-                '<input id="fichier" name="fichier" type="file" class="" placeholder="Entrez le fichier de la formation">',
+                '<input id="fichier" name="formation" type="file" placeholder="Entrez le fichier de la formation">',
               '</div>',
               '<div class="form-group">',
                 '<label class="control-label required">Disponniblité de la formation<sup style="color:red">*</sup></label><br>',
@@ -118,13 +118,13 @@
 		$erreurs = array();
 		
 		// Vérification du titre
-		$txtTitre = trim($_POST['titre']);
+		$txtTitre = trim(utf8_encode($_POST['titre']));
 		if ($txtTitre == '') {
 			$erreurs[] = 'Vous avez oublié le titre !';
 		}
 		
 		// Vérification de la description
-		$txtDescription = trim($_POST['description']);
+		$txtDescription = trim(utf8_encode($_POST['description']));
 		if ($txtDescription == '') {
 			$erreurs[] = 'Vous avez oublié la description !';
 		}
@@ -146,7 +146,7 @@
 		}
 		
 		//renomage du fichier
-		//rename("$fichier", "file" .time(). "1");
+		rename("$fichier", "file" .time(). "1");
 		
 		if(!move_uploaded_file($_FILES['formation']['tmp_name'], $dossier . $fichier)) {
 			$erreurs[] = "Erreur interne de transfert";
@@ -168,9 +168,9 @@
 		$S = "INSERT INTO formation SET
 				titreFormation = '$txtTitre',
 				descriptionFormation = '$txtDescription',
-				documentFormation = '$txtDuree',
-				tailleDocumentFormation = '$fichier',
-				dureeFormation = '$taille',
+				documentFormation = '$fichier',
+				tailleDocumentFormation = '$taille',
+				dureeFormation = '$txtDuree',
 				dispoFormation = '$formationDispo'";
 		
 		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
