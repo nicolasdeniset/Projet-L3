@@ -25,10 +25,17 @@
 	$documentFormation = array();
 	$dureeFormation = array();
 	
-	// Requête qui va récuperer les informations concernant toutes les formations (titre, description, durée, fichier etc..).
-	$S2 = "SELECT	idFormation, titreFormation, descriptionFormation, documentFormation, dureeFormation
-			FROM	formation
-			WHERE	dispoFormation = '1'";
+	if($estAdmin == 0) {
+		// Requête qui va récuperer les informations concernant toutes les formations (titre, description, durée, fichier etc..).
+		$S2 = "SELECT	idFormation, titreFormation, descriptionFormation, documentFormation, dureeFormation
+				FROM	formation";
+	}
+	else {
+		// Requête qui va récuperer les informations concernant toutes les formations (titre, description, durée, fichier etc..).
+		$S2 = "SELECT	idFormation, titreFormation, descriptionFormation, documentFormation, dureeFormation
+				FROM	formation
+				WHERE	dispoFormation = '1'";
+	}
 
 	$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
 	while ($D2 = mysqli_fetch_assoc($R2)) {
@@ -79,6 +86,18 @@
 		if(!isset($_POST['btnValider'])) {
 			if($nbIDFormation > 0) {
 				for($i = 0;$i < $nbIDFormation; $i++){
+					$S4 = "SELECT	idCandidature
+							FROM	candidature
+							WHERE	typeCandidature = '1'
+							AND		experienceCandidature = '$idFormation[$i]'
+							AND		compteCandidature = '$id'
+							AND		traiteeCandidature = '0'";
+
+					$R4 = mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($GLOBALS['bd'], $S4);
+					$D4 = mysqli_fetch_row($R4);
+					$dejaCandidater = $D4[0];
+					
+					$stat = statistique($idFormation[$i]);
 					echo '<div class="item">',
 					  '<div class="row">',
 						'<div class="col-md-6 col-sm-12">',
@@ -92,34 +111,34 @@
 							'<tbody>',
 							  '<tr>',
 								'<th>Nombre candidatures</th>',
-								'<td>6</td>',
+								'<td>',$stat[0],'</td>',
 							  '</tr>',
 							  '<tr>',
 								'<th>Nombre étudiants acceptés</th>',
-								'<td>4</td>',
+								'<td>',$stat[1],'</td>',
 							  '</tr>',
 							  '<tr>',
 								'<th>Nombre étudiants diplomé</th>',
-								'<td>2</td>',
+								'<td>',$stat[2],'</td>',
 							  '</tr>',
 							  '<tr>',
 								'<th>Nombre étudiants en formation</th>',
-								'<td>2</td>',
+								'<td>',$stat[3],'</td>',
 							  '</tr>',
 							  '<tr>',
 								'<th>Nombre stages proposés</th>',
-								'<td>2</td>',
+								'<td>',$stat[4],'</td>',
 							  '</tr>',
 							  '<tr>',
 								'<th>Nombre pôles de formation</th>',
-								'<td>4</td>',
+								'<td>',$stat[5],'</td>',
 							  '</tr>',
 							'</tbody>',
 						  '</table>',
 						'</div>',
 					  '</div>',
 					  '<div class="row">';
-						if($estAdmin != 0) {
+						if($estAdmin == 2 && $dejaCandidater == NULL) {
 							echo '<div class="col-md-12 col-sm-12">',
 							  '<a href="#about" class="btn btn-info btn-block"><span class="fa fa-eye" aria-hidden="true"></span>Acceder à la formation</a>',
 							'</div>';
@@ -152,6 +171,18 @@
 					$description = $D3[1];
 					$document = $D3[2];
 					$duree = $D3[3];
+					
+					$S4 = "SELECT	idCandidature
+							FROM	candidature
+							WHERE	typeCandidature = '1'
+							AND		experienceCandidature = '$idFormation[$i]'
+							AND		compteCandidature = '$id'
+							AND		traiteeCandidature = '0'";
+
+					$R4 = mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($GLOBALS['bd'], $S4);
+					$D4 = mysqli_fetch_row($R4);
+					$dejaCandidater = $D4[0];
+					$stat = statistique($listeFormationID[$i]);
 					echo '<div class="item">',
 					  '<div class="row">',
 						'<div class="col-md-6 col-sm-12">',
@@ -165,34 +196,34 @@
 							'<tbody>',
 							  '<tr>',
 								'<th>Nombre candidatures</th>',
-								'<td>6</td>',
+								'<td>',$stat[0],'</td>',
 							  '</tr>',
 							  '<tr>',
 								'<th>Nombre étudiants acceptés</th>',
-								'<td>4</td>',
+								'<td>',$stat[1],'</td>',
 							  '</tr>',
 							  '<tr>',
 								'<th>Nombre étudiants diplomé</th>',
-								'<td>2</td>',
+								'<td>',$stat[2],'</td>',
 							  '</tr>',
 							  '<tr>',
 								'<th>Nombre étudiants en formation</th>',
-								'<td>2</td>',
+								'<td>',$stat[3],'</td>',
 							  '</tr>',
 							  '<tr>',
 								'<th>Nombre stages proposés</th>',
-								'<td>2</td>',
+								'<td>',$stat[4],'</td>',
 							  '</tr>',
 							  '<tr>',
 								'<th>Nombre pôles de formation</th>',
-								'<td>4</td>',
+								'<td>',$stat[5],'</td>',
 							  '</tr>',
 							'</tbody>',
 						  '</table>',
 						'</div>',
 					  '</div>',
 					  '<div class="row">';
-						if($estAdmin != 0) {
+						if($estAdmin == 2 && $dejaCandidater == NULL) {
 							echo '<div class="col-md-12 col-sm-12">',
 							  '<a href="#about" class="btn btn-info btn-block"><span class="fa fa-eye" aria-hidden="true"></span>Acceder à la formation</a>',
 							'</div>';
@@ -226,7 +257,7 @@
 	* formation à partir de son titre.
 	* Si on trouve des titres renvoie un tableau d'id des formations.
 	*
-	* @return array $erreurs		Tableau des erreurs détectées.
+	* @return array $idFormation		Tableau des identifiants de Formation détectées.
 	*/
 	function rechercher_formation() {
 		$idFormation = array();
@@ -265,5 +296,60 @@
 		}else{
 			return $idFormation;
 		}
+	}
+	
+	/**
+	* Fonction qui permet de faire les statistique concernant une
+	* formation à partir de son identifiant.
+	* Si on trouve des titres renvoie un tableau d'id des formations.
+	*
+	* @return array $stat		Tableau des statistiques détectées.
+	*/
+	function statistique($idFormation) {
+		$stat = array();
+		
+		$S = "SELECT count(idCandidature), count(accepteeCandidature)
+			FROM candidature
+			WHERE experienceCandidature = '$idFormation'
+			AND	typeCandidature = '1'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		$stat[0] = $D[0];
+		$stat[1] = $D[1];
+		
+		$S2 = "SELECT count(certificationAsuivi)
+			FROM propose, asuivi
+			WHERE formationAsuivi = idPropose
+			AND	formationPropose = '$idFormation'";
+		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+		$D2 = mysqli_fetch_row($R2);
+		$stat[2] = $D2[0];
+		
+		$currentDate = date('Ymd');
+		$S3 = "SELECT count(idAsuivi)
+			FROM propose, asuivi
+			WHERE formationAsuivi = idPropose
+			AND	formationPropose = '$idFormation'
+			AND dateDebutAsuivi <= '$currentDate'
+			AND	dateFinAsuivi > '$currentDate'";
+		$R3 = mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
+		$D3 = mysqli_fetch_row($R3);
+		$stat[3] = $D3[0];
+		
+		$S4 = "SELECT count(stageCertificationRequise)
+			FROM certifiactionrequise
+			WHERE formationCertificationRequise = '$idFormation'";
+		$R4 = mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($GLOBALS['bd'], $S4);
+		$D4 = mysqli_fetch_row($R4);
+		$stat[4] = $D4[0];
+		
+		$S5 = "SELECT count(polePropose)
+			FROM propose
+			WHERE formationPropose = '$idFormation'";
+		$R5 = mysqli_query($GLOBALS['bd'], $S5) or bd_erreur($GLOBALS['bd'], $S5);
+		$D5 = mysqli_fetch_row($R5);
+		$stat[5] = $D5[0];
+		
+		return $stat;
 	}
 ?>
