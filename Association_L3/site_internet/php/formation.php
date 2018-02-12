@@ -140,7 +140,23 @@
 					  '<div class="row">';
 						if($estAdmin == 2 && $dejaCandidater == NULL) {
 							echo '<div class="col-md-12 col-sm-12">',
-							  '<a href="#about" class="btn btn-info btn-block"><span class="fa fa-eye" aria-hidden="true"></span>Acceder à la formation</a>',
+
+								  	"<div onclick=\"javascript:openGestion(['formationNumero".$i,"']);\">",
+							            '<button href="#" class="btn btn-info btn-block">Candidater</button>',
+							        '</div>',
+
+								  '<form class="gestion" id="formationNumero'.$i,'" method="POST">',
+	                
+									'<div class="form-group">',
+									  '<br>',
+					                  '<label class="control-label required">Qu\'est ce qui vous motive à faire cette formation ?</label>',
+					                  '<textarea id="motivation" name="motivation" class="form-control" placeholder="Entrez vos motivations"></textarea>',
+					                '</div>',
+					                
+					                '<button type="submit" class="btn btn-block btn-success" name="btnValider1">S\'inscrire</button>',
+					                
+					              '</form>',
+
 							'</div>';
 						}
 						if($estAdmin == 0) {
@@ -225,7 +241,23 @@
 					  '<div class="row">';
 						if($estAdmin == 2 && $dejaCandidater == NULL) {
 							echo '<div class="col-md-12 col-sm-12">',
-							  '<a href="#about" class="btn btn-info btn-block"><span class="fa fa-eye" aria-hidden="true"></span>Acceder à la formation</a>',
+
+								  	"<div onclick=\"javascript:openGestion(['formationBisNumero".$i,"']);\">",
+							            '<button href="#" class="btn btn-info btn-block">Candidater</button>',
+							        '</div>',
+
+								  '<form class="gestion" id="formationBisNumero'.$i,'" method="POST">',
+	                
+									'<div class="form-group">',
+									  '<br>',
+					                  '<label class="control-label required">Qu\'est ce qui vous motive à faire cette formation ?</label>',
+					                  '<textarea id="motivation" name="motivation" class="form-control" placeholder="Entrez vos motivations"></textarea>',
+					                '</div>',
+					                
+					                '<button type="submit" class="btn btn-block btn-success" name="btnValider1">S\'inscrire</button>',
+					                
+					              '</form>',
+
 							'</div>';
 						}
 						if($estAdmin == 0) {
