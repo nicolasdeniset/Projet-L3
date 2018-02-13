@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 13 fév. 2018 à 13:30
+-- Généré le :  mar. 13 fév. 2018 à 13:53
 -- Version du serveur :  5.7.19
 -- Version de PHP :  5.6.31
 
@@ -35,7 +35,18 @@ CREATE TABLE IF NOT EXISTS `actualites` (
   `dateActualites` date NOT NULL,
   `texteActualites` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`idActualites`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `actualites`
+--
+
+INSERT INTO `actualites` (`idActualites`, `titreActualites`, `dateActualites`, `texteActualites`) VALUES
+(1, 'Randomness', '2018-02-13', 'Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+(2, 'Oui', '2018-02-13', 'Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'),
+(3, 'BOnsoir à tous', '2018-02-13', 'Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'),
+(4, 'Test', '2018-02-13', 'Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '),
+(5, 'PA le pigeon', '2018-02-13', 'Cet espèce de gros sac a acheté des caryons de couleurs à 22€. Bien joué !');
 
 -- --------------------------------------------------------
 
@@ -294,6 +305,7 @@ DROP TABLE IF EXISTS `stage`;
 CREATE TABLE IF NOT EXISTS `stage` (
   `idStage` int(11) NOT NULL AUTO_INCREMENT,
   `titreStage` char(100) COLLATE utf8_unicode_ci NOT NULL,
+  `entrepriseStage` int(11) NOT NULL COMMENT 'id du compte de l''entreprise correspondante',
   `descriptionStage` text COLLATE utf8_unicode_ci NOT NULL,
   `coordonneesStage` int(11) NOT NULL,
   `dureeStage` int(11) NOT NULL COMMENT 'Nombre de semaines',
