@@ -357,7 +357,8 @@ function supprimer_user_admin ($id_Entreprise, $id_Coordonnees) {
 		$S2 = "SELECT count(certificationAsuivi)
 			FROM propose, asuivi
 			WHERE formationAsuivi = idPropose
-			AND	formationPropose = '$idFormation'";
+			AND	formationPropose = '$idFormation'
+			AND certificationAsuivi = '1'";
 		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
 		$D2 = mysqli_fetch_row($R2);
 		$stat[2] = $D2[0];

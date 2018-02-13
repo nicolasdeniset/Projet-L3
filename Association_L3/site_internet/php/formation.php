@@ -52,6 +52,18 @@
 		$nbIDFormation = count($idFormation);
 		$_POST['titre'] = "";
 		
+		if($nbIDFormation > 0) {
+			for($i = 0;$i < $nbIDFormation; $i++){
+				if (! isset($_POST["btnValider1$i"])) {
+					$nbErr[$i] = 0;
+					$_POST["motivation$i"] = "";
+				} else {
+					$erreurs[$i] = candidater($idFormation[$i],$i,$estAdmin);
+					$nbErr[$i] = count($erreurs[$i]);
+				}
+			}
+		}
+		
 	} else {
 		// On est dans la phase de soumission du formulaire on en
 		// fait la vérification. Si aucune erreur n'est détectée,
@@ -59,6 +71,18 @@
 		$listeFormationID = array();
 		$listeFormationID = rechercher_formation();
 		$nbIDFormation = count($listeFormationID);
+		
+		if($nbIDFormation > 0) {
+			for($i = 0;$i < $nbIDFormation; $i++){
+				if (! isset($_POST["btnValider1$i"])) {
+					$nbErr[$i] = 0;
+					$_POST["motivation$i"] = "";
+				} else {
+					$erreurs[$i] = candidater($listeFormationID[$i],$i,$estAdmin);
+					$nbErr[$i] = count($erreurs[$i]);
+				}
+			}
+		}
 	}
 	
 	//-----------------------------------------------------
@@ -81,22 +105,36 @@
           '<button type="submit" class="btn btn-inline" name="btnValider"><span class="fa fa-search"></span>Rechercher</button>',
         '</form>';
 		
-		//if(count($listeFormationID) == 0) {
-		
 		if(!isset($_POST['btnValider'])) {
 			if($nbIDFormation > 0) {
 				for($i = 0;$i < $nbIDFormation; $i++){
+					if ($nbErr[$i] > 0) {
+						echo '<strong>Les erreurs suivantes ont &eacute;t&eacute; d&eacute;tect&eacute;es</strong>';
+						for ($j = 0; $j < $nbErr[$i]; $j++) {
+							echo '<br>', $erreurs[$i][$j];
+						}
+					}
 					$S4 = "SELECT	idCandidature
 							FROM	candidature
 							WHERE	typeCandidature = '1'
 							AND		experienceCandidature = '$idFormation[$i]'
-							AND		compteCandidature = '$id'
+							AND		compteCandidature = '$estAdmin'
 							AND		traiteeCandidature = '0'";
 
 					$R4 = mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($GLOBALS['bd'], $S4);
 					$D4 = mysqli_fetch_row($R4);
 					$dejaCandidater = $D4[0];
 					
+					$date = date('Ymd');
+					$S5 = "SELECT DISTINCT etudiantAsuivi
+							FROM propose, asuivi
+							WHERE idPropose = formationAsuivi
+							AND formationPropose = '$idFormation[$i]'
+							AND (certificationAsuivi = '1' OR dateFinAsuivi > '$date')";
+
+					$R5 = mysqli_query($GLOBALS['bd'], $S5) or bd_erreur($GLOBALS['bd'], $S5);
+					$D5 = mysqli_fetch_row($R5);
+					$dejaEnFormation = $D5[0];
 					$stat = statistique_formation($idFormation[$i]);
 					echo '<div class="item">',
 					  '<div class="row">',
@@ -138,22 +176,22 @@
 						'</div>',
 					  '</div>',
 					  '<div class="row">';
-						if($estAdmin == 2 && $dejaCandidater == NULL) {
+						if($estAdmin == 2 && $dejaCandidater == NULL && $dejaEnFormation == NULL) {
 							echo '<div class="col-md-12 col-sm-12">',
 
 								  	"<div onclick=\"javascript:openGestion(['formationNumero".$i,"']);\">",
 							            '<button href="#" class="btn btn-info btn-block">Candidater</button>',
 							        '</div>',
 
-								  '<form class="gestion" id="formationNumero'.$i,'" method="POST">',
+								  '<form class="gestion" id="formationNumero'.$i,'" method="POST" action="formation.php">',
 	                
 									'<div class="form-group">',
 									  '<br>',
 					                  '<label class="control-label required">Qu\'est ce qui vous motive à faire cette formation ?</label>',
-					                  '<textarea id="motivation" name="motivation" class="form-control" placeholder="Entrez vos motivations"></textarea>',
+					                  '<textarea id="motivation" name="motivation'.$i,'" class="form-control" placeholder="Entrez vos motivations"></textarea>',
 					                '</div>',
 					                
-					                '<button type="submit" class="btn btn-block btn-success" name="btnValider1">S\'inscrire</button>',
+					                '<button type="submit" class="btn btn-block btn-success" name="btnValider1'.$i,'">S\'inscrire</button>',
 					                
 					              '</form>',
 
@@ -175,6 +213,12 @@
 		else {
 			if($nbIDFormation > 0) {			
 				for($i = 0;$i < $nbIDFormation; $i++){
+					if ($nbErr[$i] > 0) {
+						echo '<strong>Les erreurs suivantes ont &eacute;t&eacute; d&eacute;tect&eacute;es</strong>';
+						for ($j = 0; $j < $nbErr[$i]; $j++) {
+							echo '<br>', $erreurs[$i][$j];
+						}
+					}
 					$S3 = "SELECT	titreFormation, descriptionFormation, documentFormation, dureeFormation
 							FROM	formation
 							WHERE	dispoFormation = '1'
@@ -191,13 +235,24 @@
 					$S4 = "SELECT	idCandidature
 							FROM	candidature
 							WHERE	typeCandidature = '1'
-							AND		experienceCandidature = '$idFormation[$i]'
-							AND		compteCandidature = '$id'
+							AND		experienceCandidature = '$listeFormationID[$i]'
+							AND		compteCandidature = '$estAdmin'
 							AND		traiteeCandidature = '0'";
 
 					$R4 = mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($GLOBALS['bd'], $S4);
 					$D4 = mysqli_fetch_row($R4);
 					$dejaCandidater = $D4[0];
+					
+					$date = date('Ymd');
+					$S5 = "SELECT DISTINCT etudiantAsuivi
+							FROM propose, asuivi
+							WHERE idPropose = formationAsuivi
+							AND formationPropose = '$listeFormationID[$i]'
+							AND (certificationAsuivi = '1' OR dateFinAsuivi > '$date')";
+
+					$R5 = mysqli_query($GLOBALS['bd'], $S5) or bd_erreur($GLOBALS['bd'], $S5);
+					$D5 = mysqli_fetch_row($R5);
+					$dejaEnFormation = $D5[0];
 					$stat = statistique_formation($listeFormationID[$i]);
 					echo '<div class="item">',
 					  '<div class="row">',
@@ -239,22 +294,22 @@
 						'</div>',
 					  '</div>',
 					  '<div class="row">';
-						if($estAdmin == 2 && $dejaCandidater == NULL) {
+						if($estAdmin == 2 && $dejaCandidater == NULL && $dejaEnFormation == NULL) {
 							echo '<div class="col-md-12 col-sm-12">',
 
 								  	"<div onclick=\"javascript:openGestion(['formationBisNumero".$i,"']);\">",
 							            '<button href="#" class="btn btn-info btn-block">Candidater</button>',
 							        '</div>',
 
-								  '<form class="gestion" id="formationBisNumero'.$i,'" method="POST">',
+								  '<form class="gestion" id="formationBisNumero'.$i,'" method="POST" action="formation.php">',
 	                
 									'<div class="form-group">',
 									  '<br>',
 					                  '<label class="control-label required">Qu\'est ce qui vous motive à faire cette formation ?</label>',
-					                  '<textarea id="motivation" name="motivation" class="form-control" placeholder="Entrez vos motivations"></textarea>',
+					                  '<textarea id="motivation" name="motivation'.$i,'" class="form-control" placeholder="Entrez vos motivations"></textarea>',
 					                '</div>',
 					                
-					                '<button type="submit" class="btn btn-block btn-success" name="btnValider1">S\'inscrire</button>',
+					                '<button type="submit" class="btn btn-block btn-success" name="btnValider1'.$i,'">S\'inscrire</button>',
 					                
 					              '</form>',
 
@@ -293,7 +348,6 @@
 	*/
 	function rechercher_formation() {
 		$idFormation = array();
-		$titreFormation = array();
 		
 		$titre = trim($_POST['titre']); // on recupère la chaine a qui nous sert de recherche
 		$titre = mysqli_real_escape_string($GLOBALS['bd'], $titre);
@@ -302,31 +356,47 @@
 		}
 	
 		// Requête de recherche de titre
-		$S = "SELECT	titreFormation
-					FROM	formation";
+		$S = "SELECT DISTINCT idFormation 
+				FROM formation 
+				WHERE titreFormation LIKE '%$titre%'
+				AND		dispoFormation = '1'";
 		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 		
 		while ($D = mysqli_fetch_assoc($R)) {
-			if(strpos($D['titreFormation'],$titre) !==  false){ // si le "titre" est contenu dans le titre de la formation alors on l'ajoute a notre array "titreFormation"
-				$titreFormation[] = $D['titreFormation'];
-			}
+				$idFormation[] = $D['idFormation'];
 		}
-		
-		// On récupère les ID dont nous avons besoin
-		foreach ($titreFormation as $Cle => $Valeur) {
-					$S2 = "SELECT	idFormation
-						FROM	formation
-						WHERE 	titreFormation = '$Valeur'";
-					$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
-					$D2 = mysqli_fetch_row($R2);
-					$idFormation[] = $D2[0];
-		}
-		
-		$nbID = count($idFormation);
-		if($nbID > 0){
-			return array_values(array_unique($idFormation)); // on retourner l'array sans aucun double.
-		}else{
 			return $idFormation;
+	}
+	
+	function candidater($idFormation, $i, $idCompte) {
+		//-----------------------------------------------------
+		// Vérification de la zone
+		//-----------------------------------------------------	
+		// Vérification du texte de motivation
+		$txtMotivation = trim(utf8_encode($_POST["motivation$i"]));	
+		if ($txtMotivation == '') {
+			$erreurs[] = 'Le texte de motivation est obligatoire';
 		}
+		
+		// Si il y a des erreurs, la fonction renvoie le tableau d'erreurs
+		if (count($erreurs) > 0) {
+			return $erreurs;		// RETURN : des erreurs ont été détectées
+		}
+		
+		$txtMotivation = mysqli_real_escape_string($GLOBALS['bd'], $txtMotivation);
+		
+		$S = "INSERT INTO candidature SET
+				compteCandidature = '$idCompte',
+				typeCandidature = '1',
+				experienceCandidature = '$idFormation',
+				lettreMotivCandidature = \"$txtMotivation\",
+				traiteeCandidature = '0',
+				accepteeCandidature = '0'";
+		
+		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		
+		header('location: formation.php');
+		exit();			// EXIT : le script est terminé
+		ob_end_flush();
 	}
 ?>
