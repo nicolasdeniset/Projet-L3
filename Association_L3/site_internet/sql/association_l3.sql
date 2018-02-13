@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 10 fév. 2018 à 14:47
+-- Généré le :  mar. 13 fév. 2018 à 13:30
 -- Version du serveur :  5.7.19
 -- Version de PHP :  5.6.31
 
@@ -31,7 +31,8 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `actualites`;
 CREATE TABLE IF NOT EXISTS `actualites` (
   `idActualites` int(11) NOT NULL AUTO_INCREMENT,
-  `auteurActualites` int(11) NOT NULL,
+  `titreActualites` char(50) COLLATE utf8_unicode_ci NOT NULL,
+  `dateActualites` date NOT NULL,
   `texteActualites` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`idActualites`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -109,16 +110,23 @@ CREATE TABLE IF NOT EXISTS `candidature` (
   `traiteeCandidature` tinyint(1) NOT NULL,
   `accepteeCandidature` tinyint(1) NOT NULL,
   PRIMARY KEY (`idCandidature`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `candidature`
+--
+
+INSERT INTO `candidature` (`idCandidature`, `compteCandidature`, `typeCandidature`, `experienceCandidature`, `lettreMotivCandidature`, `traiteeCandidature`, `accepteeCandidature`) VALUES
+(1, 3, 0, NULL, 'meh', 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `certifiactionrequise`
+-- Structure de la table `certificationrequise`
 --
 
-DROP TABLE IF EXISTS `certifiactionrequise`;
-CREATE TABLE IF NOT EXISTS `certifiactionrequise` (
+DROP TABLE IF EXISTS `certificationrequise`;
+CREATE TABLE IF NOT EXISTS `certificationrequise` (
   `idCertificationRequise` int(11) NOT NULL AUTO_INCREMENT,
   `stageCertificationRequise` int(11) NOT NULL,
   `formationCertificationRequise` int(11) NOT NULL,
@@ -145,14 +153,17 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `actifCompte` tinyint(1) NOT NULL DEFAULT '0',
   `coordonneesCompte` int(11) NOT NULL,
   PRIMARY KEY (`idCompte`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `compte`
 --
 
 INSERT INTO `compte` (`idCompte`, `inscriptionCompte`, `nomCompte`, `mdpCompte`, `lettreMotivCompte`, `questionCompte`, `reponseCompte`, `nomEntrepriseCompte`, `typeCompte`, `actifCompte`, `coordonneesCompte`) VALUES
-(1, '2018-02-10', 'TestEntreprise', 'entrep42', 'Oui je suis une entreprise, bonsoir', 'Qui veut gagner des millions ?', 'Moi', 'Une Entreprise', 1, 0, 0);
+(1, '2018-02-10', 'TestEntreprise', 'entrep42', 'Oui je suis une entreprise, bonsoir', 'Qui veut gagner des millions ?', 'Moi', 'Une Entreprise', 1, 1, 0),
+(2, '2018-02-11', 'test', 'test', 'oui', 'Oui ?', 'Oui !', NULL, 2, 1, 1),
+(3, '2018-02-12', 'mehmeh', '3be14dc77eaf10c9a42d11e60bf75cf8', 'meh', 'mehmeh', 'mehmeh', NULL, 2, 0, 2),
+(4, '2018-02-12', 'admin', '3be14dc77eaf10c9a42d11e60bf75cf8', 'Je suis un admin je fais ce que je veux', 'Puteuh', 'J\'ai dit puteuh', NULL, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -174,7 +185,15 @@ CREATE TABLE IF NOT EXISTS `coordonnees` (
   `gpsLongitudeCoordonnes` float DEFAULT NULL,
   `gpsLatitudeCoordonnees` float DEFAULT NULL,
   PRIMARY KEY (`idCoordonnees`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `coordonnees`
+--
+
+INSERT INTO `coordonnees` (`idCoordonnees`, `nomCoordonnees`, `prenomCoordonnees`, `emailCoordonnees`, `telephoneCoordonnees`, `adresseCoordonnees`, `codePostalCoordonnees`, `villeCoordonnees`, `paysCoordonnees`, `gpsLongitudeCoordonnes`, `gpsLatitudeCoordonnees`) VALUES
+(1, 'Crapaud', 'Jean-Michel', 'oui@oui.fr', 666777888, '2 rue de la river', 25000, 'FailleDeLinvocateur', 'Runeterra', NULL, NULL),
+(2, 'meh', 'meh', 'meh@meh.fr', 1122334455, '2, rue meh', 22222, 'meh', 'meh', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -221,7 +240,21 @@ CREATE TABLE IF NOT EXISTS `formation` (
   `dureeFormation` int(11) NOT NULL COMMENT 'Nombre de jours',
   `dispoFormation` tinyint(1) NOT NULL,
   PRIMARY KEY (`idFormation`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `formation`
+--
+
+INSERT INTO `formation` (`idFormation`, `titreFormation`, `descriptionFormation`, `documentFormation`, `tailleDocumentFormation`, `dureeFormation`, `dispoFormation`) VALUES
+(1, 'Petite formation', 'Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'meh', 888888, 6, 1),
+(2, 'Formation non dispo', 'On a dit non tamer', 'meh', 888888, 2, 0),
+(3, 'Formation du sel', 'Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 'gne', 88888, 8, 1),
+(4, 'Oui formation', 'Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'meh', 88888, 5, 1),
+(5, 'La formation chiante', 'Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'meh', 88888, 12, 1),
+(6, 'Tamer', 'oui', 'PROJET-L3.pdf', 147555, 5, 1),
+(7, 'La formation du cul', 'bonsoir', 'PROJET-L3.pdf', 147555, 5, 1),
+(8, 'Meh formation', 'zehzr', 'php_3.pdf', 1077430, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -279,8 +312,20 @@ CREATE TABLE IF NOT EXISTS `temoignages` (
   `compteTemoignages` int(11) NOT NULL,
   `texteTemoignages` text COLLATE utf8_unicode_ci NOT NULL,
   `dateTemoignages` date NOT NULL,
+  `anonymeTemoignages` tinyint(1) NOT NULL,
   PRIMARY KEY (`idTemoignages`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `temoignages`
+--
+
+INSERT INTO `temoignages` (`idTemoignages`, `compteTemoignages`, `texteTemoignages`, `dateTemoignages`, `anonymeTemoignages`) VALUES
+(1, 1, 'Essai d\'un témoignage par une entreprise', '2018-02-11', 0),
+(2, 2, 'Test d\'un témoignage par un étudiant', '2018-02-11', 0),
+(3, 1, 'Test anonyme d\'une entreprise', '2018-02-11', 1),
+(6, 2, 'Test anonyme d\'un témoignage d\'étudiant', '2018-02-11', 1),
+(7, 2, 'Nouvel essai d\'étudiant qui témoigne', '2018-02-11', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
