@@ -3,9 +3,16 @@
 	require('bibliotheque.php');
   ob_start();
   bd_connexion();
-  session_start();
   html_head('Accueil');
-  html_header();
+
+  $idPage = '';
+  session_start();
+  if(isset($_SESSION['idCompte'])){
+    $idPage = $_SESSION["idCompte"];
+  }
+  html_header($idPage); 
+
+  
 
   $S1 = 'SELECT *
         FROM association';
@@ -258,93 +265,17 @@ echo  '<section>',
     echo '<section id="partenaire">',
       '<div class="container">',
         '<div class="row">',
-          '<h2 class="text-center">PARTENAIRES</h2>',
-          '<!-- Item-->',
-          '<div class="item col-md-2 col-sm-4">',
-            '<img class="img-responsive center-block logoPartenaire" src="../images/help.svg" alt="Une image" height="75px" width="75px"/>',
+          '<h2 class="text-center">PARTENAIRES</h2>';
 
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-2 col-sm-4">',
-            '<img class="img-responsive center-block logoPartenaire" src="../images/help.svg" alt="Une image" height="75px" width="75px"/>',
+    $S = 'SELECT nomEntrepriseCompte
+          FROM compte
+          WHERE typeCompte = 1';
+    $R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'],$S);
+    while ($part = mysqli_fetch_assoc($R)) {
+      item_partenaire($part['nomEntrepriseCompte'], '../images/help.svg');
+    }   
 
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-2 col-sm-4">',
-            '<img class="img-responsive center-block logoPartenaire" src="../images/help.svg" alt="Une image" height="75px" width="75px"/>',
-
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-2 col-sm-4">',
-            '<img class="img-responsive center-block logoPartenaire" src="../images/help.svg" alt="Une image" height="75px" width="75px"/>',
-
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-2 col-sm-4">',
-            '<img class="img-responsive center-block logoPartenaire" src="../images/help.svg" alt="Une image" height="75px" width="75px"/>',
-
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-2 col-sm-4">',
-            '<img class="img-responsive center-block logoPartenaire" src="../images/help.svg" alt="Une image" height="75px" width="75px"/>',
-
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-2 col-sm-4">',
-            '<img class="img-responsive center-block logoPartenaire" src="../images/help.svg" alt="Une image" height="75px" width="75px"/>',
-
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-2 col-sm-4">',
-            '<img class="img-responsive center-block logoPartenaire" src="../images/help.svg" alt="Une image" height="75px" width="75px"/>',
-
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-2 col-sm-4">',
-            '<img class="img-responsive center-block logoPartenaire" src="../images/help.svg" alt="Une image" height="75px" width="75px"/>',
-
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-2 col-sm-4">',
-            '<img class="img-responsive center-block logoPartenaire" src="../images/help.svg" alt="Une image" height="75px" width="75px"/>',
-
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-2 col-sm-4">',
-            '<img class="img-responsive center-block logoPartenaire" src="../images/help.svg" alt="Une image" height="75px" width="75px"/>',
-
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-2 col-sm-4">',
-            '<img class="img-responsive center-block logoPartenaire" src="../images/help.svg" alt="Une image" height="75px" width="75px"/>',
-
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-2 col-sm-4">',
-            '<img class="img-responsive center-block logoPartenaire" src="../images/help.svg" alt="Une image" height="75px" width="75px"/>',
-
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-2 col-sm-4">',
-            '<img class="img-responsive center-block logoPartenaire" src="../images/help.svg" alt="Une image" height="75px" width="75px"/>',
-
-          '</div>',
-          '<!-- End Item-->',
-
-        '</div>',
+    echo '</div>',
       '</div>',
     '</section>';
     // Fin section partenaires
@@ -527,9 +458,10 @@ echo  '<section>',
   /**
    * Génère le code HTML d'un item de témoignage dans le carousel.
    *
-   * @param string  $text    Texte du témoignage
-   * @param string  $author  Auteur du témoignage ou "Anonyme"
-   * @param string  $active  Indicateur qui indique si on est dans l'item actif
+   * @param int     $id           id de l'item
+   * @param string  $image        Chemin vers l'image à utiliser
+   * @param string  $int          Durée de la formation en semaines
+   * @param string  $description  Description de la formation
    */
   function item_formation($id, $image, $title, $duration, $description) {
     echo '<div class="item col-md-4">',
@@ -541,6 +473,19 @@ echo  '<section>',
             '</div>',
             '<a href="#about" class="btn btn-success btn-block">Accéder à la formation</a>',
           '</div>';
+  }
+
+  /**
+   * Génère le code HTML d'un item de témoignage dans le carousel.
+   *
+   * @param string  $text    Texte du témoignage
+   * @param string  $author  Auteur du témoignage ou "Anonyme"
+   */
+  function item_partenaire($name, $image) {
+    echo '<div class="item col-md-2 col-sm-4">',
+          '<img class="img-responsive center-block logoPartenaire" src="',$image,'" alt="Une image" height="75px" width="75px"/>',
+          '<h4 style="text-align:center;">',$name,'</h4>',
+        '</div>';
   }
 
   ob_end_flush();
