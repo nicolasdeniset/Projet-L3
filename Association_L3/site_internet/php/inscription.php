@@ -517,7 +517,7 @@
 			$erreurs[] = 'Le t&eacute;l&eacute;phone doit avoir 10 chiffres';
 		}
 		if(ctype_digit($txttelephone) != true) {
-			$erreurs[] = 'Le t&eacute;l&eacute;phone doit contenir 10 chiffres';
+			$erreurs[] = 'Le t&eacute;l&eacute;phone entrez n\'est pas un numéro';
 		}
 		
 		// Vérification de l'adresse
@@ -535,7 +535,7 @@
 			$erreurs[] = 'Le code postal doit avoir 5 chiffres';
 		}
 		if(ctype_digit($txtCp) != true) {
-			$erreurs[] = 'Le code postal doit contenir 10 chiffres';
+			$erreurs[] = 'Le code postal doit contenir 5 chiffres';
 		}
 		
 		// Vérification de la ville
