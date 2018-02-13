@@ -345,14 +345,22 @@ function supprimer_user_admin ($id_Entreprise, $id_Coordonnees) {
 	function statistique_formation($idFormation) {
 		$stat = array();
 		
-		$S = "SELECT count(idCandidature), count(accepteeCandidature)
+		$S = "SELECT count(idCandidature)
 			FROM candidature
 			WHERE experienceCandidature = '$idFormation'
 			AND	typeCandidature = '1'";
 		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 		$D = mysqli_fetch_row($R);
 		$stat[0] = $D[0];
-		$stat[1] = $D[1];
+		
+		$S = "SELECT count(accepteeCandidature)
+			FROM candidature
+			WHERE experienceCandidature = '$idFormation'
+			AND	typeCandidature = '1'
+			AND accepteeCandidature = '1'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		$stat[1] = $D[0];
 		
 		$S2 = "SELECT count(certificationAsuivi)
 			FROM propose, asuivi
