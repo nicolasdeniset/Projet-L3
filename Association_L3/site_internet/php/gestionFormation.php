@@ -65,8 +65,12 @@
 		// On est dans la phase de soumission du formulaire on en
 		// fait la vérification. Si aucune erreur n'est détectée,
 		// cette fonction redirige la page sur le script gestionFormation.
-		$erreurs = modifier_formation();
+		$erreurs = modifier_formation($idFormation);
 		$nbErr = count($erreurs);
+	}
+	
+	if (isset($_POST['btnValider2'])) {
+		supprimer_formation($idFormation);
 	}
 	
 	//-----------------------------------------------------
@@ -156,8 +160,15 @@
             '</tbody>',
           '</table>',
         '</div>',
-        '<div id="gestionFormations" class="gestion row">',
-          '<form method="POST" action="gestionFormation.php?id=',$idFormation,'" accept-charset="iso-8859-1" enctype="multipart/form-data">',
+        '<div id="gestionFormations" class="gestion row"  accept-charset="iso-8859-1" enctype="multipart/form-data">';
+		// Si il y a des erreurs on les affiche
+		if ($nbErr > 0) {
+			echo '<strong>Les erreurs suivantes ont &eacute;t&eacute; d&eacute;tect&eacute;es</strong>';
+			for ($i = 0; $i < $nbErr; $i++) {
+				echo '<br>', $erreurs[$i];
+			}
+		}
+         echo '<form method="POST" action="gestionFormation.php?id=',$idFormation,'" accept-charset="iso-8859-1" enctype="multipart/form-data">',
             '<div class="form-group">',
               '<label class="control-label required" for="name">Titre de la formation<sup style="color:red">*</sup></label>',
               '<input id="titre" name="titre" type="text" class="form-control" placeholder="Entrez le titre de la formation" value="',$titreFormation,'">',
@@ -181,7 +192,7 @@
             '</div>',
             '<div class="col-md-12">',
               '<div class="col-md-4">',
-                '<button type="submit" value="supprimer" class="btn btn-inline btn-danger btn-block" name="btnValider2"><span class="fa fa-trash-o" aria-hidden="true"></span>Supprimer formation</button>',
+                '<button type="submit"  onClick="return(confirm(\'Êtes-vous sur de vouloir supprimer cette formation ?\'))" value="supprimer" class="btn btn-inline btn-danger btn-block" name="btnValider2"><span class="fa fa-trash-o" aria-hidden="true"></span>Supprimer formation</button>',
               '</div>',
               '<div class="col-md-4">',
                 '<button type="reset" class="btn btn-inline btn-info btn-block">Annuler changement</button>',
@@ -203,15 +214,45 @@
                 '<th>Certifié</th>',
               '</tr>',
             '</thead>',
-            '<tbody>',
-              '<tr>',
-                '<td>1</td>',
-                '<td>Martin Dupont</td>',
-                '<td>ville formation & code postale & pays</td>',
-                '<td>01/01/2018 - 01/03/2018</td>',
-                '<td><span class="text-success fa fa-check" aria-hidden="true"></span></td>',
-              '</tr>',
-            '</tbody>',
+            '<tbody>';
+			$S3 = "SELECT	etudiantAsuivi, villeCoordonnees, codePostalCoordonnees, paysCoordonnees, dateDebutAsuivi, dateFinAsuivi, certificationAsuivi
+					FROM	asuivi, propose, coordonnees, poleFormation
+					WHERE	formationAsuivi = idPropose
+					AND	polePropose = idPoleFormation
+					AND	coordonneesPoleFormation  = idCoordonnees
+					AND	formationPropose= '$idFormation'
+					ORDER BY etudiantAsuivi, dateDebutAsuivi";		
+			$R3 = mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
+			while ($D3 = mysqli_fetch_assoc($R3)) {
+				$etudiantAsuivi = $D3['etudiantAsuivi'];
+				$villeCoordonnees = $D3['villeCoordonnees'];
+				$codePostalCoordonnees = $D3['codePostalCoordonnees'];
+				$paysCoordonnees = $D3['paysCoordonnees'];
+				$dateDebutAsuivi = $D3['dateDebutAsuivi'];
+				$dateFinAsuivi = $D3['dateFinAsuivi'];
+				$certificationAsuivi = $D3['certificationAsuivi'];
+				if($certificationAsuivi == 1) {
+					$certificationAsuivi = "text-success fa fa-check";
+				} else {
+					$certificationAsuivi = "text-danger fa fa-times";
+				}
+				
+				$S4 = "SELECT	nomCoordonnees
+						FROM compte, coordonnees
+						WHERE	coordonneesCompte = idCoordonnees
+						AND	idCompte = '$etudiantAsuivi'";		
+				$R4 = mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($GLOBALS['bd'], $S4);
+				$D4 = mysqli_fetch_row($R4);
+				$nomCoordonnees = $D4[0];
+             echo '<tr>',
+                '<td>',$etudiantAsuivi,'</td>',
+                '<td>',$nomCoordonnees,'</td>',
+                '<td>',$villeCoordonnees,' ',$codePostalCoordonnees,' ',$paysCoordonnees,'</td>',
+                '<td>',$dateDebutAsuivi,' - ',$dateFinAsuivi,'</td>',
+                '<td><span class="',$certificationAsuivi,'" aria-hidden="true"></span></td>',
+              '</tr>';
+			}
+           echo '</tbody>',
           '</table>',
         '</div>';
 	
@@ -228,11 +269,11 @@
 	* formation et qui vérifie que les changements sont correctes et peuvent
 	* être ajouté à la base de donnée.
 	* Si aucune erreur n'est détecté on change ses informations et on le redirige
-	* vers la page formation.
+	* vers la page gestionFormation.
 	*
 	* @return array $erreurs		Tableau des erreurs détectées.
 	*/
-	function modifier_formation() {
+	function modifier_formation($idFormation) {
 		//-----------------------------------------------------
 		// Vérification des zones
 		//-----------------------------------------------------	
@@ -267,7 +308,7 @@
 		}
 		
 		//renomage du fichier
-		rename("$fichier", "file" .time(). "1");
+		//rename("$fichier", "file" .time(). "1");
 		
 		if(!move_uploaded_file($_FILES['formation']['tmp_name'], $dossier . $fichier)) {
 			$erreurs[] = "Erreur interne de transfert";
@@ -286,17 +327,52 @@
 		$taille = mysqli_real_escape_string($GLOBALS['bd'], $taille);
 		$formationDispo = mysqli_real_escape_string($GLOBALS['bd'], $_POST['optradio']);
 		
-		$S = "INSERT INTO formation SET
+		$S = "UPDATE formation SET
 				titreFormation = '$txtTitre',
 				descriptionFormation = '$txtDescription',
 				documentFormation = '$fichier',
 				tailleDocumentFormation = '$taille',
 				dureeFormation = '$txtDuree',
-				dispoFormation = '$formationDispo'";
+				dispoFormation = '$formationDispo'
+				WHERE	idFormation = '$idFormation'";
 		
 		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 		
-		header('location: gestionFormation.php?id=',$idFormation,'');
+		header("location: gestionFormation.php?id=$idFormation");
+		exit();			// EXIT : le script est terminé
+		ob_end_flush();
+	}
+	
+	/**
+	* Permet de connecter un utilisateur si aucun problème n'est détecté.
+	*
+	* fonction qui permet de supprimer une formation.
+	*
+	*/
+	function supprimer_formation($idFormation) {
+		
+		$S = "DELETE FROM formation
+					WHERE	idFormation = '$idFormation'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		
+		$S2 = "DELETE FROM propose
+					WHERE	formationPropose = '$idFormation'";
+		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+		
+		$S3 = "DELETE FROM enseignement
+					WHERE	formationEnseignement = '$idFormation'";
+		$R3 = mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
+		
+		$S4 = "DELETE FROM certifiactionrequise
+					WHERE	formationCertificationRequise = '$idFormation'";
+		$R4 = mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($GLOBALS['bd'], $S4);
+		
+		$S5 = "DELETE FROM candidature
+					WHERE	experienceCandidature = '$idFormation'
+					AND		typeCandidature = '1'";
+		$R5 = mysqli_query($GLOBALS['bd'], $S5) or bd_erreur($GLOBALS['bd'], $S5);
+		
+		header ('location: formation.php');
 		exit();			// EXIT : le script est terminé
 		ob_end_flush();
 	}
