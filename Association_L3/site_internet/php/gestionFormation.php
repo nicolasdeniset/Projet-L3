@@ -361,7 +361,7 @@
 					WHERE	formationEnseignement = '$idFormation'";
 		$R3 = mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
 		
-		$S4 = "DELETE FROM certifiactionrequise
+		$S4 = "DELETE FROM certificationrequise
 					WHERE	formationCertificationRequise = '$idFormation'";
 		$R4 = mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($GLOBALS['bd'], $S4);
 		

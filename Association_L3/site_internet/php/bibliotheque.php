@@ -338,7 +338,6 @@ function supprimer_user_admin ($id_Entreprise, $id_Coordonnees) {
 	/**
 	* Fonction qui permet de faire les statistique concernant une
 	* formation à partir de son identifiant.
-	* Si on trouve des titres renvoie un tableau d'id des formations.
 	*
 	* @return array $stat		Tableau des statistiques détectées.
 	*/
@@ -383,7 +382,7 @@ function supprimer_user_admin ($id_Entreprise, $id_Coordonnees) {
 		$stat[3] = $D3[0];
 		
 		$S4 = "SELECT count(stageCertificationRequise)
-			FROM certifiactionrequise
+			FROM certificationrequise
 			WHERE formationCertificationRequise = '$idFormation'";
 		$R4 = mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($GLOBALS['bd'], $S4);
 		$D4 = mysqli_fetch_row($R4);
@@ -395,6 +394,53 @@ function supprimer_user_admin ($id_Entreprise, $id_Coordonnees) {
 		$R5 = mysqli_query($GLOBALS['bd'], $S5) or bd_erreur($GLOBALS['bd'], $S5);
 		$D5 = mysqli_fetch_row($R5);
 		$stat[5] = $D5[0];
+		
+		return $stat;
+	}
+	
+		/**
+	* Fonction qui permet de faire les statistique concernant un
+	* stage à partir de son identifiant.
+	*
+	* @return array $stat		Tableau des statistiques détectées.
+	*/
+	function statistique_stage($idStage) {
+		$stat = array();
+		
+		$S = "SELECT count(idCandidature)
+			FROM candidature
+			WHERE experienceCandidature = '$idStage'
+			AND	typeCandidature = '2'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		$stat[0] = $D[0];
+		
+		$S = "SELECT count(accepteeCandidature)
+			FROM candidature
+			WHERE experienceCandidature = '$idStage'
+			AND	typeCandidature = '2'
+			AND accepteeCandidature = '1'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		$stat[1] = $D[0];
+		
+		$S2 = "SELECT count(embaucheAeffectue)
+			FROM aeffectue
+			WHERE stageAeffectue = '$idStage'
+			AND	embaucheAeffectue = '1'";
+		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+		$D2 = mysqli_fetch_row($R2);
+		$stat[2] = $D2[0];
+		
+		$currentDate = date('Ymd');
+		$S3 = "SELECT count(idAeffectue)
+			FROM aeffectue
+			WHERE stageAeffectue = '$idStage'
+			AND dateDebutAeffectue <= '$currentDate'
+			AND	dateFinAeffectue > '$currentDate'";
+		$R3 = mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
+		$D3 = mysqli_fetch_row($R3);
+		$stat[3] = $D3[0];
 		
 		return $stat;
 	}

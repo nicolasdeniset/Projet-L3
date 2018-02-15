@@ -129,7 +129,7 @@
 		  
 	html_aside_main_fin();
 	echo '</body></html>';
-	
+	ob_end_flush();
 		//_______________________________________________________________
 	//
 	//		FONCTIONS LOCALES
