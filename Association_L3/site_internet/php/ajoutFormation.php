@@ -130,8 +130,10 @@
 		}
 		
 		// Vérification de la durée
-		$txtDuree = trim($_POST['duree']);
 		if ($txtDuree == '') {
+			$erreurs[] = 'Vous avez oublié de mettre une durée !';
+		}
+		if(ctype_digit($txtDuree) != true) {
 			$erreurs[] = 'Vous avez mis une durée incorrecte !';
 		}
 		
@@ -176,34 +178,6 @@
 		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 		
 		header('location: formation.php');
-		exit();			// EXIT : le script est terminé
-		ob_end_flush();
-	}
-	
-	/**
-	* Permet de connecter un utilisateur si aucun problème n'est détecté.
-	*
-	* fonction qui permet de supprimer le compte d'un utilisateur.
-	* Si aucune erreur n'est détecté on change ses informations et on le redirige
-	* vers la d'accueil.
-	*
-	* @return array $erreurs		Tableau des erreurs détectées.
-	*/
-	function supprimer_formation($id, $idCoordoneesCompte) {
-		
-		$S = "DELETE FROM compte
-					WHERE	idCompte = '$id'";
-
-		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
-		
-		$S2 = "DELETE FROM coordonnees
-					WHERE	idCoordonnees = '$idCoordoneesCompte'";
-
-		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
-		
-		session_unset();
-		session_destroy();
-		header ('location: accueil.php');
 		exit();			// EXIT : le script est terminé
 		ob_end_flush();
 	}

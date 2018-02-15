@@ -517,7 +517,7 @@
 			$erreurs[] = 'Le t&eacute;l&eacute;phone doit avoir 10 chiffres';
 		}
 		if(ctype_digit($txttelephone) != true) {
-			$erreurs[] = 'Le t&eacute;l&eacute;phone entrez n\'est pas un numéro';
+			$erreurs[] = 'Le t&eacute;l&eacute;phone entré n\'est pas un numéro';
 		}
 		
 		// Vérification de l'adresse
@@ -535,7 +535,7 @@
 			$erreurs[] = 'Le code postal doit avoir 5 chiffres';
 		}
 		if(ctype_digit($txtCp) != true) {
-			$erreurs[] = 'Le code postal doit contenir 5 chiffres';
+			$erreurs[] = 'Le code postal entré n\'est pas un numéro';
 		}
 		
 		// Vérification de la ville
@@ -594,7 +594,11 @@
 				FROM coordonnees
 				WHERE nomCoordonnees = '$txtNom'
 				AND prenomCoordonnees = '$txtPrenom'
-				AND emailCoordonnees = '$txtMail'";
+				AND emailCoordonnees = '$txtMail'
+				AND adresseCoordonnees = '$txtAdresse'
+				AND codePostalCoordonnees = '$txtCp'
+				AND villeCoordonnees = '$txtVille'
+				AND paysCoordonnees = '$txtPays'";
 				
 		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
 
