@@ -23,7 +23,7 @@
 	if($estAdmin == 0) {
 		// Requête qui va récuperer les informations concernant tout les identifiants de stage
 		$S2 = "SELECT	idStage
-				FROM	formation";
+				FROM	stage";
 	}
 	else {
 		// Requête qui va récuperer les informations concernant tout les identifiants de stage
@@ -63,7 +63,7 @@
        echo '<a href="ajoutStage.php" class="btn btn-success btn-block"><span class="fa fa-plus"></span>AJOUTER UN NOUVEAU STAGE</a>';
 	}
 
-       echo '<form class="form-inline" method="POST" action="formation.php" accept-charset="iso-8859-1">',
+       echo '<form class="form-inline" method="POST" action="stage.php" accept-charset="iso-8859-1">',
           '<div class="form-group">',
             '<input type="text" class="form-control" name="titre" id="search" placeholder="Titre du stage">',
           '</div>',
@@ -99,48 +99,61 @@
 				
 				$stat = statistique_stage($idStage[$i]);
 				
-				<div class="item">
-				  <div class="row">
-					<div class="col-md-6 col-sm-12">
-					  <h3>TITRE DU STAGE<small>#1</small></h3>
-					  <p class="small">Entreprise : NomEntrerprise</p>
-					  <p class="small">Durée du stage : 2mois</p>
-					  <p>Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-					</div>
-					<div class="col-md-6 col-sm-12">
-					  <h3>STATISTIQUES</h3>
-					  <table class="table table-striped">
-						<tbody>
-						  <tr>
-							<th>Nombre candidatures</th>
-							<td>',$stat[0],'</td>
-						  </tr>
-						  <tr>
-							<th>Nombre étudiants acceptés</th>
-							<td>',$stat[1],'</td>
-						  </tr>
-						  <tr>
-							<th>Nombre étudiants embauchés</th>
-							<td>',$stat[2],'</td>
-						  </tr>
-						  <tr>
-							<th>Nombre étudiants actuellement en stage</th>
-							<td>',$stat[3],'</td>
-						  </tr>
-						</tbody>
-					  </table>
-					</div>
-				  </div>
-				  <div class="row">
-					<div class="col-md-6 col-sm-12">
-					  <a href="#about" class="btn btn-info btn-block"><span class="fa fa-eye" aria-hidden="true"></span>Acceder à la présentation du stage</a>
-					</div>
-					<div class="col-md-6 col-sm-12">
-					  <a href="#about" class="btn btn-success btn-block"><span class="fa fa-cogs" aria-hidden="true"></span>Gerer le stage</a>
-					</div>
-				  </div>
-				</div>
+				echo '<div class="item">',
+				  '<div class="row">',
+					'<div class="col-md-6 col-sm-12">',
+					  '<h3>', $titre ,'<small>#',$idStage[$i],'</small></h3>',
+					  '<p class="small">Entreprise : ',$nomEntreprise,'</p>',
+					  '<p class="small">Durée du stage : ',$duree,' semaines</p>',
+					  '<p>',$description,'</p>',
+					'</div>',
+					'<div class="col-md-6 col-sm-12">',
+					  '<h3>STATISTIQUES</h3>',
+					  '<table class="table table-striped">',
+						'<tbody>',
+						  '<tr>',
+							'<th>Nombre candidatures</th>',
+							'<td>',$stat[0],'</td>',
+						  '</tr>',
+						  '<tr>',
+							'<th>Nombre étudiants acceptés</th>',
+							'<td>',$stat[1],'</td>',
+						  '</tr>',
+						  '<tr>',
+							'<th>Nombre étudiants embauchés</th>',
+							'<td>',$stat[2],'</td>',
+						  '</tr>',
+						  '<tr>',
+							'<th>Nombre étudiants actuellement en stage</th>',
+							'<td>',$stat[3],'</td>',
+						  '</tr>',
+						'</tbody>',
+					  '</table>',
+					'</div>',
+				  '</div>',
+				  '<div class="row">';
+				if($estAdmin == 2) {
+					echo '<div class="col-md-12 col-sm-12">',
+							"<div onclick=\"javascript:openGestion(['formationBisNumero".$i,"']);\">",
+							    '<button href="#" class="btn btn-info btn-block">Candidater</button>',
+							'</div>',
+							'<form class="gestion" id="formationBisNumero'.$i,'" method="POST" action="formation.php">',
+								'<div class="form-group">',
+									 '<br>',
+					                 '<label class="control-label required">Qu\'est ce qui vous motive à faire cette formation ?</label>',
+					                 '<textarea id="motivation" name="motivation'.$i,'" class="form-control" placeholder="Entrez vos motivations"></textarea>',
+					            '</div>',
+								'<button type="submit" class="btn btn-block btn-success" name="btnValider1'.$i,'">S\'inscrire</button>',
+					        '</form>',
+						'</div>';
+				}
+				if($estAdmin == 0) {
+					echo '<div class="col-md-12 col-sm-12">',
+					  '<a href="gestionStage.php" class="btn btn-success btn-block"><span class="fa fa-cogs" aria-hidden="true"></span>Gerer le stage</a>',
+					'</div>';
+				}
+				 echo '</div>',
+				'</div>';
 			}
 		}
 	

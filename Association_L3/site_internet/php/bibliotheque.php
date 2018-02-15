@@ -95,7 +95,7 @@ function html_aside_main_debut($active1,$active2,$active3,$active4,$active5,$act
       		'</ul>',
       		'<ul class="nav nav-sidebar">',
         		'<li ', $active3,'><a href="formation.php"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>',
-        		'<li ', $active4,'><a href="./testStageAdmin.html"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>',
+        		'<li ', $active4,'><a href="stage.php"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>',
       		'</ul>',
       		'<ul class="nav nav-sidebar">',
         		'<li ', $active5,'><a href="listeEntreprise.php"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises</a></li>',
