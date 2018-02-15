@@ -38,7 +38,7 @@
 		$_POST['phone'] = $_POST['address'] = "";
 		$_POST['cp'] = $_POST['city'] = "";
 		$_POST['country'] = $_POST['description'] = "";
-		$_POST['duree'] = "";
+		$_POST['duree'] = $_POST['compagnyName'] = "";
 		
 	} else {
 		// On est dans la phase de soumission du formulaire on en
@@ -72,7 +72,11 @@
                 '<label class="control-label required" for="name">Titre du stage<sup style="color:red">*</sup></label>',
                 '<input id="titre" name="titre" type="text" class="form-control" placeholder="Entrez le titre du stage">',
               '</div>',
-			  '<div class="form-group">',
+				   '<div class="form-group">',
+                    '<label class="control-label required" for="compagnyName">Nom de l\'entreprise<sup style="color:red">*</sup></label>',
+                    '<input id="compagnyName" name="compagnyName" type="text" class="form-control" placeholder="Entrez le nom de votre entreprise">',
+                  '</div>',
+				   '<div class="form-group">',
                     '<label class="control-label required" for="name">Nom du responsable de stage<sup style="color:red">*</sup></label>',
                     '<input id="name" name="name" type="text" class="form-control" placeholder="Entrer son nom">',
                   '</div>',
@@ -104,7 +108,6 @@
                     '<label class="control-label required" for="country">Pays du stage<sup style="color:red">*</sup></label>',
                     '<input id="country" name="country" type="text" class="form-control" placeholder="Entrer son pays">',
                   '</div>',
-			  '</div>',
 			  '<div class="form-group">',
                 '<label class="control-label required" for="name">Description du stage<sup style="color:red">*</sup></label>',
                 '<textarea id="description" name="description" type="text" class="form-control" placeholder="Entrez la description du stage"></textarea>',
@@ -148,6 +151,7 @@
 		$erreurs = array();
 		
 		$txtTitre = trim(utf8_encode($_POST['titre']));
+		$txtCompanyName = trim(utf8_encode($_POST['compagnyName']));
 		$txtNom = trim(utf8_encode($_POST['name']));
 		$txtPrenom = trim(utf8_encode($_POST['firstname']));
 		$txtMail = trim(utf8_encode($_POST['email']));
@@ -164,6 +168,22 @@
 			$erreurs[] = 'Vous avez oublié le titre !';
 		}
 		
+		// Vérification du nom de l'entreprise
+		if ($txtCompanyName == '') {
+			$erreurs[] = 'Le nom de l\'entreprise est obligatoire';
+		}
+		$txtCompanyName = mysqli_real_escape_string($GLOBALS['bd'], $txtCompanyName);
+		$S = "SELECT	count(*), idCompte
+					FROM	compte
+					WHERE	nomEntrepriseCompte = '$txtCompanyName'";
+
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		if ($D[0] == 0) {
+			$erreurs[] = 'L\'entreprise n\existe pas !';
+		}
+		$idCompteEntreprise = $D[1];
+
 		// Vérification du nom
 		if ($txtNom == '') {
 			$erreurs[] = 'Le nom est obligatoire';
@@ -255,6 +275,7 @@
 		$txtDescription = mysqli_real_escape_string($GLOBALS['bd'], $txtDescription);
 		$txtDuree = mysqli_real_escape_string($GLOBALS['bd'], $txtDuree);
 		$stageDispo = mysqli_real_escape_string($GLOBALS['bd'], $_POST['optradio']);
+		$idCompteEntreprise = mysqli_real_escape_string($GLOBALS['bd'], $idCompteEntreprise);
 		
 		$S = "INSERT INTO coordonnees SET
 				nomCoordonnees = '$txtNom',
@@ -284,6 +305,7 @@
 		
 		$S3 = "INSERT INTO stage SET
 				titreStage = '$txtTitre',
+				entrepriseStage = '$idCompteEntreprise',
 				descriptionStage = '$txtDescription',
 				coordonneesStage = '$idCoordonnees',
 				dureeStage = '$txtDuree',
