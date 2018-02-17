@@ -135,7 +135,7 @@ function html_header($session = '') {
 				 							'<li><a href="./accueil.php#donation">Donation</a></li>',
 				 							'<li><a href="./accueil.php#contacter">Nous contacter</a></li>';
 		if($session != ""){
-			echo 						'<li><a href="./listeEntreprise.php" class="navActive">Tableau d\'administration</a></li>';
+			echo 						'<li><a href="gestionCompte.php" class="navActive">Tableau d\'administration</a></li>';
 		}
 		else {
 			echo 						'<li><a href="login.php" class="navConnexion">Connexion</a> </li>',
@@ -153,7 +153,7 @@ function html_header($session = '') {
 											'<li><a href="./accueil.php#donation" onclick="closeNav()">Donation</a></li>',
 											'<li><a href="./accueil.php#contacter" onclick="closeNav()">Nous Contacter</a></li>';
 		if($session != ""){
-			echo 						'<li><a href="#Connexion" class="navActive" onclick="closeNav()">Tableau d\'administration</a></li>';
+			echo 						'<li><a href="gestionCompte.php" class="navActive" onclick="closeNav()">Tableau d\'administration</a></li>';
 		}
 		else {
 			echo 						'<li><a href="login.php" onclick="closeNav()">Connexion</a> </li>',

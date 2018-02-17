@@ -58,7 +58,7 @@
 					$nbErr[$i] = 0;
 					$_POST["motivation$i"] = "";
 				} else {
-					$erreurs[$i] = candidater($idFormation[$i],$i,$estAdmin);
+					$erreurs[$i] = candidater($idFormation[$i],$i,$id);
 					$nbErr[$i] = count($erreurs[$i]);
 				}
 			}
@@ -78,7 +78,7 @@
 					$nbErr[$i] = 0;
 					$_POST["motivation$i"] = "";
 				} else {
-					$erreurs[$i] = candidater($listeFormationID[$i],$i,$estAdmin);
+					$erreurs[$i] = candidater($listeFormationID[$i],$i,$id);
 					$nbErr[$i] = count($erreurs[$i]);
 				}
 			}
@@ -236,7 +236,7 @@
 							FROM	candidature
 							WHERE	typeCandidature = '1'
 							AND		experienceCandidature = '$listeFormationID[$i]'
-							AND		compteCandidature = '$estAdmin'
+							AND		compteCandidature = '$id'
 							AND		traiteeCandidature = '0'";
 
 					$R4 = mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($GLOBALS['bd'], $S4);

@@ -2,12 +2,44 @@
   require('bibliotheque.php');
   ob_start();
   bd_connexion();
-  session_start();
+  // Démarage d'une session et récupération de notre identifiant.
+	verifie_session();
+	$id = $_SESSION["idCompte"];
+
+  if (isset($_POST['supprimer'])) {
+    supprimer_user_admin($_POST['id_Entreprise'],$_POST['$id_Coordonnees']);
+  }
+  else{
+    $_POST['id_Entreprise']='';
+    $_POST['$id_Coordonnees']='';
+  }
+
   html_head('Nos partenaires');
-  html_header();
+  html_header($id);
   html_aside_main_debut("","","","","class=\"active\"","","","","","");
   echo '<h1 class="page-header">Nos entreprises partenaires</h1>';
-  rechercheEntreprise();
+
+  if(!isset($_POST['rechercher'])){
+    $S= ' SELECT DISTINCT *
+          FROM compte, coordonnees
+          WHERE coordonneesCompte = idCoordonnees
+          AND typeCompte = "1"';
+
+    $R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($S);
+
+    $tab=mysqli_fetch_assoc($R);
+    afficheEntreprise($R, $tab);
+  }
+  else {
+    if ($_POST['nomEntreprise'] != ''){
+      rechercheEntreprise($_POST['nomEntreprise']);
+    }
+    else{
+      header('location: ./listeEntreprise.php');
+    }
+  }
+
+  /*AFFICHAGE*/
   html_aside_main_fin();
   ob_end_flush();
 
@@ -18,116 +50,134 @@
   //		FONCTIONS LOCALES
   //_______________________________________________________________
 
-  function rechercheEntreprise(){
-    $S= ' SELECT *
-          FROM compte, coordonnees
-          WHERE coordonneesCompte = idCoordonnees
-          AND typeCompte = "3"';
-
-    $R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($S);
-
-    $tab=mysqli_fetch_assoc($R);
-
+  function afficheEntreprise($R, $tab){
+    $id = $_SESSION["idCompte"];
     if($tab['idCompte'] == NULL){
-      echo '<p>Aucune entrerpise trouvée</p>';
+      $_POST['nomEntreprise']='';
+      if(isset($_POST['rechercher'])){
+        $_POST['nomEntreprise']='';
+        echo '<form class="form-inline" action="listeEntreprise.php" method="POST">',
+              '<div class="form-group">',
+                '<input type="text" name="nomEntreprise" class="form-control" placeholder="Nom de l\'entreprise">',
+              '</div>',
+              '<button type="submit" class="btn btn-inline" name="rechercher"><span class="fa fa-search"></span>Rechercher</button>',
+            '</form>';
+      }
+      echo '<h3>Aucune entreprise n\'a été trouvée. </h3>',
+            (true) ? '<a href=\'./listeEntreprise\'>Retour à la liste complète</a>' : '<a href=\'./listeEntreprise\'>Retour à la liste complète</a>',
+           '</section></main></div>';
     }
     else {
-
-      echo '<form class="form-inline">',
+      $_POST['nomEntreprise']='';
+      echo '<form class="form-inline" action="listeEntreprise.php" method="POST">',
             '<div class="form-group">',
-              '<input type="text" class="form-control" placeholder="Nom de l\'entreprise">',
+              '<input type="text" name="nomEntreprise" class="form-control" placeholder="Nom de l\'entreprise">',
             '</div>',
-            '<button type="submit" class="btn btn-inline"><span class="fa fa-search"></span>Rechercher</button>',
+            '<button type="submit" class="btn btn-inline" name="rechercher"><span class="fa fa-search"></span>Rechercher</button>',
           '</form>',
           '<div class="table-responsive">',
             '<table class="table table-striped">',
               '<thead>',
                 '<tr>',
-                  '<th>ID</th>',
-                  '<th>Nom Entrerpise</th>',
+                  '<th>Nom Entreprise</th>',
                   '<th>Date d\'inscription</th>',
                   '<th>Nombre stages proposés</th>',
+                  '<th>Nombre étudiants pris en stage</th>',
                   '<th>Nombre étudiants embauchés</th>',
                   '<th>Gestion</th>',
                 '</tr>',
               '</thead>',
               '<tbody>';
-              do {
+              do{
                 echo  '<tr>',
-                        '<td>',htmlentities($tab['idCompte'], ENT_QUOTES, 'UTF-8'),'</td>',
                         '<td>',htmlentities($tab['nomEntrepriseCompte'], ENT_QUOTES, 'UTF-8'),'</td>',
                         '<td>',htmlentities($tab['inscriptionCompte'], ENT_QUOTES, 'UTF-8'),'</td>',
-                        '<td>',htmlentities("5", ENT_QUOTES, 'UTF-8'),'</td>',
-                        '<td>',htmlentities("0", ENT_QUOTES, 'UTF-8'),'</td>',
+                        '<td>',stat_nbStagePropose($tab['idCompte']),'</td>',
+                        '<td>',stat_nbEtudiantStagiaire($tab['idCompte']),'</td>',
+                        '<td>',stat_nbEtudiantEmbauche($tab['idCompte']),'</td>',
+                        '<td>',
+                          '<form class="form_inline" method="POST" action="profilEntreprise.php">',
+                            '<input type="hidden" name="id_Entreprise" value="',htmlentities($tab['idCompte'], ENT_QUOTES, 'UTF-8'),'" />',
+                            '<button class="btn-link" name="view"><span class="text-info fa fa-eye" aria-hidden="true"></span></button>',
+                          '</form>';
+                          if(getTypeCompte($id) == 0){
+                            echo '<form class="form_inline" method="POST" action="listeEntreprise.php" accept-charset="iso-8859-1">',
+                                  '<input type="hidden" name="id_Entreprise" value="',htmlentities($tab['idCompte'], ENT_QUOTES, 'UTF-8'),'" />',
+                                  '<input type="hidden" name="$id_Coordonnees" value="',htmlentities($tab['idCoordonnees'], ENT_QUOTES, 'UTF-8'),'" />',
+                                  '<button class="btn-link" name="supprimer" onClick="return(confirm(\'Êtes-vous sur de vouloir supprimer votre compte ?\'))" value="supprimer"><span class="text-danger fa fa-times" aria-hidden="true"></span></span></button>',
+                                '</form>';
+                          }
+                        echo '</td>',
                         '</tr>';
               }while($tab=mysqli_fetch_assoc($R));
               echo '</tbody></table></div></section></main></div>';
-
-
-    }
+            }
   }
 
+  function rechercheEntreprise($recherche){
+    $nom = trim($recherche); // on recupère la chaine a qui nous sert de recherche
+		$nom = mysqli_real_escape_string($GLOBALS['bd'], $nom);
+    if($nom != ''){ // on verifie que cette chaine n'est pas nulle avant d'effectuer des recherches.
+      $S= " SELECT DISTINCT *
+            FROM compte, coordonnees
+            WHERE coordonneesCompte = idCoordonnees
+            AND nomEntrepriseCompte LIKE '%$nom%'
+            AND typeCompte = '1'";
+
+      $R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+
+      $tab=mysqli_fetch_assoc($R);
+
+      afficheEntreprise($R, $tab);
+    }
+  }
+/*  function supprimer_user_admin ($id_Entreprise, $id_Coordonnees) {
+    echo $id_Entreprise ,'ET',$id_Coordonnees;
+    $S = "DELETE FROM compte
+					WHERE	idCompte = '$id_Entreprise'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+
+		$S2 = "DELETE FROM coordonnees
+					WHERE	idCoordonnees = '$id_Coordonnees'";
+		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+  }*/
+
+  function stat_nbStagePropose($id){
+    $S= " SELECT COUNT(idAeffectue) as total
+          FROM aeffectue, stage
+          WHERE stageAeffectue = idStage
+          AND entrepriseStage = $id";
+
+    $R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+
+    $tab=mysqli_fetch_assoc($R);
+
+    return $tab['total'];
+  }
+  function stat_nbEtudiantEmbauche($id){
+    $S= " SELECT COUNT(idAeffectue) as total
+          FROM aeffectue, stage
+          WHERE stageAeffectue = idStage
+          AND embaucheAeffectue = true
+          AND entrepriseStage = $id";
+
+    $R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+
+    $tab=mysqli_fetch_assoc($R);
+
+    return $tab['total'];
+  }
+  function stat_nbEtudiantStagiaire($id){
+    $S= " SELECT COUNT(etudiantAeffectue) as total
+          FROM aeffectue, stage
+          WHERE entrepriseStage = $id
+          AND stageAeffectue = idStage
+          GROUP BY etudiantAeffectue";
+
+    $R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+
+    $tab=mysqli_fetch_assoc($R);
+
+    return $tab['total'];
+  }
  ?>
-
-
-
- echo '<ul>';
- 				$i=0;
- 				do{
- 					$i++;
- 					if($i % 2 == 0){echo '<li class="paire">';}
- 					else{echo '<li class="impaire">';}
- 					echo '',htmlentities($tab['utiNom'], ENT_QUOTES, 'UTF-8'), ' - ',htmlentities($tab['utiMail'], ENT_QUOTES, 'UTF-8'),'';
- 					if($tab['utiID']!=$_SESSION['utiID']){
- 						while($tab2['utiID']!=NULL){
- 							if($tab2['utiID']==$tab['utiID']){
- 								echo ' [Abonné à votre agenda]';
- 								break;
- 							}
- 							else{
- 								$tab2=mysqli_fetch_assoc($R2);
- 							}
- 						}
- 					}
- 					$R2 = mysqli_query($GLOBALS['bd'], $S2) or papci_bd_erreur($S2);
-
- 					$tab2=mysqli_fetch_assoc($R2);
- 					echo 	'<form method="POST" action="abonnements.php?id=',$tab['utiID'],'">',
- 		             papci_form_input(APP_Z_SUBMIT, 'btnDesabonnement', 'Se Désabonner'),
- 		            '</form></li>';
- 			}while($tab=mysqli_fetch_assoc($R));
- 			echo '</ul>';
- 		}
-
- //		$R2 = mysqli_query($GLOBALS['bd'], $S2) or papci_bd_erreur($S2);
- //  	$tab2=mysqli_fetch_assoc($R2);
- 		echo '<h4>Mes abonnés</h4>';
- 		if($tab2['utiNom'] == NULL){
- 			echo '<strong>Aucune correspondance</strong>';
- 		}
- 		else{
- 			echo '<ul>';
- 			$i=0;
- 			do{
- 				$i++;
- 				if($i % 2 == 0){echo '<li class="paire">';}
- 				else{echo '<li class="impaire">';}
- 				echo '',htmlentities($tab2['utiNom'], ENT_QUOTES, 'UTF-8'), ' - ',htmlentities($tab2['utiMail'], ENT_QUOTES, 'UTF-8'),'';
- 				$R2 = mysqli_query($GLOBALS['bd'], $S2) or papci_bd_erreur($S2);
- 				$tab2=mysqli_fetch_assoc($R2);
-
- 				while($tab['utiID']!=NULL){
- 					if($tab2['utiID']==$tab['utiID']){
- 						echo 	'<form method="POST" action="abonnements.php?id=',$tab2['utiID'],'">',
- 									 papci_form_input(APP_Z_SUBMIT, 'btnAbonnement', 'S\'abonner'),
- 									'</form></li>';
- 						break;
- 					}
- 					else {
- 						$tab=mysqli_fetch_assoc($R);
- 					}
- 				}
-
- 		}while($tab=mysqli_fetch_assoc($R));
- 	}
- 	}

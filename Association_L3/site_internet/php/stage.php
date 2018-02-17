@@ -50,6 +50,18 @@
 		$nbIDStage = count($idStage);
 	}
 	
+	if($nbIDStage > 0) {
+		for($i = 0;$i < $nbIDStage; $i++){
+			if (! isset($_POST["btnValider1$i"])) {
+				$nbErr[$i] = 0;
+				$_POST["motivation$i"] = "";
+			} else {
+				$erreurs[$i] = candidater($idStage[$i],$i,$id);
+				$nbErr[$i] = count($erreurs[$i]);
+			}
+		}
+	}
+	
 	//-----------------------------------------------------
 	// Affichage de la page
 	//-----------------------------------------------------
@@ -78,6 +90,12 @@
 		}
 		if($nbIDStage > 0) {
 			for($i = 0;$i < $nbIDStage; $i++){
+				if ($nbErr[$i] > 0) {
+					echo '<strong>Les erreurs suivantes ont &eacute;t&eacute; d&eacute;tect&eacute;es</strong>';
+					for ($j = 0; $j < $nbErr[$i]; $j++) {
+						echo '<br>', $erreurs[$i][$j];
+					}
+				}
 				$S3 = "SELECT	titreStage, entrepriseStage, descriptionStage, dureestage
 							FROM	stage
 							WHERE	idStage = '$idStage[$i]'";
@@ -97,6 +115,48 @@
 				$D4 = mysqli_fetch_row($R4);
 				$nomEntreprise = $D4[0];
 				
+				$S5 = "SELECT	idCandidature
+							FROM	candidature
+							WHERE	typeCandidature = '2'
+							AND		experienceCandidature = '$idStage[$i]'
+							AND		compteCandidature = '$id'
+							AND		traiteeCandidature = '0'";
+
+				$R5 = mysqli_query($GLOBALS['bd'], $S5) or bd_erreur($GLOBALS['bd'], $S5);
+				$D5 = mysqli_fetch_row($R5);
+				$dejaCandidater = $D5[0];
+					
+				$date = date('Ymd');
+				$S6 = "SELECT DISTINCT etudiantAeffectue
+							FROM certificationrequise, aeffectue
+							WHERE idCertificationRequise = stageAeffectue
+							AND stageCertificationRequise = '$idStage[$i]'
+							AND (embaucheAeffectue = '1' OR dateFinAeffectue > '$date')
+						UNION ALL
+						SELECT DISTINCT etudiantAeffectue
+							FROM aeffectue 
+							WHERE etudiantAeffectue = '$id'
+							AND dateDebutAeffectue < '$date'
+							AND dateFinAeffectue  > '$date'
+						UNION ALL
+						SELECT DISTINCT etudiantAeffectue
+							FROM aeffectue 
+							WHERE etudiantAeffectue = '$id'
+							AND embaucheAeffectue = '1'";
+
+				$R6 = mysqli_query($GLOBALS['bd'], $S6) or bd_erreur($GLOBALS['bd'], $S6);
+				$D6 = mysqli_fetch_row($R6);
+				$dejaEnStage = $D6[0];
+
+				$S7 = "SELECT certificationAsuivi
+							FROM asuivi, certificationrequise
+							WHERE  	formationCertificationRequise = formationAsuivi
+							AND stageCertificationRequise = '$idStage[$i]'
+							AND etudiantAsuivi = '$id'";
+
+				$R7 = mysqli_query($GLOBALS['bd'], $S7) or bd_erreur($GLOBALS['bd'], $S7);
+				$D7 = mysqli_fetch_row($R7);
+				$estCertifie = $D7[0];				
 				$stat = statistique_stage($idStage[$i]);
 				
 				echo '<div class="item">',
@@ -132,12 +192,12 @@
 					'</div>',
 				  '</div>',
 				  '<div class="row">';
-				if($estAdmin == 2) {
+				if($estAdmin == 2 && $dejaCandidater == NULL && $dejaEnStage == NULL && $estCertifie == 1) {
 					echo '<div class="col-md-12 col-sm-12">',
 							"<div onclick=\"javascript:openGestion(['formationBisNumero".$i,"']);\">",
 							    '<button href="#" class="btn btn-info btn-block">Candidater</button>',
 							'</div>',
-							'<form class="gestion" id="formationBisNumero'.$i,'" method="POST" action="formation.php">',
+							'<form class="gestion" id="formationBisNumero'.$i,'" method="POST" action="stage.php">',
 								'<div class="form-group">',
 									 '<br>',
 					                 '<label class="control-label required">Qu\'est ce qui vous motive à faire cette formation ?</label>',
@@ -198,5 +258,37 @@
 				$idStage[] = $D['idStage'];
 		}
 		return $idStage;
+	}
+	
+	function candidater($idStage, $i, $idCompte) {
+		//-----------------------------------------------------
+		// Vérification de la zone
+		//-----------------------------------------------------	
+		// Vérification du texte de motivation
+		$txtMotivation = trim(utf8_encode($_POST["motivation$i"]));	
+		if ($txtMotivation == '') {
+			$erreurs[] = 'Le texte de motivation est obligatoire';
+		}
+		
+		// Si il y a des erreurs, la fonction renvoie le tableau d'erreurs
+		if (count($erreurs) > 0) {
+			return $erreurs;		// RETURN : des erreurs ont été détectées
+		}
+		
+		$txtMotivation = mysqli_real_escape_string($GLOBALS['bd'], $txtMotivation);
+		
+		$S = "INSERT INTO candidature SET
+				compteCandidature = '$idCompte',
+				typeCandidature = '2',
+				experienceCandidature = '$idStage',
+				lettreMotivCandidature = \"$txtMotivation\",
+				traiteeCandidature = '0',
+				accepteeCandidature = '0'";
+		
+		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		
+		header('location: stage.php');
+		exit();			// EXIT : le script est terminé
+		ob_end_flush();
 	}
 ?>
