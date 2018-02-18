@@ -73,8 +73,31 @@
                 '<input id="titre" name="titre" type="text" class="form-control" placeholder="Entrez le titre du stage">',
               '</div>',
 				   '<div class="form-group">',
-                    '<label class="control-label required" for="compagnyName">Nom de l\'entreprise<sup style="color:red">*</sup></label>',
-                    '<input id="compagnyName" name="compagnyName" type="text" class="form-control" placeholder="Entrez le nom de votre entreprise">',
+				   '<label class="control-label required" for="compagnyName">Sélectionner le nom de l\'entreprise proposant le stage<sup style="color:red">*</sup></label><br>';
+				    $S2 = "SELECT nomEntrepriseCompte, idCompte 
+							FROM compte 
+							WHERE nomEntrepriseCompte != ''";
+					$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+					$D2 = mysqli_fetch_row($R2);
+					echo '<select name="compagnyName">',
+						'<option value="',$D2[1],'">',$D2[0],'</option>';
+					while ($D2 = mysqli_fetch_assoc($R2)) {
+						echo '<option value="',$D2['idCompte'],'">',$D2['nomEntrepriseCompte'],'</option>';
+					}
+				    echo '</select>',
+                  '</div>',
+				   '<div class="form-group">',
+				   '<label class="control-label required" for="formationName">Sélectionner la formation nécessaire pour obtenir ce stage<sup style="color:red">*</sup></label><br>';
+				    $S3 = "SELECT titreFormation, idFormation 
+							FROM formation";
+					$R3 = mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
+					$D3 = mysqli_fetch_row($R3);
+					echo '<select name="formationName">',
+						'<option value="',$D3[1],'">',$D3[0],'</option>';
+					while ($D3 = mysqli_fetch_assoc($R3)) {
+						echo '<option value="',$D3['idFormation'],'">',$D3['titreFormation'],'</option>';
+					}
+				    echo '</select>',
                   '</div>',
 				   '<div class="form-group">',
                     '<label class="control-label required" for="name">Nom du responsable de stage<sup style="color:red">*</sup></label>',
@@ -151,7 +174,8 @@
 		$erreurs = array();
 		
 		$txtTitre = trim(utf8_encode($_POST['titre']));
-		$txtCompanyName = trim(utf8_encode($_POST['compagnyName']));
+		$idCompteEntreprise = trim(utf8_encode($_POST['compagnyName']));
+		$idFormation = trim(utf8_encode($_POST['formationName']));
 		$txtNom = trim(utf8_encode($_POST['name']));
 		$txtPrenom = trim(utf8_encode($_POST['firstname']));
 		$txtMail = trim(utf8_encode($_POST['email']));
@@ -167,22 +191,6 @@
 		if ($txtTitre == '') {
 			$erreurs[] = 'Vous avez oublié le titre !';
 		}
-		
-		// Vérification du nom de l'entreprise
-		if ($txtCompanyName == '') {
-			$erreurs[] = 'Le nom de l\'entreprise est obligatoire';
-		}
-		$txtCompanyName = mysqli_real_escape_string($GLOBALS['bd'], $txtCompanyName);
-		$S = "SELECT	count(*), idCompte
-					FROM	compte
-					WHERE	nomEntrepriseCompte = '$txtCompanyName'";
-
-		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
-		$D = mysqli_fetch_row($R);
-		if ($D[0] == 0) {
-			$erreurs[] = 'L\'entreprise n\existe pas !';
-		}
-		$idCompteEntreprise = $D[1];
 
 		// Vérification du nom
 		if ($txtNom == '') {
@@ -276,6 +284,7 @@
 		$txtDuree = mysqli_real_escape_string($GLOBALS['bd'], $txtDuree);
 		$stageDispo = mysqli_real_escape_string($GLOBALS['bd'], $_POST['optradio']);
 		$idCompteEntreprise = mysqli_real_escape_string($GLOBALS['bd'], $idCompteEntreprise);
+		$idFormation = mysqli_real_escape_string($GLOBALS['bd'], $idFormation);
 		
 		$S = "INSERT INTO coordonnees SET
 				nomCoordonnees = '$txtNom',
@@ -312,6 +321,25 @@
 				dispoStage = '$stageDispo'";
 		
 		mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
+		
+		$S4 = "SELECT idStage
+				FROM stage
+				WHERE titreStage = '$txtTitre'
+				AND entrepriseStage = '$idCompteEntreprise'
+				AND descriptionStage = '$txtDescription'
+				AND coordonneesStage = '$idCoordonnees'
+				AND dureeStage = '$txtDuree'
+				AND dispoStage = '$stageDispo'";
+				
+		$R4 = mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($GLOBALS['bd'], $S4);
+		$D4 = mysqli_fetch_row($R4);
+		$idStage = $D4[0];
+		
+		$S5 = "INSERT INTO certificationrequise SET
+				stageCertificationRequise  = '$idStage',
+				formationCertificationRequise = '$idFormation'";
+		
+		mysqli_query($GLOBALS['bd'], $S5) or bd_erreur($GLOBALS['bd'], $S5);
 		
 		header('location: stage.php');
 		exit();			// EXIT : le script est terminé

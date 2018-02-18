@@ -63,7 +63,7 @@
 			echo '<br>', $erreurs[$i];
 		}
 	}
-	
+
     echo '<div class="item">',
           '<div class="row">',
             '<form method="POST" action="ajoutFormation.php" accept-charset="iso-8859-1" enctype="multipart/form-data">',
@@ -79,9 +79,20 @@
                 '<label class="control-label required" for="name">Durée de la formation<sup style="color:red">*</sup></label>',
                 '<input id="duree" name="duree" type="number" class="form-control" placeholder="Entrez la durée de la formation" value="5">',
               '</div>',
-              '<div class="form-group">',
-                '<label class="control-label required" for="name">Fichier de la formation<sup style="color:red">*</sup></label>',
-                '<input id="fichier" name="formation" type="file" placeholder="Entrez le fichier de la formation">',
+			  '<div class="form-group">',
+                '<p> Dans quel pole(s) à lieu cette formation ? <br />';
+				// Requête qui va récuperer les informations nous concernant (typeCompte).
+				$S2 = "SELECT	idPoleFormation, villeCoordonnees
+						FROM	poleformation, coordonnees
+						WHERE	coordonneesPoleFormation = idCoordonnees";
+
+				$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+				while ($D2 = mysqli_fetch_assoc($R2)) {
+					echo '<input type="checkbox" name="pole[]" value="',$D2["idPoleFormation"],'"/>',
+					' <label> ',$D2["villeCoordonnees"],' </label> ';
+				}
+				
+				echo '</p>',
               '</div>',
               '<div class="form-group">',
                 '<label class="control-label required">Disponniblité de la formation<sup style="color:red">*</sup></label><br>',
@@ -116,11 +127,20 @@
 		// Vérification des zones
 		//-----------------------------------------------------	
 		$erreurs = array();
-		
+
 		// Vérification du titre
 		$txtTitre = trim(utf8_encode($_POST['titre']));
 		if ($txtTitre == '') {
 			$erreurs[] = 'Vous avez oublié le titre !';
+		}
+		$txtTitre = mysqli_real_escape_string($GLOBALS['bd'], $txtTitre);
+		$S = "SELECT	count(*)
+					FROM	formation
+					WHERE	titreFormation = '$txtTitre'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		if ($D[0] > 0) {
+			$erreurs[] = 'Une formation possède déjà ce titre';
 		}
 		
 		// Vérification de la description
@@ -130,6 +150,7 @@
 		}
 		
 		// Vérification de la durée
+		$txtDuree = trim(utf8_encode($_POST['duree']));
 		if ($txtDuree == '') {
 			$erreurs[] = 'Vous avez oublié de mettre une durée !';
 		}
@@ -138,33 +159,38 @@
 		}
 		
 		// Vérification du fichier
-		$dossier = "../upload/";
+		/*$dossier = "../upload/";
 		$fichier = basename($_FILES['formation']['name']);
 		$taille = filesize($_FILES['formation']['tmp_name']);
 		$extension = strrchr($_FILES['formation']['name'], '.');
 		
 		if($extension != ".pdf") {
 			$erreurs[] = 'Votre fichier n\'est pas au format PDF ';
-		}
+		}*/
 		
 		//renomage du fichier
-		rename("$fichier", "file" .time(). "1");
+		/*rename("$fichier", "file" .time(). "1");
 		
 		if(!move_uploaded_file($_FILES['formation']['tmp_name'], $dossier . $fichier)) {
 			$erreurs[] = "Erreur interne de transfert";
-		}
+		}*/
 		
+		// Vérification des poles enseignant la formation
+		$nbPole = count($_POST['pole']);
+		if ($nbPole < 1) {
+			$erreurs[] = 'Votre formation n\'est liée a aucun pole de formation';
+		}
+
 		// Si il y a des erreurs, la fonction renvoie le tableau d'erreurs
 		if (count($erreurs) > 0) {
 			return $erreurs;		// RETURN : des erreurs ont été détectées
 		}
 		
 		// Ajout des informations.
-		$txtTitre = mysqli_real_escape_string($GLOBALS['bd'], $txtTitre);
 		$txtDescription = mysqli_real_escape_string($GLOBALS['bd'], $txtDescription);
 		$txtDuree = mysqli_real_escape_string($GLOBALS['bd'], $txtDuree);
-		$fichier = mysqli_real_escape_string($GLOBALS['bd'], $fichier);
-		$taille = mysqli_real_escape_string($GLOBALS['bd'], $taille);
+		$fichier = mysqli_real_escape_string($GLOBALS['bd'], "PROJET_L3");
+		$taille = mysqli_real_escape_string($GLOBALS['bd'], "145000");
 		$formationDispo = mysqli_real_escape_string($GLOBALS['bd'], $_POST['optradio']);
 		
 		$S = "INSERT INTO formation SET
@@ -177,6 +203,25 @@
 		
 		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 		
+		$S2 = "SELECT	idFormation
+			FROM	formation
+			WHERE	titreFormation = '$txtTitre'
+			AND	descriptionFormation = '$txtDescription'
+			AND	dureeFormation = '$txtDuree'
+			AND	dispoFormation = '$formationDispo'";
+
+		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+		$D2 = mysqli_fetch_row($R2);
+		$idFormation = mysqli_real_escape_string($GLOBALS['bd'], $D2[0]);
+	
+		foreach($_POST['pole'] as $pole){
+			$pole = mysqli_real_escape_string($GLOBALS['bd'], $pole);
+			$S = "INSERT INTO propose SET
+				formationPropose = '$idFormation',
+				polePropose = '$pole'";
+		
+		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		}
 		header('location: formation.php');
 		exit();			// EXIT : le script est terminé
 		ob_end_flush();
