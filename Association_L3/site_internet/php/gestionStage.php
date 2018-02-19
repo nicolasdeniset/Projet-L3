@@ -50,6 +50,29 @@
 	}
 	
 	//-----------------------------------------------------
+	// Détermination de la phase de traitement : 1er affichage
+	// ou soumission du formulaire
+	//-----------------------------------------------------
+	if (! isset($_POST['btnValider'])) { // premier formulaire
+		// On n'est dans un premier affichage de la page. On
+		// intialise les zones de saisie.
+		$nbErr = 0;
+		$_POST['titre'] = $_POST['name'] = "";
+		$_POST['firstname'] = $_POST['email'] = "";
+		$_POST['phone'] = $_POST['address'] = "";
+		$_POST['cp'] = $_POST['city'] = "";
+		$_POST['country'] = $_POST['description'] = "";
+		$_POST['duree'] = $_POST['compagnyName'] = "";
+		
+	} else {
+		// On est dans la phase de soumission du formulaire on en
+		// fait la vérification. Si aucune erreur n'est détectée,
+		// cette fonction redirige la page sur le script gestionStage.
+		$erreurs = modifier_stage();
+		$nbErr = count($erreurs);
+	}
+	
+	//-----------------------------------------------------
 	// Affichage de la page
 	//-----------------------------------------------------
 	html_head("Gestion de Stage");
@@ -177,6 +200,90 @@
             echo '</tbody>',
           '</table>',
         '</div>',
+		
+		'<div id="gestionStages" class="gestion row">',
+		'<form method="POST" action="ajoutStage.php" accept-charset="iso-8859-1" >',
+              '<div class="form-group">',
+                '<label class="control-label required" for="name">Titre du stage<sup style="color:red">*</sup></label>',
+                '<input id="titre" name="titre" type="text" class="form-control" placeholder="Entrez le titre du stage">',
+              '</div>',
+				   '<div class="form-group">',
+				   '<label class="control-label required" for="compagnyName">Sélectionner le nom de l\'entreprise proposant le stage<sup style="color:red">*</sup></label><br>';
+				    $S2 = "SELECT nomEntrepriseCompte, idCompte 
+							FROM compte 
+							WHERE nomEntrepriseCompte != ''";
+					$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+					$D2 = mysqli_fetch_row($R2);
+					echo '<select name="compagnyName">',
+						'<option value="',$D2[1],'">',$D2[0],'</option>';
+					while ($D2 = mysqli_fetch_assoc($R2)) {
+						echo '<option value="',$D2['idCompte'],'">',$D2['nomEntrepriseCompte'],'</option>';
+					}
+				    echo '</select>',
+                  '</div>',
+				   '<div class="form-group">',
+				   '<label class="control-label required" for="formationName">Sélectionner la formation nécessaire pour obtenir ce stage<sup style="color:red">*</sup></label><br>';
+				    $S3 = "SELECT titreFormation, idFormation 
+							FROM formation";
+					$R3 = mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
+					$D3 = mysqli_fetch_row($R3);
+					echo '<select name="formationName">',
+						'<option value="',$D3[1],'">',$D3[0],'</option>';
+					while ($D3 = mysqli_fetch_assoc($R3)) {
+						echo '<option value="',$D3['idFormation'],'">',$D3['titreFormation'],'</option>';
+					}
+				    echo '</select>',
+                  '</div>',
+				   '<div class="form-group">',
+                    '<label class="control-label required" for="name">Nom du responsable de stage<sup style="color:red">*</sup></label>',
+                    '<input id="name" name="name" type="text" class="form-control" placeholder="Entrer son nom">',
+                  '</div>',
+                  '<div class="form-group">',
+                    '<label class="control-label required" for="firstname">Prénom du responsable de stage<sup style="color:red">*</sup></label>',
+                    '<input id="firstname" name="firstname" type="text" class="form-control" placeholder="Entrer son prénom">',
+                  '</div>',                   
+                  '<div class="form-group">',
+                    '<label class="control-label required" for="email">Email du responsable de stage<sup style="color:red">*</sup></label>',
+                    '<input id="email" name="email" type="text" class="form-control" placeholder="Entrer son adresse mail">',
+                  '</div>',
+				  '<div class="form-group">',
+                    '<label class="control-label required" for="phone">Téléphone du responsable de stage<sup style="color:red">*</sup></label>',
+                    '<input id="phone" name="phone" type="text" class="form-control" placeholder="Entrer son numéro de téléphone">',
+                  '</div>',
+                  '<div class="form-group">',
+                    '<label class="control-label required" for="address">Adresse du stage<sup style="color:red">*</sup></label>',
+                    '<input id="address" name="address" type="text" class="form-control" placeholder="numéro et nom de rue">',
+                  '</div>',
+                  '<div class="form-group">',
+                    '<label class="control-label required" for="cp">Code postal du stage<sup style="color:red">*</sup></label>',
+                    '<input id="cp" name="cp" type="text" class="form-control" placeholder="Entrer son code postal">',
+                  '</div>',
+                  '<div class="form-group">',
+                    '<label class="control-label required" for="city">Ville du stage<sup style="color:red">*</sup></label>',
+                    '<input id="city" name="city" type="text" class="form-control" placeholder="Entrer sa ville">',
+                  '</div>',
+                  '<div class="form-group">',
+                    '<label class="control-label required" for="country">Pays du stage<sup style="color:red">*</sup></label>',
+                    '<input id="country" name="country" type="text" class="form-control" placeholder="Entrer son pays">',
+                  '</div>',
+			  '<div class="form-group">',
+                '<label class="control-label required" for="name">Description du stage<sup style="color:red">*</sup></label>',
+                '<textarea id="description" name="description" type="text" class="form-control" placeholder="Entrez la description du stage"></textarea>',
+              '</div>',
+              '<div class="form-group">',
+                '<label class="control-label required" for="name">Durée du stage<sup style="color:red">*</sup></label>',
+                '<input id="duree" name="duree" type="number" class="form-control" placeholder="Entrez la durée de la formation" value="5">',
+              '</div>',
+              '<div class="form-group">',
+                '<label class="control-label required">Disponniblité du stage<sup style="color:red">*</sup></label><br>',
+                '<label class="radio-inline"><input type="radio" name="optradio" value="1" checked>Public</label>',
+                '<label class="radio-inline"><input type="radio" name="optradio" value="0">Privée</label>',
+              '</div>',
+              '<div class="col-md-12">',
+                '<button type="submit" value="enregistrer" class="btn btn-inline btn-success btn-block" name="btnValider"><span class="fa fa-check" aria-hidden="true"></span>Créer le nouveau stage</button>',
+              '</div>',
+            '</form>',
+		'</div>',
 		
 		'<div id="gestionEtudiants" class="gestion row">',
           '<table class="table table-striped">',
