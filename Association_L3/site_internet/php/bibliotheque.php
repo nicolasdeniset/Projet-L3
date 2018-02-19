@@ -25,6 +25,18 @@ define('APP_NOM_APPLICATION','association_l3');
 
 // Gestion des pages de l'application
 define('APP_PAGE_ACCUEIL', 'accueil.php');
+define('APP_PAGE_STATISTIQUE', 'statistique.php');
+define('APP_PAGE_FORMATION', 'formation.php');
+define('APP_PAGE_STAGE', 'stage.php');
+define('APP_PAGE_COMPTE', 'gestionCompte.php');
+define('APP_PAGE_ETUDIANT', 'listeEtudiant.php');
+define('APP_PAGE_ENTREPRISE', 'listeEntreprise.php');
+define('APP_PAGE_BENEVOLE', 'listeBenevole.php');
+define('APP_PAGE_POLE', 'poleFormation.php');
+define('APP_PAGE_ACTUALITE', 'actualite.php');
+define('APP_PAGE_GESTIONSITE', 'gestionSite.php');
+define('APP_PAGE_CANDIDATURE', 'candidature.php');
+define('APP_PAGE_PROFIL', 'profil.php');
 
 //___________________________________________________________________
 /*******************************************************************************
@@ -86,33 +98,43 @@ function html_pied($little = "") {
 /*******************************************************************************
  * Génère le code HTML du aside + du main pour les pages tableaux de bords
 *******************************************************************************/
-function html_aside_main_debut($active1,$active2,$active3,$active4,$active5,$active6,$active7,$active8,$active9,$active10){
-	echo '<div class="container-fluid">',
-    		'<div class="col-sm-3 col-md-2 sidebar">',
-      		'<ul class="nav nav-sidebar">',
-        		'<li ', $active1,'><a href="accueil.php"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>',
-		        '<li ', $active2,'><a href="./testStatistiqueAdmin.html"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>',
-      		'</ul>',
-      		'<ul class="nav nav-sidebar">',
-        		'<li ', $active3,'><a href="formation.php"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>',
-        		'<li ', $active4,'><a href="stage.php"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>',
-      		'</ul>',
-      		'<ul class="nav nav-sidebar">',
-        		'<li ', $active5,'><a href="listeEntreprise.php"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises</a></li>',
-        		'<li ', $active6,'><a href="./testEtudiantAdmin.html"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>',
-      		'</ul>',
-		      '<ul class="nav nav-sidebar">',
-        		'<li ', $active7,'><a href="./testPoleFormation.html"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>',
-        		'<li ', $active8,'><a href="./testActualiteAdmin.html"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualité</a></li>',
-      		'</ul>',
-      		'<ul class="nav nav-sidebar">',
-        		'<li ', $active9,'><a href="#"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>',
-		        '<li ', $active10,'><a href="gestionCompte.php"><span class="fa fa-user" aria-hidden="true"></span>Paramètre compte</a></li>',
-        		'<li><a href="deconnexion.php"><span class="fa fa-sign-out" aria-hidden="true"></span>Déconnexion</a></li>',
-      		'</ul>',
-    		'</div>',
+function html_aside_main_debut($page=''){
+	echo 	'<div class="container-fluid">',
+				'<div class="col-sm-3 col-md-2 sidebar">';
+	if($page == APP_PAGE_ENTREPRISE || $page == APP_PAGE_FORMATION || $page == APP_PAGE_STAGE || $page == APP_PAGE_ENTREPRISE || $page == APP_PAGE_ETUDIANT || $page == APP_PAGE_BENEVOLE || $page == APP_PAGE_POLE || $page == APP_PAGE_ACTUALITE || $page == APP_PAGE_CANDIDATURE || $page == APP_PAGE_GESTIONSITE || $page == APP_PAGE_STATISTIQUE || $page == APP_PAGE_COMPTE) {
+			echo'<ul class="nav nav-sidebar">',
+	  				'<li><a href="./accueil.php"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>',
+	      	'</ul>',
+	      	'<ul class="nav nav-sidebar">',
+	      		($page == APP_PAGE_FORMATION) ?'<li class="active"><a href="'.APP_PAGE_FORMATION.'"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>' : '<li><a href="'.APP_PAGE_FORMATION.'"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>',
+	      		($page == APP_PAGE_STAGE) ? '<li class="active"><a href="'.APP_PAGE_STAGE.'"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>' :  '<li><a href="'.APP_PAGE_STAGE.'"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>',
+	      	'</ul>',
+	      	'<ul class="nav nav-sidebar">',
+	      		($page == APP_PAGE_ENTREPRISE) ?  '<li class="active"><a href="'.APP_PAGE_ENTREPRISE.'"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises</a></li>': '<li><a href="'.APP_PAGE_ENTREPRISE.'"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises</a></li>',
+	      		($page == APP_PAGE_ETUDIANT) ? '<li class="active"><a href="'.APP_PAGE_ETUDIANT.'"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>' : '<li><a href="'.APP_PAGE_ETUDIANT.'"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>',
+						($page == APP_PAGE_BENEVOLE) ? '<li class="active"><a href="'.APP_PAGE_BENEVOLE.'"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Benevoles</a></li>' : '<li><a href="'.APP_PAGE_BENEVOLE.'"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Benevoles</a></li>',
+						'</ul>',
+			  	'<ul class="nav nav-sidebar">',
+	      		($page == APP_PAGE_POLE) ? '<li class="active"><a href="'.APP_PAGE_POLE.'"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>' : '<li><a href="'.APP_PAGE_POLE.'"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>',
+	        	($page == APP_PAGE_ACTUALITE) ? '<li class="active"><a href="'.APP_PAGE_ACTUALITE.'"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualité</a></li>' : '<li><a href="'.APP_PAGE_ACTUALITE.'"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualité</a></li>',
+	      	'</ul>';
+					if (getTypeCompte($_SESSION['idCompte']) == 0){
+						echo 	'<ul class="nav nav-sidebar">',
+										($page == APP_PAGE_CANDIDATURE) ? '<li class="active"><a href="'.APP_PAGE_CANDIDATURE.'"><span class="fa fa-cogs" aria-hidden="true"></span>Candidature</a></li>' : '<li><a href="'.APP_PAGE_CANDIDATURE.'"><span class="fa fa-cogs" aria-hidden="true"></span>Candidature</a></li>',
+										($page == APP_PAGE_GESTIONSITE) ? '<li class="active"><a href="'.APP_PAGE_GESTIONSITE.'"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>' : '<li><a href="'.APP_PAGE_GESTIONSITE.'"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>',
+										($page == APP_PAGE_STATISTIQUE) ? '<li class="active"><a href="'.APP_PAGE_STATISTIQUE.'"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>' : '<li><a href="'.APP_PAGE_STATISTIQUE.'"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>',
+									'</ul>';
+					}
+					if(isset($_SESSION['idCompte'])){
+						echo '<ul class="nav nav-sidebar">';
+						echo 	($page == APP_PAGE_COMPTE) ? '<li class="active"><a href="'.APP_PAGE_COMPTE.'"><span class="fa fa-user" aria-hidden="true"></span>Paramètre compte</a></li>' : '<li><a href="'.APP_PAGE_COMPTE.'"><span class="fa fa-user" aria-hidden="true"></span>Paramètre compte</a></li>',
+									'<li><a href="deconnexion.php"><span class="fa fa-sign-out" aria-hidden="true"></span>Déconnexion</a></li>',
+								'</ul>';
+					}
+		}
+	echo  '</div>',
 				'<main class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">',
-      		'<section>';
+				'<section>';
 }
 
 function html_aside_main_fin(){
