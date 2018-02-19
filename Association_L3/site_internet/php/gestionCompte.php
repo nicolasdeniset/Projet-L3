@@ -76,7 +76,7 @@
 	//-----------------------------------------------------
 	html_head("Paramètre Compte");
 	html_header($id);
-	html_aside_main_debut("","","","","","","","","","class=\"active\"");
+	html_aside_main_debut(APP_PAGE_COMPTE);
 	
 	echo '<h1 class="page-header">Gestion de compte</h1>';
 	
