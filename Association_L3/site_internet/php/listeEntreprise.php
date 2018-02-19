@@ -16,7 +16,7 @@
 
   html_head('Nos partenaires');
   html_header($id);
-  html_aside_main_debut("","","","","class=\"active\"","","","","","");
+  html_aside_main_debut(APP_PAGE_ENTREPRISE);
   echo '<h1 class="page-header">Nos entreprises partenaires</h1>';
 
   if(!isset($_POST['rechercher'])){
