@@ -209,7 +209,7 @@
 				}
 				if($estAdmin == 0) {
 					echo '<div class="col-md-12 col-sm-12">',
-					  '<a href="gestionStage.php" class="btn btn-success btn-block"><span class="fa fa-cogs" aria-hidden="true"></span>Gerer le stage</a>',
+					  '<a href="gestionStage.php?id=',$idStage[$i],'" class="btn btn-success btn-block"><span class="fa fa-cogs" aria-hidden="true"></span>Gerer le stage</a>',
 					'</div>';
 				}
 				 echo '</div>',
