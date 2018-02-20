@@ -346,9 +346,9 @@ function item_stat($nb, $item, $image, $details) {
 }
 
 
-function supprimer_user_admin ($id_Entreprise, $id_Coordonnees) {
+function supprimer_user_admin ($id_Compte, $id_Coordonnees) {
     $S = "DELETE FROM compte
-                    WHERE    idCompte = '$id_Entreprise'";
+                    WHERE    idCompte = '$id_Compte'";
         $R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 
         $S2 = "DELETE FROM coordonnees
