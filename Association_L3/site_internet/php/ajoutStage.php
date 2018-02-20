@@ -53,7 +53,7 @@
 	//-----------------------------------------------------
 	html_head("Ajouter un stage");
 	html_header($id);
-	html_aside_main_debut("","","","class=\"active\"","","","","","","");
+	html_aside_main_debut(APP_PAGE_STAGE);
 	
 	echo '<h1 class="page-header">Ajout d\'un stage</h1>';
 	
