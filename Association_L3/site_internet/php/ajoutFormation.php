@@ -52,7 +52,7 @@
 	//-----------------------------------------------------
 	html_head("Ajouter une Formation");
 	html_header($id);
-	html_aside_main_debut("","","class=\"active\"","","","","","","","");
+	html_aside_main_debut(APP_PAGE_FORMATION);
 	
 	echo '<h1 class="page-header">Ajout d\'une formation</h1>';
 		
