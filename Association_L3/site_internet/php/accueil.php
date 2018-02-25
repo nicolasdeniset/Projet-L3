@@ -255,11 +255,33 @@ echo  '<section>',
 
     echo '</div>',
         '<div class="row">',
-          '<a href="#about" class="btn btn-info btn-block">Acceder à nos autres formations</a>',
+          '<a href="./formation.php" class="btn btn-info btn-block">Acceder à nos autres formations</a>',
         '</div>',
       '</div>',
     '</section>';
     // Fin section formations
+
+    // Début section poles de formation
+    echo '<section>
+          <div class="container">
+            <h2 class="text-center">POLES DE FORMATION</h2>
+            <div class="col-md-12">
+              <div id="carte" style="height: 70vh;">
+              </div>
+            </div>';
+
+            $S = 'SELECT gpsLongitudeCoordonnes, gpsLatitudeCoordonnees, villeCoordonnees
+                  FROM poleformation, coordonnees
+                  WHERE idCoordonnees = coordonneesPoleFormation';
+            $R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'],$S);
+            while ($poles = mysqli_fetch_assoc($R)) {
+              echo "<script>javascript:mapAddPlace('",$poles['villeCoordonnees'],"',",$poles['gpsLatitudeCoordonnees'],",",$poles['gpsLongitudeCoordonnes'],");</script>";
+            }
+
+            echo '<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCd69t4YW9mL9RlqvcEOK3ymLn1INr9Ogc&callback=mapCreate"></script>
+          </div>
+        </section>';
+        // Fin section
 
     // D&but section partenaires
     echo '<section id="partenaire">',
@@ -288,28 +310,36 @@ echo  '<section>',
           '<h3 class="text-center">Vous souhaitez devenir membre de l\'associaition ?</h3>',
           '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
         '</div>',
-        '<div class="row">',
-          '<!-- Item-->',
-          '<div class="item  col-md-6">',
+        '<div class="row">';
+
+      echo '<div class="item  col-md-4">',
             '<div id="candidaterPartenariat">',
               '<img class="img-responsive center-block" src="../images/partenaire.svg" alt="Une image" height="100px" width="100px"/>',
               '<h4 class="text-center">Devenir partenaire</h4>',
               '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
             '</div>',
-            '<a href="#about" class="btn btn-success btn-block">Candidature partenariat</a>',
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-6">',
+            '<a href="./inscription.php" class="btn btn-success btn-block">Candidature partenariat</a>',
+          '</div>';
+
+      echo '<div class="item col-md-4">',
+            '<div id="candidaterBenevolat">',
+              '<img class="img-responsive center-block" src="../images/benevole.svg" alt="Une image" height="100px" width="100px"/>',
+              '<h4 class="text-center">Devenir bénévole</h4>',
+              '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>',
+            '</div>',
+            '<a href="./inscription.php" class="btn btn-success btn-block">Candidature bénévolat</a>',
+          '</div>';
+
+      echo '<div class="item col-md-4">',
             '<div id="candidaterEtudiant">',
               '<img class="img-responsive center-block" src="../images/chapeauEtudiant.svg" alt="Une image" height="100px" width="100px"/>',
               '<h4 class="text-center">Devenir étudiant</h4>',
               '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
             '</div>',
-            '<a href="#about" class="btn btn-success btn-block">Candidature étudiante</a>',
-          '</div>',
-          '<!-- End Item-->',
-        '</div>',
+            '<a href="./inscription.php" class="btn btn-success btn-block">Candidature étudiante</a>',
+          '</div>';
+
+    echo '</div>',
       '</div>',
     '</section>';
     // Fin section candidater
@@ -319,41 +349,20 @@ echo  '<section>',
       '<div class="container">',
         '<div class="row">',
           '<h2 class="text-center">ACTUALITES</h2>',
-          '<h3 class="text-center">Nos dernières actualités</h3>',
-          '<!-- Item-->',
-          '<div class="item col-md-4">',
-            '<div id="article1">',
-              '<img class="img-responsive center-block" src="../images/help.svg" alt="Une image" height="100px" width="100px"/>',
-              '<h4>Titre de l\'article</h4>',
-              '<p class="small">Publié le 01/01/2018</p>',
-              '<p>Rapide description</p>',
-            '</div>',
-            '<a href="#about" class="btn btn-success btn-block">Lire l\'article</a>',
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-4">',
-            '<div id="article2">',
-              '<img class="img-responsive center-block" src="../images/help.svg" alt="Une image" height="100px" width="100px"/>',
-              '<h4>Titre de l\'article</h4>',
-              '<p class="small">Publié le 01/01/2018</p>',
-              '<p>Rapide description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
-            '</div>',
-            '<a href="#about" class="btn btn-success btn-block">Lire l\'article</a>',
-          '</div>',
-          '<!-- End Item-->',
-          '<!-- Item-->',
-          '<div class="item col-md-4">',
-            '<div id="article3">',
-              '<img class="img-responsive center-block" src="../images/help.svg" alt="Une image" height="100px" width="100px"/>',
-              '<h4>Titre de l\'article</h4>',
-              '<p class="small">Publié le 01/01/2018</p>',
-              '<p>Rapide description</p>',
-            '</div>',
-            '<a href="#about" class="btn btn-success btn-block">Lire l\'article</a>',
-          '</div>',
-          '<!-- End Item-->',
-        '</div>',
+          '<h3 class="text-center">Nos dernières actualités</h3>';
+
+          $S = 'SELECT titreActualites, dateActualites, texteActualites
+                FROM actualites
+                ORDER BY idActualites DESC
+                LIMIT 3';
+          $R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'],$S);
+          $count = 1;
+          while ($actu = mysqli_fetch_assoc($R)) {
+            item_article('article'.$count, $actu['titreActualites'], $actu['dateActualites'], $actu['texteActualites']);
+            $count++;
+          }
+
+    echo '</div>',
         '<div class="row">',
           '<a href="#about" class="btn btn-info btn-block">Acceder à nos autres articles</a>',
         '</div>',
@@ -362,6 +371,20 @@ echo  '<section>',
     // Fin section articles
 
     // Début section donations
+
+    if (! isset($_POST['btnValiderDon'])) {
+      // On est dans un premier affichage de la page.
+      // => On intialise les zones de saisie.
+      $nbErr = 0;
+      $_POST['nom'] = '';
+      $_POST['montant'] = '';
+
+    } else {
+      // On est dans la phase de soumission du formulaire
+      $erreurs = add_donation();
+      $nbErr = count($erreurs);
+    }
+
   echo '<section id="donation">',
       '<div class="container">',
         '<div class="row">',
@@ -370,18 +393,30 @@ echo  '<section>',
           '<div class="item col-md-6">',
             '<p>En faisant un don nous pourrons améliorer nos services ect... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip est laborum.</p>',
           '</div>',
-          '<div class="item col-md-6 col-sm-12">',
-            '<form>',
+          '<div class="item col-md-6 col-sm-12">';
+
+          if ($nbErr > 0) {
+            echo '<strong>Les erreurs suivantes ont &eacute;t&eacute; d&eacute;tect&eacute;es</strong>';
+            for ($i = 0; $i < $nbErr; $i++) {
+              echo '<br>', $erreurs[$i];
+            }
+          }
+          else {
+            echo '<p style="color:#22DDAA;"><strong>Merci pour votre promesse de don !</strong></p>';
+          }
+
+        echo '<form method="POST" action="./accueil.php#donation">',
               '<div class="form-group">',
-                '<label class="control-label required" for="nom">Votre nom</label>',
-                '<input type="text" class="form-control" id="name" placeholder="Ne remplissez pas ce champ si vous souhaitez faire un don anonyme">',
+                '<label class="control-label" for="nom">Votre nom</label>',
+                '<input type="text" class="form-control" id="name" name="nom" placeholder="Ne remplissez pas ce champ si vous souhaitez faire un don anonyme">',
               '</div>',
               '<div class="form-group">',
                 '<label class="control-label required" for="montant">Montant du don<sup style="color:red">*</sup></label>',
-                '<input type="number" class="form-control" id="howmuch" placeholder="Montant en €" required>',
+                '<input type="number" class="form-control" id="howmuch" name="montant" placeholder="Montant en €" required>',
               '</div>',
-              '<button type="submit" class="btn btn-success btn-block">Faire une promesse de don</button>',
+              '<button type="submit" class="btn btn-success btn-block" name="btnValiderDon">Faire une promesse de don</button>',
             '</form>',
+
           '</div>',
         '</div>',
       '</div>',
@@ -456,11 +491,12 @@ echo  '<section>',
   }
 
   /**
-   * Génère le code HTML d'un item de témoignage dans le carousel.
+   * Génère le code HTML d'un item de formation.
    *
    * @param int     $id           id de l'item
    * @param string  $image        Chemin vers l'image à utiliser
-   * @param string  $int          Durée de la formation en semaines
+   * @param string  $title        Titre de la formation
+   * @param int     $duration     Durée de la formation en semaines
    * @param string  $description  Description de la formation
    */
   function item_formation($id, $image, $title, $duration, $description) {
@@ -476,7 +512,7 @@ echo  '<section>',
   }
 
   /**
-   * Génère le code HTML d'un item de témoignage dans le carousel.
+   * Génère le code HTML d'un item de partenaire.
    *
    * @param string  $text    Texte du témoignage
    * @param string  $author  Auteur du témoignage ou "Anonyme"
@@ -486,6 +522,70 @@ echo  '<section>',
           '<img class="img-responsive center-block logoPartenaire" src="',$image,'" alt="Une image" height="75px" width="75px"/>',
           '<h4 style="text-align:center;">',$name,'</h4>',
         '</div>';
+  }
+
+  /**
+   * Génère le code HTML d'un item d'actualité.
+   *
+   * @param int     $id           id de l'item
+   * @param string  $title        Titre de l'actualité
+   * @param int     $duration     Date de publication de l'actualité
+   * @param string  $text         Texte de l'actualité
+   */
+  function item_article($id, $titre, $date, $text) {
+    echo '<div class="item col-md-4">',
+          '<div id="',$id,'">',
+            '<h4>',$titre,'</h4>',
+            '<p class="small">Publié le ',$date,'</p>',
+            '<p>';
+
+            if (strlen($text) > 500) {
+              echo substr($text, 0, 500), '...';
+            }
+            else {
+              echo $text;
+            }
+            
+        echo '</p>',
+          '</div>',
+          '<a href="#about" class="btn btn-success btn-block">Lire la suite de l\'actualité</a>',
+        '</div>';
+  }
+
+
+  /**
+  * Permet d'ajouter une promesse de dons si aucune erreur n'est détectée.
+  *
+  * @return array  $erreurs  Tableau des erreurs détectées.
+  */
+  function add_donation() {
+    $erreurs = array();
+
+    $txtNom = trim(utf8_encode($_POST['nom']));
+    $txtMontant = trim(utf8_encode($_POST['montant']));
+
+    if (ctype_digit($txtMontant) != true) {
+      $erreurs[] = 'Veuillez entrer une somme valide';
+    }
+
+    if (count($erreurs) > 0) {
+      return $erreurs;    // RETURN : des erreurs ont été détectées
+    }
+
+    //-----------------------------------------------------
+    // Insertion d'un nouvel enregistrement dans la base de données
+    //-----------------------------------------------------
+    $txtNom = mysqli_real_escape_string($GLOBALS['bd'], $txtNom);
+    if ($txtNom == '') {
+      $txtNom = 'Anonyme';
+    }
+    $txtMontant = mysqli_real_escape_string($GLOBALS['bd'], $txtMontant);
+
+    $S = "INSERT INTO donations SET
+        nomDonateurDonations = '$txtNom',
+        montantDonations = '$txtMontant'";
+    
+    mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
   }
 
   ob_end_flush();
