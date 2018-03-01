@@ -21,30 +21,37 @@ $(document).ready(function(){
   $('.gestion').hide();
 });
 
+/*Variables et fonctions utilisées pour créer la map*/
+
+var tabNames = [];
+var tabLat = [];
+var tabLng = [];
+
+function mapAddPlace(name, lat, lng) {
+  tabNames[tabNames.length] = name;
+  tabLat[tabLat.length] = lat;
+  tabLng[tabLng.length] = lng;
+}
+
+function test1() {
+  alert("ouk1");
+  for (var i = 0; i < tabNames.length; i++) {
+    document.getElementById("carte").innerHTML += tabNames[i];
+    alert(tabNames[i]);
+  }
+  alert("ouk2");
+}
+
 function mapCreate() {
   var carte = document.getElementById("carte");
-  var tabPlaces = [];
-  var tabNames = [];
-  var tabLength = 0;
-
-  var abuja = new google.maps.LatLng(9.0765,7.3986);
-  tabPlaces[tabLength] = abuja;
-  tabNames[tabLength] = "Abuja";
-  tabLength++;
-
-  var libreville = new google.maps.LatLng(0.4162,9.4673);
-  tabPlaces[tabLength] = libreville;
-  tabNames[tabLength] = "Libreville";
-  tabLength++;
-
   var map = new google.maps.Map(carte, { 
-    center: tabPlaces[0], 
+    center: new google.maps.LatLng(2,18),
     zoom: 3
   });
 
-  for (var i = 0; i < tabLength; i++) {
+  for (var i = 0; i < tabNames.length; i++) {
     var pin = new google.maps.Marker({
-      position: tabPlaces[i],
+      position: new google.maps.LatLng(tabLat[i],tabLng[i]),
       animation: google.maps.Animation.DROP
     });
     pin.infoWindow = new google.maps.InfoWindow({
@@ -64,8 +71,19 @@ function initSectionCandidater(){
   if(window.innerWidth>1000) {
     var div1=$("#candidaterEtudiant").height();
     var div2=$("#candidaterPartenariat").height();
-    if (div1>div2) {$("#candidaterPartenariat").height(div1);}
-    else if (div2>div1) {$("#candidaterEtudiant").height(div2);}
+    var div3=$("#candidaterBenevolat").height();
+    if (div1>=div2 && div1>=div3) {
+      $("#candidaterPartenariat").height(div1);
+      $("#candidaterBenevolat").height(div1);
+    }
+    else if (div2>=div1 && div2>=div3) {
+      $("#candidaterEtudiant").height(div2);
+      $("#candidaterBenevolat").height(div2);
+    }
+    else if (div3>=div1 && div3>=div2) {
+      $("#candidaterEtudiant").height(div3);
+      $("#candidaterPartenariat").height(div3);
+    }
   }
 }
 
