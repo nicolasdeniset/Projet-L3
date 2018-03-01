@@ -23,12 +23,17 @@
 		$nbErr = count($erreurs);
 	}
 
+	$id = '';
+	 session_start();
+	if(isset($_SESSION['idCompte'])){
+		$id = $_SESSION["idCompte"];
+	}
 
 	//-----------------------------------------------------
 	// Affichage de la page
 	//-----------------------------------------------------
 	html_head("Connexion");
-	html_header();
+	html_header($id);
 
 	echo '<div class="container">',
       '<div class="row">',

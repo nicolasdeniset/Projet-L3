@@ -24,11 +24,11 @@ define('APP_BD_NOM', 'association_l3');
 define('APP_NOM_APPLICATION','association_l3');
 
 // Gestion des pages de l'application
-define('APP_PAGE_ACCUEIL', 'accueil.php');
 define('APP_PAGE_STATISTIQUE', 'statistique.php');
 define('APP_PAGE_FORMATION', 'formation.php');
 define('APP_PAGE_STAGE', 'stage.php');
 define('APP_PAGE_COMPTE', 'gestionCompte.php');
+define('APP_PAGE_MEMBRE', 'listeMembre.php');
 define('APP_PAGE_ETUDIANT', 'listeEtudiant.php');
 define('APP_PAGE_ENTREPRISE', 'listeEntreprise.php');
 define('APP_PAGE_BENEVOLE', 'listeBenevole.php');
@@ -37,6 +37,8 @@ define('APP_PAGE_ACTUALITE', 'actualite.php');
 define('APP_PAGE_GESTIONSITE', 'gestionSite.php');
 define('APP_PAGE_CANDIDATURE', 'candidature.php');
 define('APP_PAGE_PROFIL', 'profil.php');
+define('APP_PAGE_ACCUEIL', 'accueil.php');
+define('APP_PAGE_CONNEXION', 'login.php');
 
 //___________________________________________________________________
 /*******************************************************************************
@@ -101,26 +103,23 @@ function html_pied($little = "") {
 function html_aside_main_debut($page=''){
 	echo 	'<div class="container-fluid">',
 				'<div class="col-sm-3 col-md-2 sidebar">';
-	if($page == APP_PAGE_ENTREPRISE || $page == APP_PAGE_FORMATION || $page == APP_PAGE_STAGE || $page == APP_PAGE_ENTREPRISE || $page == APP_PAGE_ETUDIANT || $page == APP_PAGE_BENEVOLE || $page == APP_PAGE_POLE || $page == APP_PAGE_ACTUALITE || $page == APP_PAGE_CANDIDATURE || $page == APP_PAGE_GESTIONSITE || $page == APP_PAGE_STATISTIQUE || $page == APP_PAGE_COMPTE) {
-			echo'<ul class="nav nav-sidebar">',
-	  				'<li><a href="./accueil.php"><span class="fa fa-home" aria-hidden="true"></span>Accueil</a></li>',
-	      	'</ul>',
-	      	'<ul class="nav nav-sidebar">',
+	if($page == APP_PAGE_ENTREPRISE || $page == APP_PAGE_FORMATION || $page == APP_PAGE_STAGE || $page == APP_PAGE_ENTREPRISE || $page == APP_PAGE_ETUDIANT || $page == APP_PAGE_BENEVOLE || $page == APP_PAGE_POLE || $page == APP_PAGE_ACTUALITE || $page == APP_PAGE_CANDIDATURE || $page == APP_PAGE_GESTIONSITE || $page == APP_PAGE_STATISTIQUE || $page == APP_PAGE_COMPTE || $page == APP_PAGE_MEMBRE || $page == APP_PAGE_PROFIL) {
+/*		if (getTypeCompte($_SESSION['idCompte']) != 0){
+			echo		'<ul class="nav nav-sidebar">',
+	  					($page == APP_PAGE_PROFIL) ?'<li class="active"><a href="./profil.php"><span class="fa fa-home" aria-hidden="true"></span>Profil</a></li>' :'<li><a href="./profil.php"><span class="fa fa-home" aria-hidden="true"></span>Profil</a></li>',
+	      			'</ul>';
+		}*/
+	  echo 	'<ul class="nav nav-sidebar">',
 	      		($page == APP_PAGE_FORMATION) ?'<li class="active"><a href="'.APP_PAGE_FORMATION.'"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>' : '<li><a href="'.APP_PAGE_FORMATION.'"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>',
 	      		($page == APP_PAGE_STAGE) ? '<li class="active"><a href="'.APP_PAGE_STAGE.'"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>' :  '<li><a href="'.APP_PAGE_STAGE.'"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>',
-	      	'</ul>',
-	      	'<ul class="nav nav-sidebar">',
-	      		($page == APP_PAGE_ENTREPRISE) ?  '<li class="active"><a href="'.APP_PAGE_ENTREPRISE.'"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises</a></li>': '<li><a href="'.APP_PAGE_ENTREPRISE.'"><span class="fa fa-industry" aria-hidden="true"></span>Entreprises</a></li>',
-	      		($page == APP_PAGE_ETUDIANT) ? '<li class="active"><a href="'.APP_PAGE_ETUDIANT.'"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>' : '<li><a href="'.APP_PAGE_ETUDIANT.'"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Etudiants</a></li>',
-						($page == APP_PAGE_BENEVOLE) ? '<li class="active"><a href="'.APP_PAGE_BENEVOLE.'"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Benevoles</a></li>' : '<li><a href="'.APP_PAGE_BENEVOLE.'"><span class="fa fa-graduation-cap" aria-hidden="true"></span>Benevoles</a></li>',
-						'</ul>',
-			  	'<ul class="nav nav-sidebar">',
-	      		($page == APP_PAGE_POLE) ? '<li class="active"><a href="'.APP_PAGE_POLE.'"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>' : '<li><a href="'.APP_PAGE_POLE.'"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formation</a></li>',
-	        	($page == APP_PAGE_ACTUALITE) ? '<li class="active"><a href="'.APP_PAGE_ACTUALITE.'"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualité</a></li>' : '<li><a href="'.APP_PAGE_ACTUALITE.'"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualité</a></li>',
-	      	'</ul>';
+						($page == APP_PAGE_MEMBRE || $page == APP_PAGE_PROFIL) ?  '<li class="active"><a href="'.APP_PAGE_MEMBRE.'"><span class="fa fa-users" aria-hidden="true"></span>Membres</a></li>': '<li><a href="'.APP_PAGE_MEMBRE.'"><span class="fa fa-users" aria-hidden="true"></span>Membres</a></li>',
+						($page == APP_PAGE_POLE) ? '<li class="active"><a href="'.APP_PAGE_POLE.'"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formations</a></li>' : '<li><a href="'.APP_PAGE_POLE.'"><span class="fa fa-university" aria-hidden="true"></span>Pôles de formation</a></li>',
+						($page == APP_PAGE_ACTUALITE) ? '<li class="active"><a href="'.APP_PAGE_ACTUALITE.'"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualités</a></li>' : '<li><a href="'.APP_PAGE_ACTUALITE.'"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualités</a></li>',
+
+					'</ul>';
 					if (getTypeCompte($_SESSION['idCompte']) == 0){
 						echo 	'<ul class="nav nav-sidebar">',
-										($page == APP_PAGE_CANDIDATURE) ? '<li class="active"><a href="'.APP_PAGE_CANDIDATURE.'"><span class="fa fa-cogs" aria-hidden="true"></span>Candidature</a></li>' : '<li><a href="'.APP_PAGE_CANDIDATURE.'"><span class="fa fa-cogs" aria-hidden="true"></span>Candidature</a></li>',
+										($page == APP_PAGE_CANDIDATURE) ? '<li class="active"><a href="'.APP_PAGE_CANDIDATURE.'"><span class="fa fa-cogs" aria-hidden="true"></span>Candidatures</a></li>' : '<li><a href="'.APP_PAGE_CANDIDATURE.'"><span class="fa fa-cogs" aria-hidden="true"></span>Candidatures</a></li>',
 										($page == APP_PAGE_GESTIONSITE) ? '<li class="active"><a href="'.APP_PAGE_GESTIONSITE.'"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>' : '<li><a href="'.APP_PAGE_GESTIONSITE.'"><span class="fa fa-cogs" aria-hidden="true"></span>Site Internet</a></li>',
 										($page == APP_PAGE_STATISTIQUE) ? '<li class="active"><a href="'.APP_PAGE_STATISTIQUE.'"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>' : '<li><a href="'.APP_PAGE_STATISTIQUE.'"><span class="fa fa-bar-chart" aria-hidden="true"></span>Statistiques</a></li>',
 									'</ul>';
@@ -157,7 +156,7 @@ function html_header($session = '') {
 				 							'<li><a href="./accueil.php#donation">Donation</a></li>',
 				 							'<li><a href="./accueil.php#contacter">Nous contacter</a></li>';
 		if($session != ""){
-			echo 						'<li><a href="gestionCompte.php" class="navActive">Tableau d\'administration</a></li>';
+			echo 						'<li><a href="',APP_PAGE_PROFIL,'" class="navActive">Tableau d\'administration</a></li>';
 		}
 		else {
 			echo 						'<li><a href="login.php" class="navConnexion">Connexion</a> </li>',
@@ -175,7 +174,7 @@ function html_header($session = '') {
 											'<li><a href="./accueil.php#donation" onclick="closeNav()">Donation</a></li>',
 											'<li><a href="./accueil.php#contacter" onclick="closeNav()">Nous Contacter</a></li>';
 		if($session != ""){
-			echo 						'<li><a href="gestionCompte.php" class="navActive" onclick="closeNav()">Tableau d\'administration</a></li>';
+			echo 						'<li><a href="',APP_PAGE_PROFIL,'" class="navActive" onclick="closeNav()">Tableau d\'administration</a></li>';
 		}
 		else {
 			echo 						'<li><a href="login.php" onclick="closeNav()">Connexion</a> </li>',
@@ -295,27 +294,17 @@ function verifie_session(){
          	$cookieParams['secure'],
          	$cookieParams['httponly']
     	);
-		header('location: login.php');
+		header('location:'.APP_PAGE_CONNEXION); 
 		exit();
 	}
-	/*if(!isset($_SESSION['actifCompte'])){
-		if($_SESSION['actifCompte'] == "0") {
-			session_unset();
-			session_destroy();
-			$cookieParams = session_get_cookie_params();
-			setcookie(session_name(),
-				'',
-				time() - 86400,
-				$cookieParams['path'],
-				$cookieParams['domain'],
-				$cookieParams['secure'],
-				$cookieParams['httponly']
-			);
-			header('location: login.php');
-			exit();
-		}
-	}*/
-	return false;
+	$S = 'SELECT actifCompte
+				FROM compte
+				WHERE idCompte ='.$_SESSION['idCompte'];
+	$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($S);
+	$tab=mysqli_fetch_assoc($R);
+	if($tab['actifCompte'] == 0){
+		header('location:'.APP_PAGE_CONNEXION);
+	}
 }
 
 function getTypeCompte($id=''){

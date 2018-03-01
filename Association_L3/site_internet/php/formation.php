@@ -139,7 +139,7 @@
 					echo '<div class="item">',
 					  '<div class="row">',
 						'<div class="col-md-6 col-sm-12">',
-						  '<h3>', $titreFormation[$i] ,'<small>#',$idFormation[$i],'</small></h3>',
+						  '<h3>', $titreFormation[$i] ,'</h3>',
 						  '<p class="small">Durée de formation : ',$dureeFormation[$i],' semaines</p>',
 						  '<p>',$descriptionFormation[$i],'</p>',
 						'</div>',

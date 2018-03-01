@@ -22,7 +22,7 @@
 	$estAdmin = $D[0];
 	// On vérifie que l'utilisateur est un admin et qu'il a le droit d'ajouter des formations.
 	if($estAdmin != 0) {
-		header('location: formation.php');
+		header('location: stage.php');
 		exit();			// EXIT : le script est terminé
 	}
 	
@@ -84,7 +84,7 @@
         '<div class="item">',
           '<div class="row">',
             '<div class="col-md-6 col-sm-12">',
-              '<h3>',$titreStage,'<small>#',$idStage,'</small></h3>',
+              '<h3>',$titreStage,'</h3>',
               '<p class="small">Durée de formation : ',$dureeStage,' semaines</p>',
               '<p>',$descriptionStage,'</p>',
             '</div>',

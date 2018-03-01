@@ -21,7 +21,7 @@
 	$estAdmin = $D[0];
 	// On vérifie que l'utilisateur est un admin et qu'il a le droit d'ajouter des formations.
 	if($estAdmin != 0) {
-		header('location: formation.php');
+		header('location: stage.php');
 		exit();			// EXIT : le script est terminé
 	}
 	
@@ -153,7 +153,8 @@
 	html_aside_main_fin();
 	echo '</body></html>';
 	ob_end_flush();
-		//_______________________________________________________________
+	
+	//_______________________________________________________________
 	//
 	//		FONCTIONS LOCALES
 	//_______________________________________________________________

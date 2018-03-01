@@ -34,10 +34,10 @@ echo  '<section>',
           '</div>',
           '<div class="row">',
             '<div class="text col-md-6 col-sm-12">',
-              '<a href="#about" class="btn btn-info btn-block">Découvrir</a>',
+              '<a href="#statistique" class="btn btn-info btn-block">Découvrir</a>',
             '</div>',
             '<div class="text col-md-6 col-sm-12">',
-              '<a href="#about" class="btn btn-success btn-block">Candidater</a>',
+              '<a href="login.php" class="btn btn-success btn-block">Candidater</a>',
             '</div>',
           '</div>',
         '</div>',
@@ -46,7 +46,7 @@ echo  '<section>',
   // Fin section
 
   // Début section statistiques
-  echo '<section>',
+  echo '<section id="statistique">',
       '<div class="container">',
         '<div class="row">',
           '<h2 class="text-center">STATISTIQUES</h2>',
@@ -402,7 +402,9 @@ echo  '<section>',
             }
           }
           else {
-            echo '<p style="color:#22DDAA;"><strong>Merci pour votre promesse de don !</strong></p>';
+			if (isset($_POST['btnValiderDon'])) {
+			  echo '<p style="color:#22DDAA;"><strong>Merci pour votre promesse de don !</strong></p>';
+			}
           }
 
         echo '<form method="POST" action="./accueil.php#donation">',

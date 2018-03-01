@@ -85,7 +85,7 @@
         '<div class="item">',
           '<div class="row">',
             '<div class="col-md-6 col-sm-12">',
-              '<h3>',$titreFormation,'<small>#',$idFormation,'</small></h3>',
+              '<h3>',$titreFormation,'</h3>',
               '<p class="small">Durée de formation : ',$dureeFormation,' semaines</p>',
               '<p>',$descriptionFormation,'</p>',
             '</div>',
