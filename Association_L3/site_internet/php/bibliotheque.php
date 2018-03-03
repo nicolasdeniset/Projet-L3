@@ -409,7 +409,7 @@ function supprimer_user_admin ($id_Entreprise, $id_Coordonnees) {
 		return $stat;
 	}
 	
-		/**
+	/**
 	* Fonction qui permet de faire les statistique concernant un
 	* stage à partir de son identifiant.
 	*
@@ -452,6 +452,42 @@ function supprimer_user_admin ($id_Entreprise, $id_Coordonnees) {
 		$R3 = mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
 		$D3 = mysqli_fetch_row($R3);
 		$stat[3] = $D3[0];
+		
+		return $stat;
+	}
+	
+	/**
+	* Fonction qui permet de faire les statistique concernant un
+	* stage à partir de son identifiant.
+	*
+	* @return array $stat		Tableau des statistiques détectées.
+	*/
+	function statistique_pole($idPole) {
+		$stat = array();
+		
+		$S = "SELECT count(formationPropose)
+			FROM propose
+			WHERE polePropose = '$idPole'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		$stat[0] = $D[0];
+		
+		$S = "SELECT DISTINCT count(etudiantAsuivi)
+			FROM propose, asuivi
+			WHERE polePropose = '$idPole'
+			AND	formationPropose = 'formationAsuivi'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		$stat[1] = $D[0];
+		
+		$S2 = "SELECT DISTINCT count(etudiantAsuivi)
+			FROM propose, asuivi
+			WHERE polePropose = '$idPole'
+			AND	formationPropose = 'formationAsuivi'
+			AND certificationAsuivi = '1'";
+		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+		$D2 = mysqli_fetch_row($R2);
+		$stat[2] = $D2[0];
 		
 		return $stat;
 	}

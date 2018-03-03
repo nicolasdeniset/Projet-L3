@@ -98,11 +98,11 @@
                   '</div>',
 				  '<div class="form-group">',
                     '<label class="control-label required" for="gpsLatitude">Coordonnées GPS Latitude<sup style="color:red">*</sup></label>',
-                    '<input id="gpsLatitude" name="gpsLatitude" type="number" step="any" class="form-control" placeholder="Entrer latitude">',
+                    '<input id="gpsLatitude" name="gpsLatitude" type="text" class="form-control" placeholder="Entrer latitude">',
                   '</div>',
 				  '<div class="form-group">',
                     '<label class="control-label required" for="gpsLongitude">Coordonnées GPS Longitude<sup style="color:red">*</sup></label>',
-                    '<input id="gpsLongitude" name="gpsLongitude" type="number" step="any" class="form-control" placeholder="Entrer longitude">',
+                    '<input id="gpsLongitude" name="gpsLongitude" type="text" class="form-control" placeholder="Entrer longitude">',
                   '</div>',
 				  '<div class="form-group">',
 					'<label class="control-label required" for="name">Nombre de bénévole<sup style="color:red">*</sup></label>',
@@ -149,7 +149,7 @@
 		$txtLatitude = trim($_POST['gpsLatitude']);
 		$txtLongitude = trim($_POST['gpsLongitude']);
 		$txtNbBenevole = trim($_POST['nbBenevole']);
-	}
+	
 	
 	// Vérification du nom
 		if ($txtNom == '') {
@@ -211,8 +211,70 @@
 			$erreurs[] = 'Le pays est obligatoire';
 		}
 		
+		if(strpos($txtLatitude, ',') === FALSE) {
+			$erreurs[] = 'La latitude est incorrecte';
+		}
+		
+		if(strpos($txtLongitude, ',') === FALSE) {
+			$erreurs[] = "La longitude est incorrecte";
+		}
+		
+		if(ctype_digit($txtNbBenevole) != true) {
+			$erreurs[] = 'Le nombre de bénévoles entré n\'est pas un numéro';
+		}
+		
 		// Si il y a des erreurs, la fonction renvoie le tableau d'erreurs
 		if (count($erreurs) > 0) {
 			return $erreurs;		// RETURN : des erreurs ont été détectées
 		}
+		
+		$txtNom = mysqli_real_escape_string($GLOBALS['bd'], $txtNom);
+		$txtPrenom = mysqli_real_escape_string($GLOBALS['bd'], $txtPrenom);
+		$txtMail = mysqli_real_escape_string($GLOBALS['bd'], $txtMail);
+		$txttelephone = mysqli_real_escape_string($GLOBALS['bd'], $txttelephone);
+		$txtAdresse = mysqli_real_escape_string($GLOBALS['bd'], $txtAdresse);
+		$txtCp = mysqli_real_escape_string($GLOBALS['bd'], $txtCp);
+		$txtVille = mysqli_real_escape_string($GLOBALS['bd'], $txtVille);
+		$txtPays = mysqli_real_escape_string($GLOBALS['bd'], $txtPays);
+		$txtLatitude = mysqli_real_escape_string($GLOBALS['bd'], $txtLatitude);
+		$txtLongitude = mysqli_real_escape_string($GLOBALS['bd'], $txtLongitude);
+		$txtNbBenevole = mysqli_real_escape_string($GLOBALS['bd'], $txtNbBenevole);
+		
+		$S = "INSERT INTO coordonnees SET
+				nomCoordonnees = '$txtNom',
+				prenomCoordonnees = '$txtPrenom',
+				emailCoordonnees = '$txtMail',
+				telephoneCoordonnees = '$txttelephone',
+				adresseCoordonnees = '$txtAdresse',
+				codePostalCoordonnees = '$txtCp',
+				villeCoordonnees = '$txtVille',
+				paysCoordonnees = '$txtPays'
+				gpsLongitudeCoordonnes = '$txtLongitude'
+				gpsLatitudeCoordonnees = '$txtLatitude'";
+		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		
+		$S2 = "SELECT idCoordonnees
+				FROM coordonnees
+				WHERE nomCoordonnees = '$txtNom'
+				AND prenomCoordonnees = '$txtPrenom'
+				AND emailCoordonnees = '$txtMail'
+				AND adresseCoordonnees = '$txtAdresse'
+				AND codePostalCoordonnees = '$txtCp'
+				AND villeCoordonnees = '$txtVille'
+				AND paysCoordonnees = '$txtPays'
+				AND gpsLongitudeCoordonnes = '$txtLongitude'
+				AND gpsLatitudeCoordonnees = '$txtLatitude'";
+		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+		$D2 = mysqli_fetch_row($R2);
+		$idCoordonnees = $D2[0];
+		
+		$S3 = "INSERT INTO poleformation SET
+				coordonneesPoleFormation = '$idCoordonnees',
+				nbBenevolesPoleFormation = '$txtNbBenevole'";
+		mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
+		
+		header('location: poleFormation.php');
+		exit();			// EXIT : le script est terminé
+		ob_end_flush();
+	}
 ?>

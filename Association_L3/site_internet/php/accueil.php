@@ -275,10 +275,6 @@ echo  '<section>',
                   WHERE idCoordonnees = coordonneesPoleFormation';
             $R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'],$S);
             while ($poles = mysqli_fetch_assoc($R)) {
-<<<<<<< HEAD
-=======
-              echo 'test pole : ',$poles['villeCoordonnees'],'<br>';
->>>>>>> 0b65bf306247c5db8088be9ff84db449cc983db7
               echo "<script>javascript:mapAddPlace('",$poles['villeCoordonnees'],"',",$poles['gpsLatitudeCoordonnees'],",",$poles['gpsLongitudeCoordonnes'],");</script>";
             }
 
@@ -558,8 +554,6 @@ echo  '<section>',
         '</div>';
   }
 
-<<<<<<< HEAD
-
   /**
   * Permet d'ajouter une promesse de dons si aucune erreur n'est détectée.
   *
@@ -594,9 +588,6 @@ echo  '<section>',
     
     mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
   }
-
-=======
->>>>>>> 0b65bf306247c5db8088be9ff84db449cc983db7
   ob_end_flush();
 
 ?>

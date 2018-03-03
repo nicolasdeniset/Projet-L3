@@ -15,7 +15,6 @@
 	$S = "SELECT	typeCompte
 			FROM	compte
 			WHERE	idCompte = '$id'";
-
 	$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 	$D = mysqli_fetch_row($R);
 	
@@ -34,10 +33,31 @@
 	$D2 = mysqli_fetch_row($R2);	
 	$titreStage = $D2[0];
 	$descriptionStage = $D2[1];
-	$dureeStage = $D2[2];
+	$dureeStage1 = $D2[2];
 	$dispoStage = $D2[3];
 	$idEntrepriseStage = $D2[4];
 	$idCoordonneesStage = $D2[5];
+	$S2 = "SELECT	nomEntrepriseCompte
+			FROM	compte
+			WHERE	idCompte = '$idEntrepriseStage'";
+			
+	$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+	$D2 = mysqli_fetch_row($R2);
+	$compagnyName = $D2[0];
+	$S2 = "SELECT	nomCoordonnees, prenomCoordonnees, emailCoordonnees, telephoneCoordonnees, adresseCoordonnees, codePostalCoordonnees, villeCoordonnees, paysCoordonnees
+			FROM	coordonnees
+			WHERE	idCoordonnees = '$idCoordonneesStage'";
+			
+	$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+	$D2 = mysqli_fetch_row($R2);
+	$nomCoordonnees = $D2[0];
+	$prenomCoordonnees = $D2[1];
+	$emailCoordonnees = $D2[2];
+	$telephoneCoordonnees = $D2[3];
+	$adresseCoordonnees = $D2[4];
+	$codePostalCoordonnees = $D2[5];
+	$villeCoordonnees = $D2[6];
+	$paysCoordonnees = $D2[7];
 	$stat = statistique_stage($idStage);
 	
 	if($dispoStage == "1") {
@@ -57,18 +77,24 @@
 		// On n'est dans un premier affichage de la page. On
 		// intialise les zones de saisie.
 		$nbErr = 0;
-		$_POST['titre'] = $_POST['name'] = "";
-		$_POST['firstname'] = $_POST['email'] = "";
-		$_POST['phone'] = $_POST['address'] = "";
-		$_POST['cp'] = $_POST['city'] = "";
-		$_POST['country'] = $_POST['description'] = "";
-		$_POST['duree'] = $_POST['compagnyName'] = "";
+		$_POST['titre'] = $titreStage;
+		$_POST['name'] = $nomCoordonnees;
+		$_POST['firstname'] = $prenomCoordonnees;
+		$_POST['email'] = $emailCoordonnees;
+		$_POST['phone'] = $telephoneCoordonnees;
+		$_POST['address'] = $adresseCoordonnees;
+		$_POST['cp'] = $codePostalCoordonnees;
+		$_POST['city'] = $villeCoordonnees;
+		$_POST['country'] = $paysCoordonnees;
+		$_POST['description'] = $descriptionStage;
+		$_POST['duree'] = $dureeStage1;
+		$_POST['compagnyName'] = $compagnyName;
 		
 	} else {
 		// On est dans la phase de soumission du formulaire on en
 		// fait la vérification. Si aucune erreur n'est détectée,
 		// cette fonction redirige la page sur le script gestionStage.
-		$erreurs = modifier_stage();
+		$erreurs = modifier_stage($idStage,$idCoordonneesStage);
 		$nbErr = count($erreurs);
 	}
 	
@@ -85,7 +111,7 @@
           '<div class="row">',
             '<div class="col-md-6 col-sm-12">',
               '<h3>',$titreStage,'</h3>',
-              '<p class="small">Durée de formation : ',$dureeStage,' semaines</p>',
+              '<p class="small">Durée de formation : ',$dureeStage1,' semaines</p>',
               '<p>',$descriptionStage,'</p>',
             '</div>',
             '<div class="col-md-6 col-sm-12">',
@@ -118,7 +144,7 @@
               "<button class=\"btn btn-inline btn-success btn-block\" onclick=\"javascript:openGestion(['gestionCandidatures', 'gestionStages', 'gestionStatistiques', 'gestionEtudiants']); return false;\"><span class=\"fa fa-id-card-o\" aria-hidden=\"true\"></span>Gérer candidatures</button>",
             '</div>',
             '<div class="col-md-4">',
-              "<button class=\"btn btn-inline btn-success btn-block\" onclick=\"javascript:openGestion(['gestionStages', 'gestionCandidatures', 'gestionStatistiques', 'gestionEtudiants']); return false;\"><span class=\"fa fa-cogs\" aria-hidden=\"true\"></span>Modifier formation</button>",
+              "<button class=\"btn btn-inline btn-success btn-block\" onclick=\"javascript:openGestion(['gestionStages', 'gestionCandidatures', 'gestionStatistiques', 'gestionEtudiants']); return false;\"><span class=\"fa fa-cogs\" aria-hidden=\"true\"></span>Modifier stage</button>",
             '</div>',
             '<div class="col-md-4">',
               "<button class=\"btn btn-inline btn-success btn-block\" onclick=\"javascript:openGestion(['gestionEtudiants', 'gestionStages', 'gestionCandidatures', 'gestionStatistiques']); return false;\"><span class=\"fa fa-graduation-cap\" aria-hidden=\"true\"></span>Etudiants</button>",
@@ -147,7 +173,7 @@
 				AND traiteeCandidature = '0'
 				AND experienceCandidature = idStage
 				AND experienceCandidature = '$idStage'
-				ORDER BY idCompte";
+				ORDER BY idCandidature";
 			$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 			$i = 0;
 			while ($D = mysqli_fetch_assoc($R)) {
@@ -158,7 +184,7 @@
 				$idCompteCandidat = $D['idCompte'];
 				$dateFin = date('Y-m-d',strtotime("+$dureeStage day",strtotime($dateDebut)));
 				echo '<tr>',
-					'<td>',$idCompteCandidat,'</td>',
+					'<td>',$idCandidat,'</td>',
 					'<td>',$prenomCandidat,' ',$nomCandidat,'</td>',
 					'<td>',$dateDebut,' - ',$dateFin,'</td>',
 					'<td>',
@@ -201,21 +227,35 @@
           '</table>',
         '</div>',
 		
-		'<div id="gestionStages" class="gestion row">',
-		'<form method="POST" action="ajoutStage.php" accept-charset="iso-8859-1" >',
+		'<div id="gestionStages" class="gestion row">';
+		// Si il y a des erreurs on les affiche
+		if ($nbErr > 0) {
+			echo '<strong>Les erreurs suivantes ont &eacute;t&eacute; d&eacute;tect&eacute;es</strong>';
+			for ($i = 0; $i < $nbErr; $i++) {
+				echo '<br>', $erreurs[$i];
+			}
+		}
+		echo '<form method="POST" action="gestionStage.php?id=',$idStage,'" accept-charset="iso-8859-1" >',
               '<div class="form-group">',
                 '<label class="control-label required" for="name">Titre du stage<sup style="color:red">*</sup></label>',
-                '<input id="titre" name="titre" type="text" class="form-control" placeholder="Entrez le titre du stage">',
+                '<input id="titre" name="titre" type="text" class="form-control" placeholder="Entrez le titre du stage" value="',$titreStage,'">',
               '</div>',
 				   '<div class="form-group">',
 				   '<label class="control-label required" for="compagnyName">Sélectionner le nom de l\'entreprise proposant le stage<sup style="color:red">*</sup></label><br>';
-				    $S2 = "SELECT nomEntrepriseCompte, idCompte 
+					$S = "SELECT	entrepriseStage, nomEntrepriseCompte
+							FROM	stage, compte
+							WHERE	idStage = '$idStage'
+							AND		idCompte = entrepriseStage";
+					$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+					$D = mysqli_fetch_row($R);
+					$selected = $D[0];
+				   $S2 = "SELECT nomEntrepriseCompte, idCompte 
 							FROM compte 
-							WHERE nomEntrepriseCompte != ''";
+							WHERE nomEntrepriseCompte != ''
+							AND	idCompte != '$selected'";
 					$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
-					$D2 = mysqli_fetch_row($R2);
 					echo '<select name="compagnyName">',
-						'<option value="',$D2[1],'">',$D2[0],'</option>';
+						'<option value="',$D[0],'">',$D[1],'</option>';
 					while ($D2 = mysqli_fetch_assoc($R2)) {
 						echo '<option value="',$D2['idCompte'],'">',$D2['nomEntrepriseCompte'],'</option>';
 					}
@@ -223,12 +263,19 @@
                   '</div>',
 				   '<div class="form-group">',
 				   '<label class="control-label required" for="formationName">Sélectionner la formation nécessaire pour obtenir ce stage<sup style="color:red">*</sup></label><br>';
-				    $S3 = "SELECT titreFormation, idFormation 
-							FROM formation";
+					$S = "SELECT	titreFormation, idFormation
+							FROM	formation, certificationrequise
+							WHERE	stageCertificationRequise = '$idStage'
+							AND		idFormation = formationCertificationRequise";
+					$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+					$D = mysqli_fetch_row($R);
+					$selected = $D[1];
+				   $S3 = "SELECT titreFormation, idFormation 
+							FROM formation
+							WHERE idFormation != '$selected'";
 					$R3 = mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
-					$D3 = mysqli_fetch_row($R3);
 					echo '<select name="formationName">',
-						'<option value="',$D3[1],'">',$D3[0],'</option>';
+						'<option value="',$D[1],'">',$D[0],'</option>';
 					while ($D3 = mysqli_fetch_assoc($R3)) {
 						echo '<option value="',$D3['idFormation'],'">',$D3['titreFormation'],'</option>';
 					}
@@ -236,51 +283,56 @@
                   '</div>',
 				   '<div class="form-group">',
                     '<label class="control-label required" for="name">Nom du responsable de stage<sup style="color:red">*</sup></label>',
-                    '<input id="name" name="name" type="text" class="form-control" placeholder="Entrer son nom">',
+                    '<input id="name" name="name" type="text" class="form-control" placeholder="Entrer son nom" value="',$nomCoordonnees,'">',
                   '</div>',
                   '<div class="form-group">',
                     '<label class="control-label required" for="firstname">Prénom du responsable de stage<sup style="color:red">*</sup></label>',
-                    '<input id="firstname" name="firstname" type="text" class="form-control" placeholder="Entrer son prénom">',
+                    '<input id="firstname" name="firstname" type="text" class="form-control" placeholder="Entrer son prénom" value="',$prenomCoordonnees,'">',
                   '</div>',                   
                   '<div class="form-group">',
                     '<label class="control-label required" for="email">Email du responsable de stage<sup style="color:red">*</sup></label>',
-                    '<input id="email" name="email" type="text" class="form-control" placeholder="Entrer son adresse mail">',
+                    '<input id="email" name="email" type="text" class="form-control" placeholder="Entrer son adresse mail" value="',$emailCoordonnees,'">',
                   '</div>',
 				  '<div class="form-group">',
                     '<label class="control-label required" for="phone">Téléphone du responsable de stage<sup style="color:red">*</sup></label>',
-                    '<input id="phone" name="phone" type="text" class="form-control" placeholder="Entrer son numéro de téléphone">',
+                    '<input id="phone" name="phone" type="text" class="form-control" placeholder="Entrer son numéro de téléphone" value="',$telephoneCoordonnees,'">',
                   '</div>',
                   '<div class="form-group">',
                     '<label class="control-label required" for="address">Adresse du stage<sup style="color:red">*</sup></label>',
-                    '<input id="address" name="address" type="text" class="form-control" placeholder="numéro et nom de rue">',
+                    '<input id="address" name="address" type="text" class="form-control" placeholder="numéro et nom de rue" value="',$adresseCoordonnees,'">',
                   '</div>',
                   '<div class="form-group">',
                     '<label class="control-label required" for="cp">Code postal du stage<sup style="color:red">*</sup></label>',
-                    '<input id="cp" name="cp" type="text" class="form-control" placeholder="Entrer son code postal">',
+                    '<input id="cp" name="cp" type="text" class="form-control" placeholder="Entrer son code postal" value="',$codePostalCoordonnees,'">',
                   '</div>',
                   '<div class="form-group">',
                     '<label class="control-label required" for="city">Ville du stage<sup style="color:red">*</sup></label>',
-                    '<input id="city" name="city" type="text" class="form-control" placeholder="Entrer sa ville">',
+                    '<input id="city" name="city" type="text" class="form-control" placeholder="Entrer sa ville" value="',$villeCoordonnees,'">',
                   '</div>',
                   '<div class="form-group">',
                     '<label class="control-label required" for="country">Pays du stage<sup style="color:red">*</sup></label>',
-                    '<input id="country" name="country" type="text" class="form-control" placeholder="Entrer son pays">',
+                    '<input id="country" name="country" type="text" class="form-control" placeholder="Entrer son pays" value="',$paysCoordonnees,'">',
                   '</div>',
 			  '<div class="form-group">',
                 '<label class="control-label required" for="name">Description du stage<sup style="color:red">*</sup></label>',
-                '<textarea id="description" name="description" type="text" class="form-control" placeholder="Entrez la description du stage"></textarea>',
+                '<textarea id="description" name="description" type="text" class="form-control" placeholder="Entrez la description du stage">',$descriptionStage,'</textarea>',
               '</div>',
               '<div class="form-group">',
                 '<label class="control-label required" for="name">Durée du stage<sup style="color:red">*</sup></label>',
-                '<input id="duree" name="duree" type="number" class="form-control" placeholder="Entrez la durée de la formation" value="5">',
+                '<input id="duree" name="duree" type="number" class="form-control" placeholder="Entrez la durée de la formation" value="',$dureeStage1,'">',
               '</div>',
               '<div class="form-group">',
                 '<label class="control-label required">Disponniblité du stage<sup style="color:red">*</sup></label><br>',
-                '<label class="radio-inline"><input type="radio" name="optradio" value="1" checked>Public</label>',
-                '<label class="radio-inline"><input type="radio" name="optradio" value="0">Privée</label>',
+                '<label class="radio-inline"><input type="radio" name="optradio" value="1" ',$checked,'>Public</label>',
+                '<label class="radio-inline"><input type="radio" name="optradio" value="0" ',$checked2,'>Privée</label>',
               '</div>',
               '<div class="col-md-12">',
-                '<button type="submit" value="enregistrer" class="btn btn-inline btn-success btn-block" name="btnValider"><span class="fa fa-check" aria-hidden="true"></span>Créer le nouveau stage</button>',
+                '<div class="col-md-6">',
+					'<button type="reset" class="btn btn-inline btn-info btn-block">Annuler changement</button>',
+				'</div>',
+				'<div class="col-md-6">',
+					'<button type="submit" value="enregistrer" class="btn btn-inline btn-success btn-block" name="btnValider"><span class="fa fa-check" aria-hidden="true"></span>Sauvegarder stage</button>',
+				'</div>',
               '</div>',
             '</form>',
 		'</div>',
@@ -334,5 +386,152 @@
 	//
 	//		FONCTIONS LOCALES
 	//_______________________________________________________________
+	
+	function modifier_stage($idStage,$idCoordonneesStage) {
+		//-----------------------------------------------------
+		// Vérification des zones
+		//-----------------------------------------------------	
+		$erreurs = array();
+		
+		$idCompteEntreprise = trim(utf8_encode($_POST['compagnyName']));
+		$idFormation = trim(utf8_encode($_POST['formationName']));
+		$txtNom = trim(utf8_encode($_POST['name']));
+		$txtPrenom = trim(utf8_encode($_POST['firstname']));
+		$txtMail = trim(utf8_encode($_POST['email']));
+		$txttelephone = trim(utf8_encode($_POST['phone']));
+		$txtAdresse = trim(utf8_encode($_POST['address']));
+		$txtCp = trim(utf8_encode($_POST['cp']));
+		$txtVille = trim(utf8_encode($_POST['city']));
+		$txtPays = trim(utf8_encode($_POST['country']));
+		
+		// Vérification du titre
+		$txtTitre = trim(utf8_encode($_POST['titre']));
+		if ($txtTitre == '') {
+			$erreurs[] = 'Vous avez oublié le titre !';
+		}
+		
+		// Vérification de la description
+		$txtDescription = trim(utf8_encode($_POST['description']));
+		if ($txtDescription == '') {
+			$erreurs[] = 'Vous avez oublié la description !';
+		}
+		
+		// Vérification de la durée
+		$txtDuree = trim($_POST['duree']);
+		if ($txtDuree == '') {
+			$erreurs[] = 'Vous avez mis une durée incorrecte !';
+		}
+		
+		// Vérification du nom
+		if ($txtNom == '') {
+			$erreurs[] = 'Le nom est obligatoire';
+		}
+		
+		// Vérification du prénom
+		if ($txtPrenom == '') {
+			$erreurs[] = 'Le pr&eacute;nom est obligatoire';
+		}
+
+		// Vérification du mail
+		if ($txtMail == '') {
+			$erreurs[] = 'L\'adresse mail est obligatoire';
+		} elseif (strpos($txtMail, '@') === FALSE
+		|| strpos($txtMail, '.') === FALSE)
+		{
+			$erreurs[] = 'L\'adresse mail n\'est pas valide';
+		}
+		
+		// Vérification du téléphone
+		if ($txttelephone == '') {
+			$erreurs[] = 'Le t&eacute;l&eacute;phone est obligatoire';
+		}
+		$long2 = strlen($txttelephone);
+		if ($long2 != 10)
+		{
+			$erreurs[] = 'Le t&eacute;l&eacute;phone doit avoir 10 chiffres';
+		}
+		if(ctype_digit($txttelephone) != true) {
+			$erreurs[] = 'Le t&eacute;l&eacute;phone entré n\'est pas un numéro';
+		}
+		
+		// Vérification de l'adresse
+		if ($txtAdresse == '') {
+			$erreurs[] = 'L\'adresse est obligatoire';
+		}
+		
+		// Vérification du code postal
+		if ($txtCp == '') {
+			$erreurs[] = 'Le code postal est obligatoire';
+		}
+		$long3 = strlen($txtCp);
+		if ($long3 != 5)
+		{
+			$erreurs[] = 'Le code postal doit avoir 5 chiffres';
+		}
+		if(ctype_digit($txtCp) != true) {
+			$erreurs[] = 'Le code postal entré n\'est pas un numéro';
+		}
+		
+		// Vérification de la ville
+		if ($txtVille == '') {
+			$erreurs[] = 'La ville est obligatoire';
+		}
+
+		// Vérification du pays
+		if ($txtPays == '') {
+			$erreurs[] = 'Le pays est obligatoire';
+		}
+		
+		// Si il y a des erreurs, la fonction renvoie le tableau d'erreurs
+		if (count($erreurs) > 0) {
+			return $erreurs;		// RETURN : des erreurs ont été détectées
+		}
+		
+		// Ajout des informations.
+		$txtTitre = mysqli_real_escape_string($GLOBALS['bd'], $txtTitre);
+		$txtNom = mysqli_real_escape_string($GLOBALS['bd'], $txtNom);
+		$txtPrenom = mysqli_real_escape_string($GLOBALS['bd'], $txtPrenom);
+		$txtMail = mysqli_real_escape_string($GLOBALS['bd'], $txtMail);
+		$txttelephone = mysqli_real_escape_string($GLOBALS['bd'], $txttelephone);
+		$txtAdresse = mysqli_real_escape_string($GLOBALS['bd'], $txtAdresse);
+		$txtCp = mysqli_real_escape_string($GLOBALS['bd'], $txtCp);
+		$txtVille = mysqli_real_escape_string($GLOBALS['bd'], $txtVille);
+		$txtPays = mysqli_real_escape_string($GLOBALS['bd'], $txtPays);
+		$txtDescription = mysqli_real_escape_string($GLOBALS['bd'], $txtDescription);
+		$txtDuree = mysqli_real_escape_string($GLOBALS['bd'], $txtDuree);
+		$stageDispo = mysqli_real_escape_string($GLOBALS['bd'], $_POST['optradio']);
+		$idCompteEntreprise = mysqli_real_escape_string($GLOBALS['bd'], $idCompteEntreprise);
+		$idFormation = mysqli_real_escape_string($GLOBALS['bd'], $idFormation);
+		
+		$S = "UPDATE stage SET
+				titreStage = '$txtTitre',
+				entrepriseStage = '$idCompteEntreprise',
+				descriptionStage = '$txtDescription',
+				dureeStage = '$txtDuree',
+				dispoStage = '$stageDispo'
+				WHERE	idStage = '$idStage'";
+		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		
+		$S = "UPDATE coordonnees SET
+				nomCoordonnees = '$txtNom',
+				prenomCoordonnees = '$txtPrenom',
+				emailCoordonnees = '$txtMail',
+				telephoneCoordonnees = '$txttelephone',
+				adresseCoordonnees = '$txtAdresse',
+				codePostalCoordonnees = '$txtCp',
+				villeCoordonnees = '$txtVille',
+				paysCoordonnees = '$txtPays'
+				WHERE idCoordonnees = '$idCoordonneesStage'";
+		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		
+		$S = "UPDATE certificationrequise SET
+				formationCertificationRequise = '$idFormation'
+				WHERE stageCertificationRequise  = '$idStage'";
+		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		
+		header("location: gestionStage.php?id=$idStage");
+		exit();			// EXIT : le script est terminé
+		ob_end_flush();
+	}
 	
 ?>

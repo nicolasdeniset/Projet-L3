@@ -78,7 +78,7 @@
 	//-----------------------------------------------------
 	html_head("Gestion de Formation");
 	html_header($id);
-	html_aside_main_debut("","","class=\"active\"","","","","","","","");
+	html_aside_main_debut(APP_PAGE_FORMATION);
 	
 	echo '<a href="formation.php" class="btn btn-retour">Retour</a>',
         '<h1 class="page-header">Gestion de la formation "',$titreFormation,'"</h1>',
@@ -147,15 +147,68 @@
                 '<th>Gestion</th>',
               '</tr>',
             '</thead>',
-            '<tbody>',
-              '<tr>',
-                '<td>1</td>',
-                '<td>Martin Dupont</td>',
-                '<td>ville formation & code postale & pays</td>',
-                '<td>01/01/2018 - 01/03/2018</td>',
-                '<td><a href="#" class="text-success"><span class="fa fa-check" aria-hidden="true"></span></a><a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a><a href="#" class="text-danger"><span class="fa fa-times" aria-hidden="true"></span></a></td>',
-              '</tr>',
-            '</tbody>',
+            '<tbody>';
+			$date = date('Ymd');
+			$dateDebut = date('Y-m-d',strtotime('+1 month',strtotime($date)));
+			$S = "SELECT idCandidature, nomCoordonnees, prenomCoordonnees, dureeFormation, idCompte
+				FROM candidature, compte, coordonnees, formation
+				WHERE compteCandidature = idCompte
+				AND coordonneesCompte = idCoordonnees
+				AND typeCandidature = '1'
+				AND traiteeCandidature = '0'
+				AND experienceCandidature = idFormation
+				AND experienceCandidature = '$idFormation'
+				ORDER BY idCandidature";
+			$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+			$i = 0;
+			while ($D = mysqli_fetch_assoc($R)) {
+				$idCandidat = $D['idCandidature'];
+				$nomCandidat = $D['nomCoordonnees'];
+				$prenomCandidat = $D['prenomCoordonnees'];
+				$dureeFormation = 7 * $D['dureeFormation'];
+				$idCompteCandidat = $D['idCompte'];
+				$dateFin = date('Y-m-d',strtotime("+$dureeFormation day",strtotime($dateDebut)));
+				echo '<tr>',
+					'<td>',$idCandidat,'</td>',
+					'<td>',$prenomCandidat,' ',$nomCandidat,'</td>',
+					'<td>ville formation & code postale & pays</td>',
+					'<td>',$dateDebut,' - ',$dateFin,'</td>',
+					'<td>',
+					'<form method="POST" action="gestionFormation.php?id=',$idFormation,'">',
+						'<button type="submit" class="btn btn-inline" name="accepter',$i,'"><span class="text-success fa fa-check" aria-hidden="true"></span></button>',
+						'<a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a>',
+						'<button type="submit" class="btn btn-inline" name="refuser',$i,'"><span class="text-danger fa fa-times" aria-hidden="true"></span></button>',
+					'</form>',
+					'</td>',
+				  '</tr>';
+					if (isset($_POST["refuser$i"])) {
+						$S = "UPDATE	candidature
+								SET	traiteeCandidature = '1', accepteeCandidature = '0'
+								WHERE	idCandidature = '$idCandidat'";
+						$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+						header("location: gestionFormation.php?id=$idFormation");
+						exit();			// EXIT : le script est terminé
+						ob_end_flush();
+					}
+					if (isset($_POST["accepter$i"])) {
+						$S = "UPDATE	candidature
+								SET	traiteeCandidature = '1', accepteeCandidature = '1'
+								WHERE	idCandidature = '$idCandidat'";
+						$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+						$S = "INSERT INTO asuivi SET
+								etudiantAsuivi = '$idCompteCandidat',
+								formationAsuivi = '$idFormation',
+								dateDebutAsuivi  = '$dateDebut',
+								dateFinAsuivi  = '$dateFin',
+								certificationAsuivi = '0'";
+						mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+						header("location: gestionFormation.php?id=$idFormation");
+						exit();			// EXIT : le script est terminé
+						ob_end_flush();
+					}
+				  $i++;
+			}
+            echo '</tbody>',
           '</table>',
         '</div>',
         '<div id="gestionFormations" class="gestion row"  accept-charset="iso-8859-1" enctype="multipart/form-data">';
@@ -178,10 +231,6 @@
             '<div class="form-group">',
               '<label class="control-label required" for="name">Durée de la formation<sup style="color:red">*</sup></label>',
               '<input id="duree" name="duree" type="number" class="form-control" placeholder="Entrez la durée de la formation" value="',$dureeFormation,'">',
-            '</div>',
-            '<div class="form-group">',
-              '<label class="control-label required" for="name">Fichier de la formation<sup style="color:red">*</sup></label>',
-              '<input id="fichier" name="formation" type="file" placeholder="Entrez le fichier de la formation">',
             '</div>',
             '<div class="form-group">',
               '<label class="control-label required">Disponniblité de la formation<sup style="color:red">*</sup></label><br>',
@@ -296,22 +345,6 @@
 			$erreurs[] = 'Vous avez mis une durée incorrecte !';
 		}
 		
-		// Vérification du fichier
-		$dossier = "../upload/";
-		$fichier = basename($_FILES['formation']['name']);
-		$taille = filesize($_FILES['formation']['tmp_name']);
-		$extension = strrchr($_FILES['formation']['name'], '.');
-		
-		if($extension != ".pdf") {
-			$erreurs[] = 'Votre fichier n\'est pas au format PDF ';
-		}
-		
-		//renomage du fichier
-		//rename("$fichier", "file" .time(). "1");
-		
-		if(!move_uploaded_file($_FILES['formation']['tmp_name'], $dossier . $fichier)) {
-			$erreurs[] = "Erreur interne de transfert";
-		}
 		
 		// Si il y a des erreurs, la fonction renvoie le tableau d'erreurs
 		if (count($erreurs) > 0) {
@@ -322,8 +355,8 @@
 		$txtTitre = mysqli_real_escape_string($GLOBALS['bd'], $txtTitre);
 		$txtDescription = mysqli_real_escape_string($GLOBALS['bd'], $txtDescription);
 		$txtDuree = mysqli_real_escape_string($GLOBALS['bd'], $txtDuree);
-		$fichier = mysqli_real_escape_string($GLOBALS['bd'], $fichier);
-		$taille = mysqli_real_escape_string($GLOBALS['bd'], $taille);
+		$fichier = mysqli_real_escape_string($GLOBALS['bd'], "PROJET_L3");
+		$taille = mysqli_real_escape_string($GLOBALS['bd'], "145000");
 		$formationDispo = mysqli_real_escape_string($GLOBALS['bd'], $_POST['optradio']);
 		
 		$S = "UPDATE formation SET
