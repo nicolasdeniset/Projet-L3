@@ -18,7 +18,7 @@
 	//-----------------------------------------------------
 	// Affichage de la page
 	//-----------------------------------------------------
-	html_head("Formations");
+	html_head("Statistiques");
 	html_header($id);
 	html_aside_main_debut(APP_PAGE_STATISTIQUE);
 	

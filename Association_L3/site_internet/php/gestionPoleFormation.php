@@ -10,6 +10,8 @@
 	verifie_session();
 	$id = $_SESSION["idCompte"];
 	$idPole = $_GET["id"];
+	$listeFormationDejaPropose = array();
+	$listeFormation = array();
 	
 	// Requête qui va récuperer les informations nous concernant (typeCompte).
 	$S = "SELECT	typeCompte
@@ -44,6 +46,10 @@
 	$adresseCoordonnees = $D4[4];
 	$villeCoordonnees = $D4[5];
 	$stat = statistique_pole($idPole);
+	
+	if (isset($_POST['btnValider'])) { 
+		ajouter_formationsPropose($idPole);
+	}
 	
 	//-----------------------------------------------------
 	// Affichage de la page
@@ -99,6 +105,39 @@
 					'</div>',
 					
 					'<div id="gestionDesFormations" class="gestion row">',
+						'<div class="row">',
+						'<form method="POST" action="gestionPoleFormation.php?id=',$idPole,'" accept-charset="iso-8859-1" enctype="multipart/form-data">',
+							'<div class="form-group">',
+							'<p> Listes des formations disponible dans ce pole : <br/>';
+							$S = "SELECT	idFormation
+									FROM	formation, propose
+									WHERE	idFormation = formationPropose
+									AND		polePropose = '$idPole'";
+							$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+							while ($D = mysqli_fetch_assoc($R)) {
+								$listeFormationDejaPropose[] = $D["idFormation"];
+							}
+							$S2 = "SELECT	idFormation, titreFormation
+									FROM	formation";
+							$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+							while ($D2 = mysqli_fetch_assoc($R2)) {
+								if(in_array($D2["idFormation"], $listeFormationDejaPropose)) {
+									echo '<input type="checkbox" name="formation[]" value="',$D2["idFormation"],'" checked/>',
+											'<label style="margin: 5px">  ',$D2["titreFormation"],' </label> ';
+								}
+								else {
+									echo '<input type="checkbox" name="formation[]" value="',$D2["idFormation"],'"/>',
+											'<label style="margin: 5px">  ',$D2["titreFormation"],' </label> ';
+								}
+								echo '<br/>';
+							}
+							echo '</p>',
+							'</div>',
+							'<div class="col-md-12">',
+								'<button type="submit" value="enregistrer" class="btn btn-inline btn-success btn-block" name="btnValider"><span class="fa fa-check" aria-hidden="true"></span>Ajouter des formations au pole</button>',
+							'</div>',
+						'</form>',
+						'</div>',
 					'</div>',
 		
 					'<div id="gestionPole" class="gestion row">',
@@ -113,6 +152,41 @@
 	//_______________________________________________________________
 	//
 	//		FONCTIONS LOCALES
-	//_______________________________________________________________
-	
+	//_______________________________________________________________	
+	function ajouter_formationsPropose($idPole) {
+		$listeFormation = array();
+		$S = "SELECT formationPropose
+				FROM propose
+				WHERE	polePropose = '$idPole'";	
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		while ($D = mysqli_fetch_assoc($R)) {
+			if(!in_array($D["formationPropose"], $_POST['formation'])) {
+				$formationProposeSupprime = $D["formationPropose"];
+				$S2 = "DELETE FROM propose
+						WHERE	polePropose = '$idPole'
+						AND		formationPropose = '$formationProposeSupprime'";	
+				mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+			}
+		}
+		
+		$S = "SELECT formationPropose
+				FROM propose
+				WHERE	polePropose = '$idPole'";	
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		while ($D = mysqli_fetch_assoc($R)) {
+			$listeFormation[] = $D["formationPropose"];
+		}
+		foreach($_POST['formation'] as $formation){
+			if(!in_array($formation, $listeFormation)) {
+				$formation = mysqli_real_escape_string($GLOBALS['bd'], $formation);
+				$S2 = "INSERT INTO propose SET
+						formationPropose = '$formation',
+						polePropose = '$idPole'";	
+				mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+			}
+		}
+		header("location: gestionPoleFormation.php?id=$idPole");
+		exit();			// EXIT : le script est terminé
+		ob_end_flush();
+	}	
 ?>
