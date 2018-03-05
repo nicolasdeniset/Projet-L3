@@ -211,11 +211,11 @@
 			$erreurs[] = 'Le pays est obligatoire';
 		}
 		
-		if(strpos($txtLatitude, ',') === FALSE) {
+		if(strpos($txtLatitude, '.') === FALSE) {
 			$erreurs[] = 'La latitude est incorrecte';
 		}
 		
-		if(strpos($txtLongitude, ',') === FALSE) {
+		if(strpos($txtLongitude, '.') === FALSE) {
 			$erreurs[] = "La longitude est incorrecte";
 		}
 		
