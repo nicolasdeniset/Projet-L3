@@ -20,7 +20,7 @@
 	
 	$estAdmin = $D[0];
 	// On vérifie que l'utilisateur est un admin et qu'il a le droit d'ajouter des formations.
-	if($estAdmin != 0) {
+	if($estAdmin != 0 && $estAdmin != 1) {
 		header('location: stage.php');
 		exit();			// EXIT : le script est terminé
 	}
@@ -74,29 +74,40 @@
               '</div>',
 				   '<div class="form-group">',
 				   '<label class="control-label required" for="compagnyName">Sélectionner le nom de l\'entreprise proposant le stage<sup style="color:red">*</sup></label><br>';
-				    $S2 = "SELECT nomEntrepriseCompte, idCompte 
-							FROM compte 
-							WHERE nomEntrepriseCompte != ''";
-					$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
-					$D2 = mysqli_fetch_row($R2);
-					echo '<select name="compagnyName">',
-						'<option value="',$D2[1],'">',$D2[0],'</option>';
-					while ($D2 = mysqli_fetch_assoc($R2)) {
-						echo '<option value="',$D2['idCompte'],'">',$D2['nomEntrepriseCompte'],'</option>';
+				   if($estAdmin == 0) {
+						$S2 = "SELECT nomEntrepriseCompte, idCompte 
+								FROM compte 
+								WHERE nomEntrepriseCompte != ''";
+						$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+						$D2 = mysqli_fetch_row($R2);
+						echo '<select name="compagnyName">',
+							'<option value="',$D2[1],'">',$D2[0],'</option>';
+						while ($D2 = mysqli_fetch_assoc($R2)) {
+							echo '<option value="',$D2['idCompte'],'">',$D2['nomEntrepriseCompte'],'</option>';
+						}
 					}
-				    echo '</select>',
-                  '</div>',
-				   '<div class="form-group">',
-				   '<label class="control-label required" for="formationName">Sélectionner la formation nécessaire pour obtenir ce stage<sup style="color:red">*</sup></label><br>';
-				    $S3 = "SELECT titreFormation, idFormation 
-							FROM formation";
-					$R3 = mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
-					$D3 = mysqli_fetch_row($R3);
-					echo '<select name="formationName">',
-						'<option value="',$D3[1],'">',$D3[0],'</option>';
-					while ($D3 = mysqli_fetch_assoc($R3)) {
-						echo '<option value="',$D3['idFormation'],'">',$D3['titreFormation'],'</option>';
-					}
+				   else {
+					   $S2 = "SELECT nomEntrepriseCompte, idCompte 
+								FROM compte 
+								WHERE idCompte = '$id'";
+						$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+						$D2 = mysqli_fetch_row($R2);
+						echo '<select name="compagnyName">',
+							'<option value="',$D2[1],'">',$D2[0],'</option>';
+				   }
+						echo '</select>',
+					  '</div>',
+					   '<div class="form-group">',
+					   '<label class="control-label required" for="formationName">Sélectionner la formation nécessaire pour obtenir ce stage<sup style="color:red">*</sup></label><br>';
+						$S3 = "SELECT titreFormation, idFormation 
+								FROM formation";
+						$R3 = mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($GLOBALS['bd'], $S3);
+						$D3 = mysqli_fetch_row($R3);
+						echo '<select name="formationName">',
+							'<option value="',$D3[1],'">',$D3[0],'</option>';
+						while ($D3 = mysqli_fetch_assoc($R3)) {
+							echo '<option value="',$D3['idFormation'],'">',$D3['titreFormation'],'</option>';
+						}
 				    echo '</select>',
                   '</div>',
 				   '<div class="form-group">',

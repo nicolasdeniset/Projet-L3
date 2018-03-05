@@ -71,7 +71,7 @@
 	
 	echo '<h1 class="page-header">Nos stages</h1>';
 	
-	if($estAdmin == 0) {
+	if($estAdmin == 0 || $estAdmin == 1) {
        echo '<a href="ajoutStage.php" class="btn btn-success btn-block"><span class="fa fa-plus"></span>AJOUTER UN NOUVEAU STAGE</a>';
 	}
 
