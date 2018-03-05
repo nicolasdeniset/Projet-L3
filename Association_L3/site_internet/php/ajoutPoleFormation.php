@@ -248,8 +248,8 @@
 				adresseCoordonnees = '$txtAdresse',
 				codePostalCoordonnees = '$txtCp',
 				villeCoordonnees = '$txtVille',
-				paysCoordonnees = '$txtPays'
-				gpsLongitudeCoordonnes = '$txtLongitude'
+				paysCoordonnees = '$txtPays',
+				gpsLongitudeCoordonnes = '$txtLongitude',
 				gpsLatitudeCoordonnees = '$txtLatitude'";
 		mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 		

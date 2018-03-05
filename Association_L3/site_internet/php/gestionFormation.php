@@ -125,13 +125,13 @@
         '<div class="row">',
           '<div class="col-md-12">',
             '<div class="col-md-4">',
-              "<button class=\"btn btn-inline btn-success btn-block\" onclick=\"javascript:openGestion(['gestionCandidatures', 'gestionFormations', 'gestionStatistiques', 'gestionEtudiants']); return false;\"><span class=\"fa fa-id-card-o\" aria-hidden=\"true\"></span>Gérer candidatures</button>",
+              "<button class=\"btn btn-inline btn-success btn-block\" onclick=\"javascript:openGestion(['gestionCandidatures', 'gestionFormations', 'gestionEtudiants']); return false;\"><span class=\"fa fa-id-card-o\" aria-hidden=\"true\"></span>Gérer candidatures</button>",
             '</div>',
             '<div class="col-md-4">',
-              "<button class=\"btn btn-inline btn-success btn-block\" onclick=\"javascript:openGestion(['gestionFormations', 'gestionCandidatures', 'gestionStatistiques', 'gestionEtudiants']); return false;\"><span class=\"fa fa-cogs\" aria-hidden=\"true\"></span>Modifier formation</button>",
+              "<button class=\"btn btn-inline btn-success btn-block\" onclick=\"javascript:openGestion(['gestionFormations', 'gestionCandidatures', 'gestionEtudiants']); return false;\"><span class=\"fa fa-cogs\" aria-hidden=\"true\"></span>Modifier formation</button>",
             '</div>',
             '<div class="col-md-4">',
-              "<button class=\"btn btn-inline btn-success btn-block\" onclick=\"javascript:openGestion(['gestionEtudiants', 'gestionFormations', 'gestionCandidatures', 'gestionStatistiques']); return false;\"><span class=\"fa fa-graduation-cap\" aria-hidden=\"true\"></span>Etudiants</button>",
+              "<button class=\"btn btn-inline btn-success btn-block\" onclick=\"javascript:openGestion(['gestionEtudiants', 'gestionFormations', 'gestionCandidatures']); return false;\"><span class=\"fa fa-graduation-cap\" aria-hidden=\"true\"></span>Etudiants</button>",
             '</div>',
           '</div>',
         '</div>',
@@ -168,19 +168,33 @@
 				$dureeFormation = 7 * $D['dureeFormation'];
 				$idCompteCandidat = $D['idCompte'];
 				$dateFin = date('Y-m-d',strtotime("+$dureeFormation day",strtotime($dateDebut)));
-				echo '<tr>',
+				$S2 = "SELECT idPropose, villeCoordonnees, polePropose
+							FROM propose, poleformation, coordonnees 
+							WHERE polePropose = idPoleFormation
+							AND	coordonneesPoleFormation = idCoordonnees
+							AND  formationPropose = '$idFormation'
+							ORDER BY polePropose";
+				$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+				$D2 = mysqli_fetch_row($R2);
+				echo '<form method="POST" action="gestionFormation.php?id=',$idFormation,'">',
+					'<tr>',
 					'<td>',$idCandidat,'</td>',
 					'<td>',$prenomCandidat,' ',$nomCandidat,'</td>',
-					'<td>ville formation & code postale & pays</td>',
+					'<td><select name="PoleName',$i,'">',
+						'<option value="',$D2[0],'">Pole de ',$D2[1],'</option>';
+						while ($D2 = mysqli_fetch_assoc($R2)) {
+							echo '<option value="',$D2['idPropose'],'">Pole de ',$D2['villeCoordonnees'],'</option>';
+						}
+				    echo '</select></td>',
 					'<td>',$dateDebut,' - ',$dateFin,'</td>',
 					'<td>',
-					'<form method="POST" action="gestionFormation.php?id=',$idFormation,'">',
 						'<button type="submit" class="btn btn-inline" name="accepter',$i,'"><span class="text-success fa fa-check" aria-hidden="true"></span></button>',
 						'<a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a>',
 						'<button type="submit" class="btn btn-inline" name="refuser',$i,'"><span class="text-danger fa fa-times" aria-hidden="true"></span></button>',
-					'</form>',
+					
 					'</td>',
-				  '</tr>';
+				  '</tr>',
+				  '</form>';
 					if (isset($_POST["refuser$i"])) {
 						$S = "UPDATE	candidature
 								SET	traiteeCandidature = '1', accepteeCandidature = '0'
@@ -191,13 +205,14 @@
 						ob_end_flush();
 					}
 					if (isset($_POST["accepter$i"])) {
+						$idPole = $_POST["PoleName$i"];
 						$S = "UPDATE	candidature
 								SET	traiteeCandidature = '1', accepteeCandidature = '1'
 								WHERE	idCandidature = '$idCandidat'";
 						$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
 						$S = "INSERT INTO asuivi SET
 								etudiantAsuivi = '$idCompteCandidat',
-								formationAsuivi = '$idFormation',
+								formationAsuivi = '$idPole',
 								dateDebutAsuivi  = '$dateDebut',
 								dateFinAsuivi  = '$dateFin',
 								certificationAsuivi = '0'";

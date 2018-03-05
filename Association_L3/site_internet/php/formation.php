@@ -118,7 +118,7 @@
 							FROM	candidature
 							WHERE	typeCandidature = '1'
 							AND		experienceCandidature = '$idFormation[$i]'
-							AND		compteCandidature = '$estAdmin'
+							AND		compteCandidature = '$id'
 							AND		traiteeCandidature = '0'";
 
 					$R4 = mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($GLOBALS['bd'], $S4);
