@@ -80,7 +80,7 @@
                 '<input id="duree" name="duree" type="number" class="form-control" placeholder="Entrez la durée de la formation" value="5">',
               '</div>',
 			  '<div class="form-group">',
-                '<p> Dans quel pole(s) à lieu cette formation ? <br />';
+                '<label class="control-label">Dans quel pole(s) à lieu cette formation ? <sup style="color:red">*</sup></label><br>';
 				// Requête qui va récuperer les informations nous concernant (typeCompte).
 				$S2 = "SELECT	idPoleFormation, villeCoordonnees
 						FROM	poleformation, coordonnees

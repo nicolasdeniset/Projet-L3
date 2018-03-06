@@ -189,12 +189,19 @@
 					'<td>',$dateDebut,' - ',$dateFin,'</td>',
 					'<td>',
 						'<button type="submit" class="btn btn-inline" name="accepter',$i,'"><span class="text-success fa fa-check" aria-hidden="true"></span></button>',
-						'<a href="#" class="text-info"><span class="fa fa-eye" aria-hidden="true"></span></a>',
 						'<button type="submit" class="btn btn-inline" name="refuser',$i,'"><span class="text-danger fa fa-times" aria-hidden="true"></span></button>',
-					
+				  '</form>',
+					'<form method="POST" action="profil.php">',
+							'<input type="hidden" name="id_Membre" value="',$idCompteCandidat,'" />',
+							'<input type="hidden" name="idCandidature" value="',$idCandidat,'" />',
+							'<input type="hidden" name="pageDeRetour" value="gestionFormation.php?id=',$idFormation,'" />',
+							'<input type="hidden" name="idFormation" value="',$idFormation,'" />',
+							'<input type="hidden" name="dateDebut" value="',$dateDebut,'" />',
+							'<input type="hidden" name="dateFin" value="',$dateFin,'" />',
+							'<button class="btn-link" name="view"><span class="text-info fa fa-eye" aria-hidden="true"></span></button>',
+					'</form>',
 					'</td>',
-				  '</tr>',
-				  '</form>';
+				  '</tr>';
 					if (isset($_POST["refuser$i"])) {
 						$S = "UPDATE	candidature
 								SET	traiteeCandidature = '1', accepteeCandidature = '0'

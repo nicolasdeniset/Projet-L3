@@ -200,7 +200,7 @@
 							'<form class="gestion" id="formationBisNumero'.$i,'" method="POST" action="stage.php">',
 								'<div class="form-group">',
 									 '<br>',
-					                 '<label class="control-label required">Qu\'est ce qui vous motive à faire cette formation ?</label>',
+					                 '<label class="control-label required">Qu\'est ce qui vous motive à faire ce stage ?</label>',
 					                 '<textarea id="motivation" name="motivation'.$i,'" class="form-control" placeholder="Entrez vos motivations"></textarea>',
 					            '</div>',
 								'<button type="submit" class="btn btn-block btn-success" name="btnValider1'.$i,'">S\'inscrire</button>',
