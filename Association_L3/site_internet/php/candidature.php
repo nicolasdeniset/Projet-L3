@@ -65,6 +65,7 @@
 					AND		typeCandidature = '0'
 					AND		traiteeCandidature = '0'";
 			$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+			$i = 0;
 			while ($D = mysqli_fetch_assoc($R)) {
 				$idCandidature = $D['idCandidature'];
 				$compteCandidature = $D['compteCandidature'];
@@ -83,11 +84,46 @@
 							'<button class="btn-link" name="view"><span class="text-info fa fa-eye" aria-hidden="true"></span></button>',
 					'</form>',
 					'<form method="POST" action="candidature.php">',
-						'<button type="submit" class="btn btn-inline" name="accepter"><span class="text-success fa fa-check" aria-hidden="true"></span></button>',
-						'<button type="submit" class="btn btn-inline" name="refuser"><span class="text-danger fa fa-times" aria-hidden="true"></span></button>',
+						'<button type="submit" class="btn btn-inline" name="accepter',$i,'"><span class="text-success fa fa-check" aria-hidden="true"></span></button>',
+						'<button type="submit" class="btn btn-inline" name="refuser',$i,'"><span class="text-danger fa fa-times" aria-hidden="true"></span></button>',
 					'</form>',
 					'</td>',
-					'</tr>';	
+					'</tr>';
+					if (isset($_POST["refuser$i"])) {
+						$S = "SELECT	coordonneesCompte
+								FROM	compte
+								WHERE	idCompte = '$compteCandidature'";
+						$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+						$D = mysqli_fetch_row($R);
+						$coordonneesCompte = $D[0];
+						
+						$S = "DELETE FROM compte
+								WHERE	idCompte = '$compteCandidature'";
+						$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+						$S = "DELETE FROM coordonnees
+								WHERE	idCoordonnees = '$coordonneesCompte'";
+						$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+						$S = "DELETE FROM candidature
+								WHERE	idCandidature = '$idCandidature'";
+						$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+						header("location: candidature.php");
+						exit();			// EXIT : le script est terminé
+						ob_end_flush();
+					}
+					if (isset($_POST["accepter$i"])) {
+						$S = "UPDATE	candidature
+							SET	traiteeCandidature = '1', accepteeCandidature = '1'
+							WHERE	idCandidature = '$idCandidature'";
+						$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+						$S = "UPDATE	compte
+							SET	actifCompte = '1'
+							WHERE	idCompte = '$compteCandidature'";
+						$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+						header("location: candidature.php");
+						exit();			// EXIT : le script est terminé
+						ob_end_flush();
+					}
+					$i++;
 			}
 	
 	html_aside_main_fin();

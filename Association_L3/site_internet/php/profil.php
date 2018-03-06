@@ -138,7 +138,7 @@ if(isset($_POST['idCandidature']) && getTypeCompte($_SESSION["idCompte"]) == 0){
 			echo '<div class="form-group">',
 					'<br>',
 					'<label class="control-label required">',$question,'</label>',
-					'<textarea id="motivation" name="motivation" class="form-control" placeholder="Entrez vos motivations">',$lettreMotivCandidature,'</textarea>',
+					'<p>',$lettreMotivCandidature,'</p>',
 				'</div>';
 				if($typeCandidature == 1) {
 					$idFormation = $_POST['idFormation'];
@@ -307,3 +307,4 @@ switch (getTypeCompte($_POST['id_Membre'])) {
     # code...
     break;
 }
+?>
