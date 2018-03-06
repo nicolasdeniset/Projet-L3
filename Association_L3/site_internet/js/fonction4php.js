@@ -33,14 +33,6 @@ function mapAddPlace(name, lat, lng) {
   tabLng[tabLng.length] = lng;
 }
 
-function test1() {
-  alert("ouk1");
-  for (var i = 0; i < tabNames.length; i++) {
-    document.getElementById("carte").innerHTML += tabNames[i];
-    alert(tabNames[i]);
-  }
-  alert("ouk2");
-}
 
 function mapCreate() {
   var carte = document.getElementById("carte");
