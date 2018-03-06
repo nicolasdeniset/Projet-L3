@@ -104,7 +104,7 @@ if(isset($_POST['idCandidature']) && getTypeCompte($_SESSION["idCompte"]) == 0){
 	if($typeCandidature == 1) {
 		$question = 'Qu\'est ce qui vous motive à faire cette formation ?';
 	}
-	else {
+	if($typeCandidature == 2) {
 		$question = 'Qu\'est ce qui vous motive à faire ce stage ?';
 	}
 	
@@ -115,7 +115,9 @@ if(isset($_POST['idCandidature']) && getTypeCompte($_SESSION["idCompte"]) == 0){
 			'</div>',
 			'<form class="gestion" id="MotivationBis" method="POST" action="profil.php">';
 			if($typeCandidature == 0) {
-				$question = 'Qu\'est ce qui vous motive à rejoindre l\'association ?';
+				echo '<input type="hidden" name="id_Membre" value="',$_POST['id_Membre'],'" />',
+				'<input type="hidden" name="idCandidature" value="',$_POST['idCandidature'],'" />',
+				'<input type="hidden" name="pageDeRetour" value="candidature.php" />';
 			}
 			if($typeCandidature == 1) {
 				echo '<input type="hidden" name="id_Membre" value="',$_POST['id_Membre'],'" />',
@@ -125,7 +127,7 @@ if(isset($_POST['idCandidature']) && getTypeCompte($_SESSION["idCompte"]) == 0){
 				'<input type="hidden" name="dateDebut" value="',$_POST['dateDebut'],'" />',
 				'<input type="hidden" name="dateFin" value="',$_POST['dateFin'],'" />';
 			}
-			else {
+			if($typeCandidature == 2) {
 				echo '<input type="hidden" name="id_Membre" value="',$_POST['id_Membre'],'" />',
 				'<input type="hidden" name="idCandidature" value="',$_POST['idCandidature'],'" />',
 				'<input type="hidden" name="pageDeRetour" value="',$_POST['pageDeRetour'],'" />',
@@ -168,7 +170,42 @@ if(isset($_POST['idCandidature']) && getTypeCompte($_SESSION["idCompte"]) == 0){
         '</div>',
         '</div>';
 	if($typeCandidature == 0) {
-		$question = 'Qu\'est ce qui vous motive à rejoindre l\'association ?';
+		$retour = $_POST['pageDeRetour'];
+		$idCompte = $_POST['id_Membre'];
+		if (isset($_POST["btnValider2"])) {
+			$S = "SELECT	coordonneesCompte
+					FROM	compte
+					WHERE	idCompte = '$idCompte'";
+			$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+			$D = mysqli_fetch_row($R);
+			$coordonneesCompte = $D[0];
+			
+			$S = "DELETE FROM compte
+					WHERE	idCompte = '$idCompte'";
+			$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+			$S = "DELETE FROM coordonnees
+					WHERE	idCoordonnees = '$coordonneesCompte'";
+			$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+			$S = "DELETE FROM candidature
+					WHERE	idCandidature = '$idCandidature'";
+			$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+			header("location: $retour");
+			exit();			// EXIT : le script est terminé
+			ob_end_flush();
+		}
+		if (isset($_POST["btnValider1"])) {
+			$S = "UPDATE	candidature
+				SET	traiteeCandidature = '1', accepteeCandidature = '1'
+				WHERE	idCandidature = '$idCandidature'";
+			$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+			$S = "UPDATE	compte
+				SET	actifCompte = '1'
+				WHERE	idCompte = '$idCompte'";
+			$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+			header("location: $retour");
+			exit();			// EXIT : le script est terminé
+			ob_end_flush();
+		}
 	}
 	if($typeCandidature == 1) {
 		$retour = $_POST['pageDeRetour'];
@@ -203,7 +240,7 @@ if(isset($_POST['idCandidature']) && getTypeCompte($_SESSION["idCompte"]) == 0){
 			ob_end_flush();
 		}
 	}
-	else {
+	if($typeCandidature == 2) {
 		$retour = $_POST['pageDeRetour'];
 		if (isset($_POST["btnValider2"])) {
 			$S = "UPDATE	candidature
