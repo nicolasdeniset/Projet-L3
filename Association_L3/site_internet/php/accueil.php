@@ -59,7 +59,7 @@ echo  '<section>',
           $R2 =  mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($S2);
           $nbEntrep = mysqli_fetch_assoc($R2);
 
-          item_stat($nbEntrep['total'], 'partenaires', '../images/001-network.svg', 'Les partenaires correspondent bien aux entreprises inscrites ?');
+          item_stat($nbEntrep['total'], 'partenaires', '../images/001-network.svg', 'Les entreprises partenaires proposent des stages pour aider les étudiants à s\'insérer dans la vie active.');
 
           // Nouvel item
           $S3 = 'SELECT COUNT(idCompte) as total
@@ -67,7 +67,7 @@ echo  '<section>',
                  WHERE typeCompte = 3';
           $R3 =  mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($S3);
           $nbBene = mysqli_fetch_assoc($R3);
-          item_stat($nbBene['total'], 'bénévoles', '../images/benevole.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+          item_stat($nbBene['total'], 'bénévoles', '../images/benevole.svg', 'Les bénévoles enseignent les différentes formations aux étudiants.');
 
           // Nouvel item
           $S4 = 'SELECT COUNT(idCompte) as total
@@ -75,28 +75,28 @@ echo  '<section>',
                  WHERE typeCompte = 2';
           $R4 =  mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($S4);
           $nbEtu = mysqli_fetch_assoc($R4);
-          item_stat($nbEtu['total'], 'étudiants', '../images/studentgirl.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+          item_stat($nbEtu['total'], 'étudiants', '../images/studentgirl.svg', 'Les étudiants peuvent réaliser des formations et des stages, leur permettant de se familiariser avec les nouvelles technologies.');
 
           // Nouvel item
           $S5 = 'SELECT COUNT(idStage) as total
                  FROM stage';
           $R5 =  mysqli_query($GLOBALS['bd'], $S5) or bd_erreur($S5);
           $nbStages = mysqli_fetch_assoc($R5);
-          item_stat($nbStages['total'], 'stages proposés', '../images/studentman.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+          item_stat($nbStages['total'], 'stages proposés', '../images/studentman.svg', 'Les stages permettent aux étudiants de mettre en pratique ce qu\'ils ont appris au cours des différentes formations qu\'ils ont suivies.');
 
           // Nouvel item
           $S6 = 'SELECT COUNT(idFormation) as total
                  FROM formation';
           $R6 =  mysqli_query($GLOBALS['bd'], $S6) or bd_erreur($S6);
           $nbForm = mysqli_fetch_assoc($R6);
-          item_stat($nbForm['total'], 'formations', '../images/formation.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+          item_stat($nbForm['total'], 'formations', '../images/formation.svg', 'Les formations permettent aux étudiants d\acquérir des connaissances en rapport avec les nouvelles technologies.');
 
           // Nouvel item
           $S7 = 'SELECT COUNT(idPoleFormation) as total
                  FROM poleformation';
           $R7 =  mysqli_query($GLOBALS['bd'], $S7) or bd_erreur($S7);
           $nbPoles = mysqli_fetch_assoc($R7);
-          item_stat($nbPoles['total'], 'pôles en Afrique', '../images/005-maps-and-flags.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+          item_stat($nbPoles['total'], 'pôles en Afrique', '../images/005-maps-and-flags.svg', 'Les pôles correspondent aux lieux où les étudiants peuvent suivre les différentes formations.');
 
       echo '</div>',
       '</div>',
@@ -247,7 +247,7 @@ echo  '<section>',
           $numID = 1; // ID de la prochaine formation
           while ($formations = mysqli_fetch_assoc($R2)) {
             if ($count == $first || $count == $second || $count == $third || $nbFormations['total'] <= 3) {
-              item_formation('formation'.$numID, '../images/help.svg', $formations['titreFormation'], $formations['dureeFormation'], $formations['descriptionFormation']);
+              item_formation('formation'.$numID, '../images/open-book.svg', $formations['titreFormation'], $formations['dureeFormation'], $formations['descriptionFormation']);
               $numID++;
             }
             $count++;
@@ -308,7 +308,7 @@ echo  '<section>',
         '<div class="row">',
           '<h2 class="text-center">CANDIDATER</h2>',
           '<h3 class="text-center">Vous souhaitez devenir membre de l\'associaition ?</h3>',
-          '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+          '<p>L\'association a pour objectif d’affaiblir ces inégalités et à  lutter efficacement contre la fracture numérique à travers la mise en place de cours en Informatique en lien avec les besoins des entreprises locales dans différents pays. En devenant membre, vous participez activement à cet objectif, que se soit en tant que bénévole, entreprise ou même étudiant.</p>',
         '</div>',
         '<div class="row">';
 
@@ -316,7 +316,7 @@ echo  '<section>',
             '<div id="candidaterPartenariat">',
               '<img class="img-responsive center-block" src="../images/partenaire.svg" alt="Une image" height="100px" width="100px"/>',
               '<h4 class="text-center">Devenir partenaire</h4>',
-              '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+              '<p>Vous possédez une entreprise qui utilise les nouvelles technologies ? Vous souhaitez aidez à lutter contre la fracture numérique en Afrique ? En devenant partenaire de notre association, vous pourrez proposer à des jeunes des stages leur permettant de mettre en pratique les connaissances qu\'ils auront apprises et les préparant à la vie active.</p>',
             '</div>',
             '<a href="./inscription.php" class="btn btn-success btn-block">Candidature partenariat</a>',
           '</div>';
@@ -325,7 +325,7 @@ echo  '<section>',
             '<div id="candidaterBenevolat">',
               '<img class="img-responsive center-block" src="../images/benevole.svg" alt="Une image" height="100px" width="100px"/>',
               '<h4 class="text-center">Devenir bénévole</h4>',
-              '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>',
+              '<p>Vous avez des connaissances concernant les nouvelles technologies et vous voulez les partager ? Vous souhaitez aidez à lutter contre la fracture numérique en Afrique ? N\'hésitez plus. En devenant bénévole, vous pourrez transmettre vos connaissances en formant des jeunes aux nouvelles technologies.</p>',
             '</div>',
             '<a href="./inscription.php" class="btn btn-success btn-block">Candidature bénévolat</a>',
           '</div>';
@@ -334,7 +334,7 @@ echo  '<section>',
             '<div id="candidaterEtudiant">',
               '<img class="img-responsive center-block" src="../images/chapeauEtudiant.svg" alt="Une image" height="100px" width="100px"/>',
               '<h4 class="text-center">Devenir étudiant</h4>',
-              '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+              '<p>Vous vous intéressez aux nouvelles technologies ? En rejoignant notre association en tant qu\'étudiant, vous pourrez acquérir ou approfondir vos connaissances concernant dans ce domaines, grâce aux différentes formations que nous proposons. Vous pourrez également appliquer ces connaissances au cours de stages proposés par nos entreprises partenaires.</p>',
             '</div>',
             '<a href="./inscription.php" class="btn btn-success btn-block">Candidature étudiante</a>',
           '</div>';
@@ -391,7 +391,7 @@ echo  '<section>',
           '<h2 class="text-center">DONATIONS</h2>',
           '<h3 class="text-center">Aidez-nous à améliorer notre association en faisant un don !</h3>',
           '<div class="item col-md-6">',
-            '<p>En faisant un don nous pourrons améliorer nos services ect... Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip est laborum.</p>',
+            '<p>Grâce à votre soutien, notre association pourra améliorer ses services, permettant de lutter toujours plus efficacement contre la fracture numérique en Afrique Subsaharienne. Nos équipes ainsi que les étudiants formés par l\'association vous remercient d\'avance !</p>',
           '</div>',
           '<div class="item col-md-6 col-sm-12">';
 
@@ -432,8 +432,12 @@ echo  '<section>',
           '<h2 class="text-center">NOUS CONTACTER</h2>',
           '<h3 class="text-center">Une question ? Une remarque ? Un petit mot ? Notre équipe se fera une joie de vous répondre !</h3>',
           '<div class="item col-md-6">',
-            '<h4>ASSOCIATION L3</h4>',
-            '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+            '<h4>NumAfrique</h4>',
+            '<p>Gérant : Hassan Mountassir</p>',
+			'<p>Adresse : Route de Gray - Besançon (25000) FRANCE</p>',
+			'<p>Email : Hmountas@femto-st.fr</p>',
+			'<p>Téléphone : 0381666951</p>',
+			'<p>Si vous avez des questions, vous pouvez simplement contacter le gérant de l\'association. Il vous répondra dans les plus brefs délais dans la mesure du possible.</p>',
             '<ul class="social list-unstyled list-inline text-center">',
               '<li><a href="#"><img class="img-responsive center-block" src="../images/twitter.svg" alt="Une image" height="40px" width="40px"/></a></li>',
               '<li><a href="#"><img class="img-responsive center-block" src="../images/facebook.svg" alt="Une image" height="40px" width="40px"/></a></li>',

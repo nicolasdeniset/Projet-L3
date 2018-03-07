@@ -87,9 +87,11 @@
 						WHERE	coordonneesPoleFormation = idCoordonnees";
 
 				$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+				$i = 0;
 				while ($D2 = mysqli_fetch_assoc($R2)) {
-					echo '<input type="checkbox" name="pole[]" value="',$D2["idPoleFormation"],'"/>',
-					' <label> ',$D2["villeCoordonnees"],' </label> ';
+					echo '<input type="checkbox" id="pole',$i,'" name="pole[]" value="',$D2["idPoleFormation"],'"/>',
+					' <label for="pole',$i,'"> ',$D2["villeCoordonnees"],' </label> ';
+					$i++;
 				}
 				
 				echo '</p>',

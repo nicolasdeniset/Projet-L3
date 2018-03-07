@@ -33,7 +33,7 @@
           $R1 =  mysqli_query($GLOBALS['bd'], $S1) or bd_erreur($S1);
           $nbEntrep = mysqli_fetch_assoc($R1);
 
-          item_stat($nbEntrep['total'], 'partenaires', '../images/001-network.svg', 'Les partenaires correspondent bien aux entreprises inscrites ?');
+          item_stat($nbEntrep['total'], 'partenaires', '../images/001-network.svg', '');
           
 	    // Nouvel item
           $S2 = 'SELECT COUNT(idCompte) as total
@@ -41,14 +41,14 @@
                  WHERE typeCompte = 3';
           $R2 =  mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($S2);
           $nbBene = mysqli_fetch_assoc($R2);
-          item_stat($nbBene['total'], 'bénévoles', '../images/benevole.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+          item_stat($nbBene['total'], 'bénévoles', '../images/benevole.svg', '');
           
 	    // Nouvel item
           $S3 = 'SELECT COUNT(idPoleFormation) as total
                  FROM poleformation';
           $R3 =  mysqli_query($GLOBALS['bd'], $S3) or bd_erreur($S3);
           $nbPoles = mysqli_fetch_assoc($R3);
-          item_stat($nbPoles['total'], 'pôles en Afrique', '../images/005-maps-and-flags.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+          item_stat($nbPoles['total'], 'pôles en Afrique', '../images/005-maps-and-flags.svg', '');
           
     	// Nouvel item
           $S4 = 'SELECT COUNT(idCompte) as total
@@ -56,7 +56,7 @@
                  WHERE typeCompte = 2';
           $R4 =  mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($S4);
           $nbEtu = mysqli_fetch_assoc($R4);
-          item_stat($nbEtu['total'], 'étudiants', '../images/studentgirl.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+          item_stat($nbEtu['total'], 'étudiants', '../images/studentgirl.svg', '');
 
           // Nouvel item
           $S5 = 'SELECT COUNT(DISTINCT etudiantAsuivi) as total
@@ -64,21 +64,21 @@
                  WHERE certificationAsuivi = 1';
           $R5 =  mysqli_query($GLOBALS['bd'], $S5) or bd_erreur($S5);
           $nbCertif = mysqli_fetch_assoc($R5);
-          item_stat($nbCertif['total'], 'certifiés', '../images/chapeauEtudiant.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+          item_stat($nbCertif['total'], 'certifiés', '../images/chapeauEtudiant.svg', '');
           
 	    // Nouvel item
           $S6 = 'SELECT COUNT(idFormation) as total
                  FROM formation';
           $R6 =  mysqli_query($GLOBALS['bd'], $S6) or bd_erreur($S6);
           $nbForm = mysqli_fetch_assoc($R6);
-          item_stat($nbForm['total'], 'formations', '../images/formation.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+          item_stat($nbForm['total'], 'formations', '../images/formation.svg', '');
           
           // Nouvel item
           $S7 = 'SELECT COUNT(DISTINCT etudiantAeffectue) as total
                  FROM aeffectue';
           $R7 =  mysqli_query($GLOBALS['bd'], $S7) or bd_erreur($S7);
           $nbSta = mysqli_fetch_assoc($R7);
-          item_stat($nbSta['total'], 'stagiaires', '../images/networking.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+          item_stat($nbSta['total'], 'stagiaires', '../images/networking.svg', '');
 
           // Nouvel item
           $S8 = 'SELECT COUNT(DISTINCT etudiantAeffectue) as total
@@ -86,14 +86,14 @@
                  WHERE embaucheAeffectue = 1';
           $R8 =  mysqli_query($GLOBALS['bd'], $S8) or bd_erreur($S8);
           $nbEmploi = mysqli_fetch_assoc($R8);
-          item_stat($nbEmploi['total'], 'créations d\'emploi', '../images/job.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+          item_stat($nbEmploi['total'], 'créations d\'emploi', '../images/job.svg', '');
           
 	    // Nouvel item
           $S9 = 'SELECT COUNT(idStage) as total
                  FROM stage';
           $R9 =  mysqli_query($GLOBALS['bd'], $S9) or bd_erreur($S9);
           $nbStages = mysqli_fetch_assoc($R9);
-          item_stat($nbStages['total'], 'stages proposés', '../images/studentman.svg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.');
+          item_stat($nbStages['total'], 'stages proposés', '../images/studentman.svg', '');
           
     echo '</div>';
 		

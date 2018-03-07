@@ -42,11 +42,13 @@
           '<section class="col-lg-6 col-md-6 col-sm-12 col-xs-12">',
             '<div id="register">',
               '<h2 class="text-center">PAS ENCORE INSCRIT ?</h2>',
-              '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+              '<p>L\'association a pour objectif d’affaiblir les inégalités et à  lutter efficacement contre la fracture numérique à travers la mise en place de cours en Informatique en lien avec les besoins des entreprises locales dans différents pays.  
+Les apprenants  doivent maitriser les outils numériques afin de faciliter leur insertion et de participer à l’éclosion de l’économie locale.
+</p>',
 
                 '<li><span class="fa fa-check text-success"></span>Accédez à une communauté d\'entraide</li>',
                 '<li><span class="fa fa-check text-success"></span>Réalisez des formations et entrez dans le monde du travail</li>',
-              '</ul>-->',
+              '</ul>',
             '</div>',
             '<a href="./inscription.php" class="btn btn-success btn-block">S\'inscrire</a>',
           '</section>',
@@ -76,7 +78,7 @@
                 '<a href="#" class="forgot-password">Mot de passe oublié ?</a>',
                 '<div class="form-group">',
                   '<input type="checkbox" id="condition" name="condition" value="condition">',
-                  '<label class="checkCondition" for="condition"> Se souvenir de moi</a></label>',
+                  '<label class="checkCondition" for="condition"> Se souvenir de moi</label>',
                 '</div>',
                 '<button class="btn btn-block btn-success" name="btnValider">Se connecter</button>',
               '</form>',

@@ -135,16 +135,18 @@
 							$S2 = "SELECT	idFormation, titreFormation
 									FROM	formation";
 							$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
+							$i = 0;
 							while ($D2 = mysqli_fetch_assoc($R2)) {
 								if(in_array($D2["idFormation"], $listeFormationDejaPropose)) {
-									echo '<input type="checkbox" name="formation[]" value="',$D2["idFormation"],'" checked/>',
-											'<label style="margin: 5px">  ',$D2["titreFormation"],' </label> ';
+									echo '<input type="checkbox" id="formation',$i,'" name="formation[]" value="',$D2["idFormation"],'" checked/>',
+											'<label style="margin: 5px" for="formation',$i,'">  ',$D2["titreFormation"],' </label> ';
 								}
 								else {
-									echo '<input type="checkbox" name="formation[]" value="',$D2["idFormation"],'"/>',
-											'<label style="margin: 5px">  ',$D2["titreFormation"],' </label> ';
+									echo '<input type="checkbox" id="formation',$i,'" name="formation[]" value="',$D2["idFormation"],'"/>',
+											'<label style="margin: 5px" for="formation',$i,'">  ',$D2["titreFormation"],' </label> ';
 								}
 								echo '<br/>';
+								$i++;
 							}
 							echo '</p>',
 							'</div>',

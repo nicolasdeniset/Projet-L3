@@ -181,9 +181,12 @@ section h2 {
 .jumbotron {
   margin-top: -80px;
   min-height: 100vh;
-  padding-top: 15vh;
+  padding-top: 10vh;
 }
 
+.jumbotron p {
+	font-size: 18px;
+}
 /*****SECTION PARTENAIRE ONE PAGE*****/
 
 .logoPartenaire {
@@ -208,7 +211,7 @@ section h2 {
 
 /*****SECTION TEMOINIAGE*****/
 
-/*****TEST CAROUSEL*****/
+/*****CAROUSEL*****/
 
 .carousel-indicators {
   bottom: -30px;
@@ -376,7 +379,7 @@ thead {
   font-weight: bold;
 }
 
-/*****TEST LOGIN / REGISTER*****/
+/*****LOGIN / REGISTER*****/
 
 .forgot-password {
   color: #22DDAA;
@@ -397,8 +400,16 @@ thead {
   color: #333;
 }
 
-/*****TEST ACTUALITES*****/
+/*****ACTUALITES*****/
 
 .timeline {
   border-left: 3px solid #22DDAA;
+}
+
+.page-header {
+		margin-top: 75px;
+}
+
+.form-inline {
+		margin-bottom: 20px;
 }

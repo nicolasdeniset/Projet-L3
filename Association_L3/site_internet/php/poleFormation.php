@@ -75,7 +75,7 @@
 			$D3 = mysqli_fetch_row($R3);
 			$coordonneesPoleFormation = $D3[0];
 			$nbBenevolesPoleFormation = $D3[1];
-			$S4 = "SELECT	nomCoordonnees, prenomCoordonnees, emailCoordonnees, telephoneCoordonnees, adresseCoordonnees, villeCoordonnees 
+			$S4 = "SELECT	nomCoordonnees, prenomCoordonnees, emailCoordonnees, telephoneCoordonnees, adresseCoordonnees, villeCoordonnees, codePostalCoordonnees, paysCoordonnees  
 							FROM	coordonnees
 							WHERE	idCoordonnees = '$coordonneesPoleFormation'";
 			$R4 = mysqli_query($GLOBALS['bd'], $S4) or bd_erreur($GLOBALS['bd'], $S4);
@@ -86,6 +86,8 @@
 			$telephoneCoordonnees = $D4[3];
 			$adresseCoordonnees = $D4[4];
 			$villeCoordonnees = $D4[5];
+			$codePostalCoordonnees = $D4[6];
+			$paysCoordonnees = $D4[7];
 			$stat = statistique_pole($idPole[$i]);
 				
 			echo '<div class="item">',
@@ -93,7 +95,7 @@
 						'<div class="col-md-6 col-sm-12">',
 						'<h3>Pole de ', $villeCoordonnees ,'</h3>',
 						  '<p class="small">Gérant : ',$prenomCoordonnees,' ',$nomCoordonnees,'</p>',
-						  '<p class="small">Adresse : ',$adresseCoordonnees,'</p>',
+						  '<p class="small">Adresse : ',$adresseCoordonnees,' - ',$villeCoordonnees,' (',$codePostalCoordonnees,') ',strtoupper($paysCoordonnees),' </p>',
 						  '<p class="small">Email : ',$emailCoordonnees,'</p>',
 						  '<p class="small">Téléphone : ',$telephoneCoordonnees,'</p>',
 						'</div>',

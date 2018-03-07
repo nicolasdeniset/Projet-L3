@@ -79,8 +79,8 @@ function html_pied($little = "") {
 	}
 	echo '<div class="container">',
 				'<div class="row justify-content-center">',
-					'<h3>NOM ASSOCIATION</h3>',
-						'<p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+					'<h3>NumAfrique</h3>',
+						'<p>Une association pour lutter contre la fracture numérique.</p>',
 					'</div>',
 				'<div class="row navFooter">',
 					'<ul class="social list-unstyled list-inline text-center">',
@@ -91,7 +91,7 @@ function html_pied($little = "") {
 					'</ul>',
 				'</div>',
 				'<div class="row justify-content-center">',
-					'<p class="copyright"> © 2017 Copyright Blablabla</p>',
+					'<p class="copyright"> © 2017-2018 Projet-L3 Copyright: Flaticon, font-awesome</p>',
 				'</div>',
 			'</div>',
 			'</footer></body></html>';
@@ -147,7 +147,7 @@ function html_header($session = '') {
 				 	'<header>',
 				 		'<nav class="navbar navbar-default navbar-fixed-top">',
 				 			'<div class="container">',
-				 				'<a id="logo" href="./accueil.php" class="navbar-brand">(logo) - NOM ASSO</a>',
+				 				'<a id="logo" href="./accueil.php" class="navbar-brand">NumAfrique</a>',
 				 					'<div id="navigation" class="navbar-right">',
 				 						'<ul class="nav navbar-nav hidden-sm hidden-xs">',
 				 							'<li><a href="./accueil.php#actualite">Actualités</a></li>',
@@ -488,6 +488,103 @@ function supprimer_user_admin ($id_Entreprise, $id_Coordonnees) {
 		$R2 = mysqli_query($GLOBALS['bd'], $S2) or bd_erreur($GLOBALS['bd'], $S2);
 		$D2 = mysqli_fetch_row($R2);
 		$stat[2] = $D2[0];
+		
+		return $stat;
+	}
+	
+		/**
+	* Fonction qui permet de faire les statistique concernant un
+	* étudiant à partir de son identifiant.
+	*
+	* @return array $stat		Tableau des statistiques détectées.
+	*/
+	function statistique_etudiant($idEtudiant) {
+		$stat = array();
+		
+		$S = "SELECT count(idCandidature)
+			FROM candidature
+			WHERE compteCandidature = '$idEtudiant'
+			AND	typeCandidature = '1'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		$stat[0] = $D[0];
+		
+		$S = "SELECT count(idCandidature)
+			FROM candidature
+			WHERE compteCandidature = '$idEtudiant'
+			AND	typeCandidature = '2'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		$stat[1] = $D[0];
+		
+		$S = "SELECT count(idAsuivi)
+			FROM asuivi
+			WHERE etudiantAsuivi = '$idEtudiant'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		$stat[2] = $D[0];
+
+		$S = "SELECT count(idAeffectue)
+			FROM aeffectue
+			WHERE etudiantAeffectue = '$idEtudiant'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		$stat[3] = $D[0];
+		
+		return $stat;
+	}
+
+	/**
+	* Fonction qui permet de faire les statistique concernant une
+	* entreprise à partir de son identifiant.
+	*
+	* @return array $stat		Tableau des statistiques détectées.
+	*/
+	function statistique_entreprise($idEntreprise) {
+		$stat = array();
+		
+		$S = "SELECT count(idStage)
+			FROM stage
+			WHERE entrepriseStage = '$idEntreprise'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		$stat[0] = $D[0];
+		
+		$S = "SELECT count(idAeffectue)
+			FROM aeffectue, stage
+			WHERE stageAeffectue = idStage
+			AND entrepriseStage = '$idEntreprise'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		$stat[1] = $D[0];
+		
+		$S = "SELECT count(idAeffectue)
+			FROM aeffectue, stage
+			WHERE stageAeffectue = idStage
+			AND entrepriseStage = '$idEntreprise'
+			AND embaucheAeffectue = 1";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		$stat[2] = $D[0];
+		
+		return $stat;
+	}
+
+	/**
+	* Fonction qui permet de faire les statistique concernant un
+	* bénévole à partir de son identifiant.
+	*
+	* @return array $stat		Tableau des statistiques détectées.
+	*/
+	function statistique_benevole($idBenevole) {
+		$stat = array();
+		
+		$S = "SELECT count(idEnseignement)
+			FROM enseignement
+			WHERE benevoleEnseignement = '$idBenevole'";
+		$R = mysqli_query($GLOBALS['bd'], $S) or bd_erreur($GLOBALS['bd'], $S);
+		$D = mysqli_fetch_row($R);
+		$stat[0] = $D[0];
 		
 		return $stat;
 	}

@@ -21,7 +21,6 @@
 	// Traitement des variables obtenues.
 	$txtPasse = $D[0];	
 	$txtQuestion = $D[1];
-	$txtReponse = $D[2];
 	$txtTypeCompte = $D[3];
 	$idCoordoneesCompte = $D[4];
 	
@@ -53,7 +52,7 @@
 		$_POST['password1'] = $txtPasse;
 		$_POST['password2'] = $txtPasse;
 		$_POST['question'] = $txtQuestion;
-		$_POST['answer'] = $txtReponse;
+		$_POST['answer'] = "";
 		$_POST['phone'] = $txtTelephone;
 		$_POST['address'] = $txtAdresse;
 		$_POST['cp'] = $txtCodePostal;
@@ -112,7 +111,7 @@
 
             '<div class="form-group">',
               '<label class="control-label required" for="answer">Réponse secrète<sup style="color:red">*</sup></label>',
-              '<input id="answer" name="answer" type="text" class="form-control" placeholder="Entrez votre réponse secrète" value="',$txtReponse,'">',
+              '<input id="answer" name="answer" type="text" class="form-control" placeholder="Entrez votre réponse secrète">',
             '</div>',
 
             '<div class="form-group">',

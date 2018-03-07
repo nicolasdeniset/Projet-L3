@@ -257,7 +257,7 @@
 					echo '<div class="item">',
 					  '<div class="row">',
 						'<div class="col-md-6 col-sm-12">',
-						  '<h3>', $titre ,'<small>#',$listeFormationID[$i],'</small></h3>',
+						  '<h3>', $titre ,'</h3>',
 						  '<p class="small">Durée de formation : ',$duree,' semaines</p>',
 						  '<p>',$description,'</p>',
 						'</div>',

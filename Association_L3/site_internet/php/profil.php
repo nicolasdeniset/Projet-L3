@@ -72,16 +72,45 @@ echo  '<ul>',
 
 switch (getTypeCompte($_POST['id_Membre'])) {
   case '1':
-    echo 'les stat';
+    $stat = statistique_entreprise($_POST['id_Membre']);
+    echo '<tr>',
+      '<th>Nombre stages proposés</th>',
+      '<td>',$stat[0],'</td>',
+    '</tr>',
+    '<tr>',
+      '<th>Nombre étudiants ayant effectué un stage dans cette entreprise</th>',
+      '<td>',$stat[1],'</td>',
+    '</tr>',
+    '<tr>',
+      '<th>Nombre étudiants embauchés</th>',
+      '<td>',$stat[2],'</td>',
+    '</tr>';
     break;
   case '2':
-    # code...
+    $stat = statistique_etudiant($_POST['id_Membre']);
+    echo '<tr>',
+  	  '<th>Nombre candidatures pour formations</th>',
+  	  '<td>',$stat[0],'</td>',
+    '</tr>',
+    '<tr>',
+  	  '<th>Nombre candidatures pour stages</th>',
+  	  '<td>',$stat[1],'</td>',
+    '</tr>',
+    '<tr>',
+  	  '<th>Nombre formations suivies</th>',
+  	  '<td>',$stat[2],'</td>',
+    '</tr>',
+    '<tr>',
+  	  '<th>Nombre stages effectués</th>',
+  	  '<td>',$stat[3],'</td>',
+    '</tr>';
     break;
   case '3':
-    # code...
-    break;
-  default:
-    # code...
+    $stat = statistique_benevole($_POST['id_Membre']);
+    echo '<tr>',
+      '<th>Nombre formations enseignées</th>',
+      '<td>',$stat[0],'</td>',
+    '</tr>';
     break;
 }
 echo  '</tbody>',
@@ -279,7 +308,7 @@ switch (getTypeCompte($_POST['id_Membre'])) {
   case '1':
     echo  '<div class="row">',
             (getTypeCompte($_SESSION["idCompte"]) != 0) ? '<div class="col-md-12">' : '<div class="col-md-6">',
-                '<button onclick="javascript:openGestion([\'stagePropose\']);" class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion([\'gestionStages\', \'gestionStatistiques\']); return false;"><span class="fa fa-book" aria-hidden="true"></span>Stages proposés</button>',
+                '<button onclick="javascript:openGestion([\'stagePropose\']);" class="btn btn-inline btn-success btn-block" onclick="javascript:openGestion([\'gestionStages\', \'gestionStatistiques\']); return false;"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages proposés</button>',
               '</div>';
     if(getTypeCompte($_SESSION["idCompte"]) == 0){
       echo  '<div class="col-md-6">',
