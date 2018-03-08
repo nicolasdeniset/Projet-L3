@@ -42,9 +42,7 @@
           '<section class="col-lg-6 col-md-6 col-sm-12 col-xs-12">',
             '<div id="register">',
               '<h2 class="text-center">PAS ENCORE INSCRIT ?</h2>',
-              '<p>L\'association a pour objectif d’affaiblir les inégalités et à  lutter efficacement contre la fracture numérique à travers la mise en place de cours en Informatique en lien avec les besoins des entreprises locales dans différents pays.  
-Les apprenants  doivent maitriser les outils numériques afin de faciliter leur insertion et de participer à l’éclosion de l’économie locale.
-</p>',
+              '<p>L\'association a pour objectif d’affaiblir les inégalités et de lutter efficacement contre la fracture numérique à travers la mise en place de cours en Informatique en lien avec les besoins des entreprises locales dans différents pays. Les apprenants doivent maîtriser les outils numériques afin de faciliter leur insertion et de participer à l’éclosion de l’économie locale.</p>',
 
                 '<li><span class="fa fa-check text-success"></span>Accédez à une communauté d\'entraide</li>',
                 '<li><span class="fa fa-check text-success"></span>Réalisez des formations et entrez dans le monde du travail</li>',

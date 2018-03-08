@@ -86,7 +86,7 @@
 			echo '<h3> Aucun stage n\'est disponible a l\'heure actuelle. </h3>';
 		}
 		if(isset($_POST['btnValider']) && $nbIDStage == 0) {
-			echo '<h3> Aucun stage possèdant ce titre a été trouvé. </h3>';
+			echo '<h3> Aucun stage possédant ce titre n\'a été trouvé. </h3>';
 		}
 		if($nbIDStage > 0) {
 			for($i = 0;$i < $nbIDStage; $i++){
@@ -209,7 +209,7 @@
 				}
 				if($estAdmin == 0) {
 					echo '<div class="col-md-12 col-sm-12">',
-					  '<a href="gestionStage.php?id=',$idStage[$i],'" class="btn btn-success btn-block"><span class="fa fa-cogs" aria-hidden="true"></span>Gerer le stage</a>',
+					  '<a href="gestionStage.php?id=',$idStage[$i],'" class="btn btn-success btn-block"><span class="fa fa-cogs" aria-hidden="true"></span>Gérer le stage</a>',
 					'</div>';
 				}
 				 echo '</div>',

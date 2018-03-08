@@ -74,7 +74,7 @@
 	html_aside_main_debut(APP_PAGE_POLE);
 	
 	echo '<a href="poleFormation.php" class="btn btn-retour">Retour</a>',
-			'<h1 class="page-header">Gestion du Pole de ',$villeCoordonnees,'</h1>',
+			'<h1 class="page-header">Gestion du Pôle de ',$villeCoordonnees,'</h1>',
 			'<div class="item">',
 					'<div class="row">',
 						'<div class="col-md-6 col-sm-12">',
@@ -111,10 +111,10 @@
 					'<div class="row">',
 						'<div class="col-md-12">',
 							'<div class="col-md-6">',
-							  "<button class=\"btn btn-inline btn-success btn-block\" onclick=\"javascript:openGestion(['gestionDesFormations', 'gestionPole']); return false;\"><span class=\"fa fa-id-card-o\" aria-hidden=\"true\"></span>Gérer les formations du pole</button>",
+							  "<button class=\"btn btn-inline btn-success btn-block\" onclick=\"javascript:openGestion(['gestionDesFormations', 'gestionPole']); return false;\"><span class=\"fa fa-id-card-o\" aria-hidden=\"true\"></span>Gérer les formations du pôle</button>",
 							'</div>',
 							'<div class="col-md-6">',
-							  "<button class=\"btn btn-inline btn-success btn-block\" onclick=\"javascript:openGestion(['gestionPole', 'gestionDesFormations']); return false;\"><span class=\"fa fa-cogs\" aria-hidden=\"true\"></span>Modifier les informations du pole</button>",
+							  "<button class=\"btn btn-inline btn-success btn-block\" onclick=\"javascript:openGestion(['gestionPole', 'gestionDesFormations']); return false;\"><span class=\"fa fa-cogs\" aria-hidden=\"true\"></span>Modifier les informations du pôle</button>",
 							'</div>',
 						'</div>',
 					'</div>',
@@ -123,7 +123,7 @@
 						'<div class="row">',
 						'<form method="POST" action="gestionPoleFormation.php?id=',$idPole,'" accept-charset="iso-8859-1" enctype="multipart/form-data">',
 							'<div class="form-group">',
-							'<p> Listes des formations disponible dans ce pole : <br/>';
+							'<p> Liste des formations disponibles dans ce pôle : <br/>';
 							$S = "SELECT	idFormation
 									FROM	formation, propose
 									WHERE	idFormation = formationPropose
@@ -151,7 +151,7 @@
 							echo '</p>',
 							'</div>',
 							'<div class="col-md-12">',
-								'<button type="submit" value="enregistrer" class="btn btn-inline btn-success btn-block" name="btnValider"><span class="fa fa-check" aria-hidden="true"></span>Ajouter des formations au pole</button>',
+								'<button type="submit" value="enregistrer" class="btn btn-inline btn-success btn-block" name="btnValider"><span class="fa fa-check" aria-hidden="true"></span>Ajouter des formations au pôle</button>',
 							'</div>',
 						'</form>',
 						'</div>',
@@ -215,7 +215,7 @@
 								'<button type="reset" class="btn btn-inline btn-info btn-block">Annuler changement</button>',
 							'</div>',
 							'<div class="col-md-6">',
-								'<button type="submit" value="enregistrer" class="btn btn-inline btn-success btn-block" name="btnValider2"><span class="fa fa-check" aria-hidden="true"></span>Sauvegarder les changements du pole</button>',
+								'<button type="submit" value="enregistrer" class="btn btn-inline btn-success btn-block" name="btnValider2"><span class="fa fa-check" aria-hidden="true"></span>Sauvegarder les changements du pôle</button>',
 							'</div>',
 						  '</div>',
 						'</form>',

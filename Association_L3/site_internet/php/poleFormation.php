@@ -43,11 +43,11 @@
 	//-----------------------------------------------------
 	// Affichage de la page
 	//-----------------------------------------------------
-	html_head("Poles de Formations");
+	html_head("Pôles de Formations");
 	html_header($id);
 	html_aside_main_debut(APP_PAGE_POLE);
 	
-	echo '<h1 class="page-header">Nos poles de formations</h1>';
+	echo '<h1 class="page-header">Nos pôles de formations</h1>';
 	
 	if($estAdmin == 0) {
        echo '<a href="ajoutPoleFormation.php" class="btn btn-success btn-block"><span class="fa fa-plus"></span>AJOUTER UN NOUVEAU POLE</a>';
@@ -61,10 +61,10 @@
         '</form>';
 		
 	if(!isset($_POST['btnValider']) && $nbIDPole == 0) {
-		echo '<h3> Aucun pole n\'est disponible a l\'heure actuelle. </h3>';
+		echo '<h3> Aucun pôle n\'est disponible a l\'heure actuelle. </h3>';
 	}
 	if(isset($_POST['btnValider']) && $nbIDPole == 0) {
-		echo '<h3> Aucun pole possèdant ce nom a été trouvé. </h3>';
+		echo '<h3> Aucun pôle possédant ce nom n\'a été trouvé. </h3>';
 	}	
 	if($nbIDPole > 0) {
 		for($i = 0;$i < $nbIDPole; $i++){
@@ -93,7 +93,7 @@
 			echo '<div class="item">',
 					'<div class="row">',
 						'<div class="col-md-6 col-sm-12">',
-						'<h3>Pole de ', $villeCoordonnees ,'</h3>',
+						'<h3>Pôle de ', $villeCoordonnees ,'</h3>',
 						  '<p class="small">Gérant : ',$prenomCoordonnees,' ',$nomCoordonnees,'</p>',
 						  '<p class="small">Adresse : ',$adresseCoordonnees,' - ',$villeCoordonnees,' (',$codePostalCoordonnees,') ',strtoupper($paysCoordonnees),' </p>',
 						  '<p class="small">Email : ',$emailCoordonnees,'</p>',
@@ -126,7 +126,7 @@
 				  '<div class="row">';
 			if($estAdmin == 0) {
 				echo '<div class="col-md-12 col-sm-12">',
-						'<a href="gestionPoleFormation.php?id=',$idPole[$i],'" class="btn btn-success btn-block"><span class="fa fa-cogs" aria-hidden="true"></span>Gerer le pole de formation</a>',
+						'<a href="gestionPoleFormation.php?id=',$idPole[$i],'" class="btn btn-success btn-block"><span class="fa fa-cogs" aria-hidden="true"></span>Gérer le pôle de formation</a>',
 					 '</div>';
 			}
 			echo '</div>',

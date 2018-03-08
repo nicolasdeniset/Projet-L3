@@ -226,7 +226,7 @@
 
   function afficheMembre($type=''){
     if ($type ==-1){
-      echo "<h3>Retrouvez sur cette page toutes nos entreprises partenaire, bénévoles et étudiants !</h3>";
+      echo "<h3>Retrouvez sur cette page toutes nos entreprises partenaires, bénévoles et étudiants !</h3>";
     }else{
       switch ($type){
         case 1 :
@@ -273,7 +273,7 @@
                 echo  '<th>Nom Etudiant</th>',
                       '<th>Date d\'inscription</th>',
                       '<th>Nombre stages réalisés</th>',
-                      '<th>Nombre formations réalisés</th>',
+                      '<th>Nombre formations réalisées</th>',
                       '<th>Gestion</th>';
                 break;
               case 3 :

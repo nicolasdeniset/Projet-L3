@@ -51,7 +51,7 @@
 	html_header($id);
 	html_aside_main_debut(APP_PAGE_POLE);
 	
-	echo '<h1 class="page-header">Ajout d\'un pole de formation</h1>';
+	echo '<h1 class="page-header">Ajout d\'un pôle de formation</h1>';
 	
 	// Si il y a des erreurs on les affiche
 	if ($nbErr > 0) {
@@ -109,7 +109,7 @@
 					'<input id="nbBenevole" name="nbBenevole" type="number" class="form-control" placeholder="Entrez le nombre de bénévoles" value="5">',
 				  '</div>',
 				  '<div class="col-md-12">',
-					'<button type="submit" value="enregistrer" class="btn btn-inline btn-success btn-block" name="btnValider"><span class="fa fa-check" aria-hidden="true"></span>Créer le nouveau pole</button>',
+					'<button type="submit" value="enregistrer" class="btn btn-inline btn-success btn-block" name="btnValider"><span class="fa fa-check" aria-hidden="true"></span>Créer le nouveau pôle</button>',
 				  '</div>',
 			'</form>',
 		  '</div>',

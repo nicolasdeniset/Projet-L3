@@ -255,7 +255,7 @@ echo  '<section>',
 
     echo '</div>',
         '<div class="row">',
-          '<a href="./formation.php" class="btn btn-info btn-block">Acceder à nos autres formations</a>',
+          '<a href="./formation.php" class="btn btn-info btn-block">Accéder à nos autres formations</a>',
         '</div>',
       '</div>',
     '</section>';
@@ -308,7 +308,7 @@ echo  '<section>',
         '<div class="row">',
           '<h2 class="text-center">CANDIDATER</h2>',
           '<h3 class="text-center">Vous souhaitez devenir membre de l\'associaition ?</h3>',
-          '<p>L\'association a pour objectif d’affaiblir ces inégalités et à  lutter efficacement contre la fracture numérique à travers la mise en place de cours en Informatique en lien avec les besoins des entreprises locales dans différents pays. En devenant membre, vous participez activement à cet objectif, que se soit en tant que bénévole, entreprise ou même étudiant.</p>',
+          '<p>L\'association a pour objectif d’affaiblir ces inégalités et de lutter efficacement contre la fracture numérique à travers la mise en place de cours en Informatique en lien avec les besoins des entreprises locales dans différents pays. En devenant membre, vous participez activement à cet objectif, que ce soit en tant que bénévole, entreprise ou même étudiant.</p>',
         '</div>',
         '<div class="row">';
 
@@ -364,7 +364,7 @@ echo  '<section>',
 
     echo '</div>',
         '<div class="row">',
-          '<a href="#about" class="btn btn-info btn-block">Acceder à nos autres articles</a>',
+          '<a href="#about" class="btn btn-info btn-block">Accéder à nos autres articles</a>',
         '</div>',
       '</div>',
     '</section>';

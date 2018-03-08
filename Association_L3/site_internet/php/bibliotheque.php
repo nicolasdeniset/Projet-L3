@@ -113,7 +113,7 @@ function html_aside_main_debut($page=''){
 	      		($page == APP_PAGE_FORMATION) ?'<li class="active"><a href="'.APP_PAGE_FORMATION.'"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>' : '<li><a href="'.APP_PAGE_FORMATION.'"><span class="fa fa-book" aria-hidden="true"></span>Formations</a></li>',
 	      		($page == APP_PAGE_STAGE) ? '<li class="active"><a href="'.APP_PAGE_STAGE.'"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>' :  '<li><a href="'.APP_PAGE_STAGE.'"><span class="fa fa-briefcase" aria-hidden="true"></span>Stages</a></li>',
 						($page == APP_PAGE_MEMBRE || $page == APP_PAGE_PROFIL) ?  '<li class="active"><a href="'.APP_PAGE_MEMBRE.'"><span class="fa fa-users" aria-hidden="true"></span>Membres</a></li>': '<li><a href="'.APP_PAGE_MEMBRE.'"><span class="fa fa-users" aria-hidden="true"></span>Membres</a></li>',
-						($page == APP_PAGE_POLE) ? '<li class="active"><a href="'.APP_PAGE_POLE.'"><span class="fa fa-university" aria-hidden="true"></span>Pôle de formations</a></li>' : '<li><a href="'.APP_PAGE_POLE.'"><span class="fa fa-university" aria-hidden="true"></span>Pôles de formation</a></li>',
+						($page == APP_PAGE_POLE) ? '<li class="active"><a href="'.APP_PAGE_POLE.'"><span class="fa fa-university" aria-hidden="true"></span>Pôles de formations</a></li>' : '<li><a href="'.APP_PAGE_POLE.'"><span class="fa fa-university" aria-hidden="true"></span>Pôles de formation</a></li>',
 						($page == APP_PAGE_ACTUALITE) ? '<li class="active"><a href="'.APP_PAGE_ACTUALITE.'"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualités</a></li>' : '<li><a href="'.APP_PAGE_ACTUALITE.'"><span class="fa fa-file-text-o" aria-hidden="true"></span>Actualités</a></li>',
 
 					'</ul>';
@@ -126,7 +126,7 @@ function html_aside_main_debut($page=''){
 					}
 					if(isset($_SESSION['idCompte'])){
 						echo '<ul class="nav nav-sidebar">';
-						echo 	($page == APP_PAGE_COMPTE) ? '<li class="active"><a href="'.APP_PAGE_COMPTE.'"><span class="fa fa-user" aria-hidden="true"></span>Paramètre compte</a></li>' : '<li><a href="'.APP_PAGE_COMPTE.'"><span class="fa fa-user" aria-hidden="true"></span>Paramètre compte</a></li>',
+						echo 	($page == APP_PAGE_COMPTE) ? '<li class="active"><a href="'.APP_PAGE_COMPTE.'"><span class="fa fa-user" aria-hidden="true"></span>Paramètres compte</a></li>' : '<li><a href="'.APP_PAGE_COMPTE.'"><span class="fa fa-user" aria-hidden="true"></span>Paramètres compte</a></li>',
 									'<li><a href="deconnexion.php"><span class="fa fa-sign-out" aria-hidden="true"></span>Déconnexion</a></li>',
 								'</ul>';
 					}
@@ -153,7 +153,7 @@ function html_header($session = '') {
 				 							'<li><a href="./accueil.php#actualite">Actualités</a></li>',
 				 							'<li><a href="./accueil.php#formation">Formations</a></li>',
 				 							'<li><a href="./accueil.php#partenaire">Partenaires</a></li>',
-				 							'<li><a href="./accueil.php#donation">Donation</a></li>',
+				 							'<li><a href="./accueil.php#donation">Donations</a></li>',
 				 							'<li><a href="./accueil.php#contacter">Nous contacter</a></li>';
 		if($session != ""){
 			echo 						'<li><a href="',APP_PAGE_PROFIL,'" class="navActive">Tableau d\'administration</a></li>';
@@ -171,7 +171,7 @@ function html_header($session = '') {
 											'<li><a href="./accueil.php#actualite" onclick="closeNav()">Actualités</a></li>',
 											'<li><a href="./accueil.php#formation" onclick="closeNav()">Formations</a></li>',
 											'<li><a href="./accueil.php#partenaire" onclick="closeNav()">Partenaires</a></li>',
-											'<li><a href="./accueil.php#donation" onclick="closeNav()">Donation</a></li>',
+											'<li><a href="./accueil.php#donation" onclick="closeNav()">Donations</a></li>',
 											'<li><a href="./accueil.php#contacter" onclick="closeNav()">Nous Contacter</a></li>';
 		if($session != ""){
 			echo 						'<li><a href="',APP_PAGE_PROFIL,'" class="navActive" onclick="closeNav()">Tableau d\'administration</a></li>';

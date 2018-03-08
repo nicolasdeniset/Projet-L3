@@ -156,7 +156,7 @@
 								'<td>',$stat[1],'</td>',
 							  '</tr>',
 							  '<tr>',
-								'<th>Nombre étudiants diplomé</th>',
+								'<th>Nombre étudiants diplomés</th>',
 								'<td>',$stat[2],'</td>',
 							  '</tr>',
 							  '<tr>',
@@ -199,7 +199,7 @@
 						}
 						if($estAdmin == 0) {
 							echo '<div class="col-md-12 col-sm-12">',
-							  '<a href="gestionFormation.php?id=',$idFormation[$i],'" class="btn btn-success btn-block"><span class="fa fa-cogs" aria-hidden="true"></span>Gerer la formation</a>',
+							  '<a href="gestionFormation.php?id=',$idFormation[$i],'" class="btn btn-success btn-block"><span class="fa fa-cogs" aria-hidden="true"></span>Gérer la formation</a>',
 							'</div>';
 						}
 					  echo '</div>',
@@ -207,7 +207,7 @@
 				}
 			}
 			else {
-				echo '<h3> Aucune formation n\'est disponible a l\'heure actuelle. </h3>';
+				echo '<h3> Aucune formation n\'est disponible à l\'heure actuelle. </h3>';
 			}
 		}
 		else {
@@ -325,7 +325,7 @@
 				}
 			}
 			else {
-				echo '<h3> Aucune formation possèdant ce titre a été trouvé. </h3>';
+				echo '<h3> Aucune formation possédant ce titre n\'a été trouvée. </h3>';
 			}
 		}
 		
